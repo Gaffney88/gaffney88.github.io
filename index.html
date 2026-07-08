@@ -11,18 +11,18 @@
         }
     </style>
 </head>
-<body class="bg-[#0b0c10] text-white font-sans antialiased selection:bg-blue-600">
+<body class="bg-white text-gray-900 font-sans antialiased selection:bg-blue-600 selection:text-white">
 
-    <header class="fixed top-0 left-0 w-full z-50 bg-[#0b0c10]/80 backdrop-blur-md border-b border-white/10">
+    <header class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center space-x-2">
-                <span class="text-2xl font-black tracking-tight bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent uppercase">HorseWorks™</span>
+                <span class="text-2xl font-black tracking-tight text-gray-900 uppercase">HorseWorks</span>
             </div>
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wide text-gray-300">
-                <a href="#hero" class="hover:text-white transition">Home</a>
-                <a href="#games" class="hover:text-white transition">Games</a>
-                <a href="#about" class="hover:text-white transition">About</a>
-                <a href="#news" class="hover:text-white transition">News</a>
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wide text-gray-600">
+                <a href="#hero" class="hover:text-black transition">Home</a>
+                <a href="#games" class="hover:text-black transition">Games</a>
+                <a href="#about" class="hover:text-black transition">About</a>
+                <a href="#news" class="hover:text-black transition">News</a>
             </nav>
             <div class="flex items-center space-x-4">
                 <a href="https://www.roblox.com/communities/880902718/Horseworks#!/about" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase px-4 py-2 rounded transition tracking-wider">
@@ -32,61 +32,62 @@
         </div>
     </header>
 
-    <section id="hero" class="relative min-h-screen flex items-center justify-start bg-cover bg-center pt-20" style="background-image: linear-gradient(to right, rgba(11, 12, 16, 0.95) 30%, rgba(11, 12, 16, 0.4) 70%, rgba(11, 12, 16, 0.9) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=2070');">
-        <div class="max-w-7xl mx-auto px-6 w-full grid md:grid-cols-2 gap-8 items-center z-10">
+    <section id="hero" class="relative min-h-screen flex items-center justify-start bg-gray-50 pt-20">
+        <div class="max-w-7xl mx-auto px-6 w-full grid md:grid-cols-2 gap-12 items-center z-10">
             <div class="space-y-6 max-w-xl">
-                <h1 class="text-4xl md:text-6xl font-black leading-tight tracking-tight text-white">
+                <h1 class="text-4xl md:text-6xl font-black leading-tight tracking-tight text-gray-900">
                     Every player has a story. We build the worlds they live in.
                 </h1>
-                <p class="text-gray-400 text-lg">
+                <p class="text-gray-600 text-lg leading-relaxed">
                     Welcome to HorseWorks. We are an independent development studio dedicated to crafting engaging, high-quality experiences directly on the Roblox platform.
                 </p>
                 <div>
-                    <a href="#games" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-md tracking-wide uppercase transition shadow-lg shadow-blue-600/30">
+                    <a href="#games" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-md tracking-wide uppercase transition shadow-lg shadow-blue-600/10">
                         Explore Our Games
                     </a>
                 </div>
             </div>
         </div>
         <div class="absolute bottom-8 left-6 flex space-x-2">
-            <span class="w-8 h-1 bg-gray-600 rounded"></span>
+            <span class="w-8 h-1 bg-gray-200 rounded"></span>
             <span class="w-8 h-1 bg-blue-600 rounded"></span>
-            <span class="w-8 h-1 bg-gray-600 rounded"></span>
-            <span class="w-8 h-1 bg-gray-600 rounded"></span>
+            <span class="w-8 h-1 bg-gray-200 rounded"></span>
+            <span class="w-8 h-1 bg-gray-200 rounded"></span>
         </div>
     </section>
 
-    <section id="games" class="py-24 bg-[#0f111a] border-t border-white/5">
+    <section id="games" class="py-24 bg-white border-t border-gray-100">
         <div class="max-w-7xl mx-auto px-6">
             <div class="mb-12">
-                <h2 class="text-xs uppercase tracking-widest text-blue-500 font-bold mb-2">Our Creations</h2>
-                <p class="text-3xl md:text-4xl font-black tracking-tight">Featured Roblox Games</p>
+                <h2 class="text-xs uppercase tracking-widest text-blue-600 font-bold mb-2">Our Creations</h2>
+                <p class="text-3xl md:text-4xl font-black tracking-tight text-gray-900">Featured Roblox Games</p>
             </div>
 
             <div class="grid lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-2 bg-[#151824] rounded-2xl overflow-hidden border border-white/5 shadow-2xl flex flex-col justify-between">
-                    <div class="relative group">
-                        <div class="w-full bg-gradient-to-tr from-amber-500 via-red-500 to-blue-600 aspect-video flex items-center justify-center relative overflow-hidden p-6">
-                            <div class="absolute inset-0 bg-black/20"></div>
-                            <div class="grid grid-cols-5 gap-3 max-w-md w-full relative z-10 drop-shadow-2xl">
-                                <div class="h-32 bg-blue-400 rounded border-2 border-white/20 animate-pulse"></div>
-                                <div class="h-36 bg-green-500 rounded border-2 border-white/20"></div>
-                                <div class="h-40 bg-red-500 rounded border-2 border-white/20 animate-pulse"></div>
-                                <div class="h-32 bg-yellow-500 rounded border-2 border-white/20"></div>
-                                <div class="h-36 bg-indigo-500 rounded border-2 border-white/20"></div>
+                <div class="lg:col-span-2 bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 shadow-sm flex flex-col justify-between">
+                    <div class="relative w-full bg-[#f8f9fa] aspect-video flex items-center justify-center p-8 border-b border-gray-100 overflow-hidden">
+                        <div class="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-40"></div>
+                        <div class="flex items-end justify-center space-x-3 w-full max-w-md relative z-10">
+                            <div class="w-10 h-32 bg-sky-400 rounded-t-lg shadow-md border-t border-white/20"></div>
+                            <div class="w-10 h-36 bg-lime-500 rounded-t-lg shadow-md border-t border-white/20"></div>
+                            <div class="w-10 h-44 bg-blue-600 rounded-t-lg shadow-xl border-t border-white/20 relative">
+                                <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-4 h-4 bg-blue-400 rounded-full animate-ping opacity-70"></div>
                             </div>
+                            <div class="w-10 h-40 bg-red-500 rounded-t-lg shadow-md border-t border-white/20"></div>
+                            <div class="w-10 h-36 bg-cyan-600 rounded-t-lg shadow-md border-t border-white/20"></div>
+                            <div class="w-10 h-32 bg-slate-700 rounded-t-lg shadow-md border-t border-white/20"></div>
                         </div>
                     </div>
                     <div class="p-8">
                         <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-2xl font-bold tracking-tight">Pillars</h3>
-                            <span class="bg-amber-500/10 text-amber-400 text-xs font-bold px-3 py-1 rounded-full border border-amber-500/20">Ages 16+ / Minimal</span>
+                            <h3 class="text-2xl font-bold tracking-tight text-gray-900">Pillars</h3>
+                            <span class="bg-gray-200 text-gray-800 text-xs font-bold px-3 py-1 rounded-full">Ages 16+ / Minimal</span>
                         </div>
-                        <p class="text-gray-400 mb-6 leading-relaxed">
+                        <p class="text-gray-600 mb-6 leading-relaxed">
                             Test your coordination, strategy, and survival skills in Pillars. Maneuver across a dynamic grid environment built exclusively by HorseWorks. Keep up with live events and scheduled drops!
                         </p>
                         <div class="flex flex-wrap gap-4 items-center">
-                            <a href="https://www.roblox.com/games/74557176957885/Pillars" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded transition flex items-center space-x-2">
+                            <a href="https://www.roblox.com/games/74557176957885/Pillars" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded transition flex items-center space-x-2 shadow-md shadow-blue-600/10">
                                 <span>Play on Roblox</span>
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             </a>
@@ -94,55 +95,55 @@
                     </div>
                 </div>
 
-                <div class="bg-[#151824] rounded-2xl p-8 border border-white/5 flex flex-col justify-between">
+                <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col justify-between">
                     <div>
-                        <span class="text-xs font-bold text-red-400 uppercase tracking-wider block mb-2">Upcoming Events</span>
-                        <h4 class="text-xl font-bold mb-4">GAME DROP</h4>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-2">Upcoming Events</span>
+                        <h4 class="text-xl font-bold text-gray-900 mb-4">GAME DROP</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-6">
                             New updates and games are coming out soon. Track the status directly on our official platforms or follow updates from within the experience.
                         </p>
                     </div>
-                    <div class="border-t border-white/10 pt-4">
-                        <span class="text-xs text-gray-500 block">Scheduled Event Release:</span>
-                        <span class="text-sm font-semibold text-gray-300">Thu, Dec 31</span>
+                    <div class="border-t border-gray-200 pt-4">
+                        <span class="text-xs text-gray-400 block">Scheduled Event Release:</span>
+                        <span class="text-sm font-semibold text-gray-700">Thu, Dec 31</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="about" class="py-24 bg-[#0b0c10]">
+    <section id="about" class="py-24 bg-gray-50">
         <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-xs uppercase tracking-widest text-blue-500 font-bold mb-2">Who We Are</h2>
-            <h3 class="text-3xl md:text-4xl font-black tracking-tight mb-6">About HorseWorks</h3>
-            <p class="text-gray-400 text-lg leading-relaxed mb-8">
-                HorseWorks is an innovative design and community development studio shaping unique spaces and interactions on Roblox. We craft high-fidelity mechanics, competitive structures, and thrilling community updates for mature audiences looking for a stylized challenge.
+            <h2 class="text-xs uppercase tracking-widest text-blue-600 font-bold mb-2">Who We Are</h2>
+            <h3 class="text-3xl md:text-4xl font-black tracking-tight text-gray-900 mb-6">About HorseWorks</h3>
+            <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                HorseWorks is an innovative design and community development studio shaping unique spaces and interactions on Roblox. We craft high-fidelity mechanics, competitive structures, and thrilling community updates for audiences looking for a stylized challenge.
             </p>
-            <div class="inline-flex items-center space-x-2 text-sm font-semibold text-blue-400">
+            <div class="inline-flex items-center space-x-2 text-sm font-semibold text-blue-600">
                 <span>Find us on our community hub</span>
-                <a href="https://www.roblox.com/communities/880902718/Horseworks#!/about" target="_blank" class="underline hover:text-blue-300">Roblox Group &rarr;</a>
+                <a href="https://www.roblox.com/communities/880902718/Horseworks#!/about" target="_blank" class="underline hover:text-blue-700">Roblox Group &rarr;</a>
             </div>
         </div>
     </section>
 
-    <section id="news" class="py-24 bg-[#0f111a] border-t border-white/5">
+    <section id="news" class="py-24 bg-white border-t border-gray-100">
         <div class="max-w-7xl mx-auto px-6">
             <div class="mb-12">
-                <h2 class="text-xs uppercase tracking-widest text-blue-500 font-bold mb-2">Dev Logs</h2>
-                <p class="text-3xl md:text-4xl font-black tracking-tight">Studio News & Announcements</p>
+                <h2 class="text-xs uppercase tracking-widest text-blue-600 font-bold mb-2">Dev Logs</h2>
+                <p class="text-3xl md:text-4xl font-black tracking-tight text-gray-900">Studio News & Announcements</p>
             </div>
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-[#151824] p-8 rounded-xl border border-white/5">
-                    <span class="text-xs text-gray-500 block mb-2">July 2026</span>
-                    <h4 class="text-xl font-bold mb-3">Pillars Experience Infrastructure Active</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-100 shadow-sm">
+                    <span class="text-xs text-gray-400 block mb-2">July 2026</span>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">Pillars Experience Infrastructure Active</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">
                         We have officially established our primary portal page for Pillars. Mechanics testing is rolling out smoothly behind the scenes. Stay tuned for further event drops.
                     </p>
                 </div>
-                <div class="bg-[#151824] p-8 rounded-xl border border-white/5">
-                    <span class="text-xs text-gray-500 block mb-2">June 2026</span>
-                    <h4 class="text-xl font-bold mb-3">Welcome to the New HorseWorks Portal</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">
+                <div class="bg-gray-50 p-8 rounded-xl border border-gray-100 shadow-sm">
+                    <span class="text-xs text-gray-400 block mb-2">June 2026</span>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">Welcome to the New HorseWorks Portal</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">
                         Launching our tailored space online to help players track game drops, updates, and community changes safely and reliably away from feed clusters.
                     </p>
                 </div>
@@ -150,11 +151,11 @@
         </div>
     </section>
 
-    <footer class="bg-[#0b0c10] border-t border-white/10 py-12 text-center text-sm text-gray-500">
+    <footer class="bg-white border-t border-gray-100 py-12 text-center text-sm text-gray-400">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p>&copy; 2026 HorseWorks Studios. Built inspired by modern platform interfaces.</p>
+            <p>&copy; 2026 HorseWorks Studios. All rights reserved.</p>
             <div class="space-x-6">
-                <a href="https://www.roblox.com/communities/880902718/Horseworks" target="_blank" class="hover:text-white transition">Roblox Community</a>
+                <a href="https://www.roblox.com/communities/880902718/Horseworks" target="_blank" class="hover:text-gray-900 transition">Roblox Community</a>
             </div>
         </div>
     </footer>
