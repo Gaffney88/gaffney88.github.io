@@ -10,164 +10,187 @@
         .page-section { display: none; opacity: 0; transform: translateY(15px); transition: all 0.4s ease-out; }
         .page-section.active { display: block; opacity: 1; transform: translateY(0); }
         
-        /* Light/Dark theme utility handles */
+        /* Strict Root Theme Enforcements */
         .dark body { background-color: #0b0c10; color: #f3f4f6; }
-        .light body { background-color: #ffffff; color: #111827; }
+        .light body { background-color: #f8fafc; color: #0f172a; }
 
-        /* Card Interactions */
+        /* Card Hover Lift Animations */
         .interactive-card {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .interactive-card:hover {
             transform: translateY(-4px);
+            box-shadow: 0 12px 24px -10px rgba(59, 130, 246, 0.3);
         }
     </style>
 </head>
 <body class="font-sans antialiased selection:bg-blue-600 selection:text-white transition-colors duration-300">
 
-    <header class="fixed top-0 left-0 w-full z-50 bg-[#0b0c10]/80 backdrop-blur-md border-b border-white/5 dark:bg-[#0b0c10]/80 dark:border-white/5 light:bg-white/80 light:border-gray-200">
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#0b0c10]/80 dark:bg-[#0b0c10]/80 light:bg-white/90 backdrop-blur-md border-b border-white/5 dark:border-white/5 light:border-slate-200/80 transition-colors">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <button onclick="switchPage('home')" class="text-2xl font-black tracking-tight uppercase cursor-pointer text-white dark:text-white light:text-gray-900">HorseWorks</button>
+            <button onclick="switchPage('home')" class="text-2xl font-black tracking-tight uppercase cursor-pointer text-white dark:text-white light:text-slate-900">HorseWorks</button>
             
-            <nav class="hidden md:flex items-center space-x-1 bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-gray-100 p-1.5 rounded-xl border border-white/5 dark:border-white/5 light:border-gray-200 text-sm font-semibold text-gray-400 dark:text-gray-400 light:text-gray-600">
-                <button onclick="switchPage('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer text-white dark:text-white light:text-gray-900 bg-zinc-800 dark:bg-zinc-800 light:bg-white shadow-sm">Home</button>
-                <button onclick="switchPage('games')" id="nav-games" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-white dark:hover:text-white light:hover:text-gray-900">Games</button>
-                <button onclick="switchPage('stats')" id="nav-stats" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-white dark:hover:text-white light:hover:text-gray-900">Stats</button>
-                <button onclick="switchPage('about')" id="nav-about" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-white dark:hover:text-white light:hover:text-gray-900">About</button>
-                <button onclick="switchPage('news')" id="nav-news" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-white dark:hover:text-white light:hover:text-gray-900">News</button>
+            <nav class="hidden md:flex items-center space-x-1 bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-slate-100 p-1.5 rounded-xl border border-white/5 dark:border-white/5 light:border-slate-200 text-sm font-semibold text-gray-400 dark:text-gray-400 light:text-slate-600">
+                <button onclick="switchPage('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer text-white dark:text-white light:text-slate-900 bg-zinc-800 dark:bg-zinc-800 light:bg-white shadow-sm">Home</button>
+                <button onclick="switchPage('games')" id="nav-games" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-white dark:hover:text-white light:hover:text-slate-900">Games</button>
+                <button onclick="switchPage('stats')" id="nav-stats" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-white dark:hover:text-white light:hover:text-slate-900">Stats</button>
+                <button onclick="switchPage('about')" id="nav-about" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-white dark:hover:text-white light:hover:text-slate-900">About</button>
+                <button onclick="switchPage('news')" id="nav-news" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-white dark:hover:text-white light:hover:text-slate-900">News</button>
             </nav>
 
             <div class="flex items-center space-x-4">
-                <button onclick="toggleTheme()" class="p-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-900 light:bg-gray-100 border border-white/10 dark:border-white/10 light:border-gray-200 text-gray-300 dark:text-gray-300 light:text-gray-600 cursor-pointer hover:scale-105 active:scale-95 transition">
+                <button onclick="toggleTheme()" class="p-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-900 light:bg-slate-100 border border-white/10 dark:border-white/10 light:border-slate-200 text-gray-300 dark:text-gray-300 light:text-slate-600 cursor-pointer hover:scale-105 active:scale-95 transition shadow-sm">
                     <svg id="sun-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path></svg>
                     <svg id="moon-icon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                 </button>
-                <a href="https://www.roblox.com/communities/880902718/Horseworks" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase px-5 py-2.5 rounded-xl transition tracking-wider">Group</a>
+                <a href="https://www.roblox.com/communities/880902718/Horseworks" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase px-5 py-2.5 rounded-xl transition tracking-wider shadow-md shadow-blue-500/10">Group</a>
             </div>
         </div>
     </header>
 
-    <main class="pt-24 min-h-[calc(100vh-80px)] px-6 max-w-7xl mx-auto">
+    <main class="pt-28 pb-16 min-h-[calc(100vh-80px)] px-6 max-w-7xl mx-auto">
 
         <section id="home" class="page-section active py-12">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div class="space-y-6">
-                    <h1 class="text-4xl md:text-6xl font-black leading-tight tracking-tight text-gray-900 dark:text-white light:text-gray-900">Building Experiences on Roblox.</h1>
-                    <p class="text-gray-400 light:text-gray-600 text-lg">Welcome to HorseWorks. Dive in to view active projects, game updates, and live analytics parameters.</p>
+                    <div class="inline-flex items-center space-x-2 bg-blue-500/10 text-blue-500 font-bold text-xs uppercase px-3 py-1.5 rounded-full border border-blue-500/20">
+                        <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+                        <span>Active Pipeline Terminal</span>
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-black leading-tight tracking-tight text-white dark:text-white light:text-slate-900">Building Experiences on Roblox.</h1>
+                    <p class="text-gray-400 dark:text-gray-400 light:text-slate-600 text-lg">Welcome to HorseWorks. Dive in to view active projects, game updates, and live analytics parameters.</p>
                     <div class="flex space-x-4">
-                        <button onclick="switchPage('games')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3.5 rounded-xl cursor-pointer transition">Explore Games</button>
-                        <button onclick="switchPage('stats')" class="bg-zinc-800 dark:bg-zinc-800 light:bg-gray-100 font-bold px-6 py-3.5 rounded-xl cursor-pointer transition">System Stats</button>
+                        <button onclick="switchPage('games')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3.5 rounded-xl cursor-pointer transition shadow-lg shadow-blue-500/20">Explore Games</button>
+                        <button onclick="switchPage('stats')" class="bg-zinc-800 dark:bg-zinc-800 light:bg-slate-200 text-white dark:text-white light:text-slate-800 font-bold px-6 py-3.5 rounded-xl cursor-pointer transition">System Stats</button>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="games" class="page-section py-12">
-            <h2 class="text-3xl font-black mb-8">Active Games</h2>
+            <div class="mb-8">
+                <h2 class="text-3xl font-black text-white dark:text-white light:text-slate-900">Active Games</h2>
+                <p class="text-xs text-gray-500 mt-1">Select a game card configuration module below to expand details.</p>
+            </div>
             <div class="grid md:grid-cols-3 gap-6">
-                <div onclick="openGameModal('Pillars', 'Test your coordination, strategy, and survival grid layers inside an elite environment optimized entirely by HorseWorks.', 'Next content drop includes multi-stage map tracking, layout changes, and dynamic server configurations coming on Thursday, Dec 31.')" class="interactive-card bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-gray-50 p-6 rounded-2xl border border-white/5 dark:border-white/5 light:border-gray-200 cursor-pointer hover:border-blue-500/40">
+                <div onclick="openGameModal('Pillars', 'Test your coordination, strategy, and survival grid layers inside an elite environment optimized entirely by HorseWorks.', 'Next content drop includes multi-stage map tracking, layout changes, and dynamic server configurations coming on Thursday, Dec 31.')" class="interactive-card bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-white p-6 rounded-2xl border border-white/5 dark:border-white/5 light:border-slate-200 cursor-pointer hover:border-blue-500/40 shadow-sm">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-xl font-bold text-blue-500">Pillars</h3>
-                        <span class="text-[10px] uppercase font-bold bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded">View Info</span>
+                        <span class="text-[10px] uppercase font-bold bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded border border-blue-500/20">View Info</span>
                     </div>
-                    <p class="text-sm text-gray-400 light:text-gray-600">Click to expand overview description log parameters, data tables, and event maps.</p>
+                    <p class="text-sm text-gray-400 dark:text-gray-400 light:text-slate-600">Click to expand overview description log parameters, data tables, and upcoming live event maps.</p>
                 </div>
             </div>
         </section>
 
         <section id="stats" class="page-section py-12">
-            <h2 class="text-3xl font-black mb-8">Pillars Live Metrics</h2>
+            <h2 class="text-3xl font-black mb-8 text-white dark:text-white light:text-slate-900">Pillars Live Metrics</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-gray-50 p-6 rounded-2xl border border-white/5 dark:border-white/5 light:border-gray-200">
-                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block">Active Players</span>
-                    <div class="text-3xl font-black text-blue-500 mt-2">412 <span class="text-xs font-normal text-green-500 animate-pulse ml-1">● Live</span></div>
+                <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-white p-6 rounded-2xl border border-white/5 dark:border-white/5 light:border-slate-200 shadow-sm">
+                    <span class="text-xs font-bold text-gray-400 dark:text-gray-400 light:text-slate-500 uppercase tracking-wider block">Active Players</span>
+                    <div class="text-3xl font-black text-blue-500 mt-2 flex items-center gap-2">
+                        <span>412</span> 
+                        <span class="text-[10px] font-bold text-green-500 px-1.5 py-0.5 rounded bg-green-500/10 flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>Live
+                        </span>
+                    </div>
                 </div>
-                <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-gray-50 p-6 rounded-2xl border border-white/5 dark:border-white/5 light:border-gray-200">
-                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block">Total Visits</span>
-                    <div class="text-3xl font-black mt-2">1.2M+</div>
+                <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-white p-6 rounded-2xl border border-white/5 dark:border-white/5 light:border-slate-200 shadow-sm">
+                    <span class="text-xs font-bold text-gray-400 dark:text-gray-400 light:text-slate-500 uppercase tracking-wider block">Total Visits</span>
+                    <div class="text-3xl font-black mt-2 text-white dark:text-white light:text-slate-900">1.2M+</div>
                 </div>
-                <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-gray-50 p-6 rounded-2xl border border-white/5 dark:border-white/5 light:border-gray-200">
-                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block">Favorites</span>
-                    <div class="text-3xl font-black mt-2">45,803</div>
+                <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-white p-6 rounded-2xl border border-white/5 dark:border-white/5 light:border-slate-200 shadow-sm">
+                    <span class="text-xs font-bold text-gray-400 dark:text-gray-400 light:text-slate-500 uppercase tracking-wider block">Favorites</span>
+                    <div class="text-3xl font-black mt-2 text-white dark:text-white light:text-slate-900">45,803</div>
                 </div>
-                <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-gray-50 p-6 rounded-2xl border border-white/5 dark:border-white/5 light:border-gray-200">
-                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block">Server Status</span>
+                <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-white p-6 rounded-2xl border border-white/5 dark:border-white/5 light:border-slate-200 shadow-sm">
+                    <span class="text-xs font-bold text-gray-400 dark:text-gray-400 light:text-slate-500 uppercase tracking-wider block">Server Status</span>
                     <div class="text-xl font-bold text-green-500 mt-3 uppercase tracking-wide">Nominal</div>
                 </div>
             </div>
         </section>
 
         <section id="about" class="page-section py-12 text-center max-w-2xl mx-auto">
-            <h2 class="text-3xl font-black mb-4">About the Studio</h2>
-            <p class="text-gray-400 light:text-gray-600">HorseWorks is an independent design hub configuring advanced challenge maps and functional gameplay mechanics natively on the Roblox platform.</p>
+            <h2 class="text-3xl font-black mb-4 text-white dark:text-white light:text-slate-900">About the Studio</h2>
+            <p class="text-gray-400 dark:text-gray-400 light:text-slate-600 leading-relaxed text-lg">HorseWorks is an independent design hub configuring advanced challenge maps and functional gameplay mechanics natively on the Roblox platform.</p>
         </section>
 
         <section id="news" class="page-section py-12">
-            <h2 class="text-3xl font-black mb-2">📰 Developer Logs</h2>
-            <p class="text-sm text-gray-500 mb-8">Click any log card module below to expand and view full patch records.</p>
+            <div class="mb-8">
+                <h2 class="text-3xl font-black text-white dark:text-white light:text-slate-900">📰 Developer Logs</h2>
+                <p class="text-sm text-gray-500 mt-1">Click any card module below to expand and view full engineering patch logs.</p>
+            </div>
             
             <div class="space-y-4">
-                <div onclick="openDevLog('New Rule Layout Protocol', '5/20/2026', 'We have implemented an updated system rule index layer. Please review guidelines to keep your profile status clear and within global guidelines.')" class="interactive-card bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-gray-50 p-6 rounded-2xl border border-white/5 dark:border-white/5 light:border-gray-200 cursor-pointer hover:border-zinc-700">
+                <div onclick="openDevLog('New Rule Layout Protocol', '5/20/2026', 'We have implemented an updated system rule index layer. Please review guidelines inside the primary directory panel to keep your profile status clear and within global guidelines.')" class="interactive-card bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-white p-6 rounded-2xl border border-white/5 dark:border-white/5 light:border-slate-200 cursor-pointer hover:border-zinc-700 shadow-sm">
                     <div class="flex items-center space-x-2 text-xs text-gray-500 mb-1">
                         <span>5/20/2026</span><span>•</span><span class="text-amber-500 font-bold">SYSTEM</span>
                     </div>
-                    <h3 class="text-xl font-bold">New Rule Layout Protocol</h3>
-                    <p class="text-sm text-gray-400 light:text-gray-600 mt-2 line-clamp-1">Click to view complete details regarding code execution protocols...</p>
+                    <h3 class="text-xl font-bold text-white dark:text-white light:text-slate-900">New Rule Layout Protocol</h3>
+                    <p class="text-sm text-gray-400 dark:text-gray-400 light:text-slate-500 mt-2 line-clamp-1">Click to view complete details regarding deployment structures and protocol execution layouts...</p>
                 </div>
 
-                <div onclick="openDevLog('Complete UI Refresh V2', '5/01/2026', 'Our portal architecture has been overhauled for better mobile navigation fluid rates, dark mode caching, and instantaneous structural transitions.')" class="interactive-card bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-gray-50 p-6 rounded-2xl border border-white/5 dark:border-white/5 light:border-gray-200 cursor-pointer hover:border-zinc-700">
+                <div onclick="openDevLog('Complete UI Refresh V2', '5/01/2026', 'Our portal architecture has been overhauled for better mobile navigation fluid rates, dark mode local storage state variables, and instantaneous structural transitions.')" class="interactive-card bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-white p-6 rounded-2xl border border-white/5 dark:border-white/5 light:border-slate-200 cursor-pointer hover:border-zinc-700 shadow-sm">
                     <div class="flex items-center space-x-2 text-xs text-gray-500 mb-1">
                         <span>5/01/2026</span><span>•</span><span class="text-blue-500 font-bold">DESIGN</span>
                     </div>
-                    <h3 class="text-xl font-bold">Complete UI Refresh V2</h3>
-                    <p class="text-sm text-gray-400 light:text-gray-600 mt-2 line-clamp-1">Click to view full interface upgrade specs and performance patches...</p>
+                    <h3 class="text-xl font-bold text-white dark:text-white light:text-slate-900">Complete UI Refresh V2</h3>
+                    <p class="text-sm text-gray-400 dark:text-gray-400 light:text-slate-500 mt-2 line-clamp-1">Click to view full interface upgrade specs, light mode fixes, and component patches...</p>
                 </div>
             </div>
         </section>
 
     </main>
 
+    <footer class="bg-[#0b0c10]/40 dark:bg-[#0b0c10]/40 light:bg-slate-100 border-t border-white/5 dark:border-white/5 light:border-slate-200 py-12 text-center text-sm text-gray-500 transition-colors">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p>&copy; 2026 HorseWorks Studios. All rights reserved.</p>
+            <a href="https://www.roblox.com/communities/880902718/Horseworks" target="_blank" class="hover:text-white dark:hover:text-white light:hover:text-slate-900 transition-all">Roblox Community</a>
+        </div>
+    </footer>
+
     <div id="info-modal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-zinc-900 dark:bg-zinc-900 light:bg-white border border-white/10 dark:border-white/10 light:border-gray-300 w-full max-w-xl rounded-2xl p-6 shadow-2xl relative">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white dark:hover:text-white light:hover:text-black font-bold cursor-pointer text-lg">&times;</button>
-            <div id="modal-content" class="space-y-4">
+        <div class="bg-zinc-900 dark:bg-zinc-900 light:bg-white border border-white/10 dark:border-white/10 light:border-slate-300 w-full max-w-xl rounded-2xl p-6 shadow-2xl relative transition-colors">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white dark:hover:text-white light:hover:text-slate-900 font-bold cursor-pointer text-xl transition">&times;</button>
+            <div id="modal-content" class="space-y-4 text-gray-200 dark:text-gray-200 light:text-slate-800">
                 </div>
         </div>
     </div>
 
     <script>
-        // Tab Page Switching Engine
+        // Tab Section Switch Handler
         function switchPage(pageId) {
             document.querySelectorAll('.page-section').forEach(section => section.classList.remove('active'));
             const activeSection = document.getElementById(pageId);
             if(activeSection) activeSection.classList.add('active');
 
+            // Handle Nav Button Active State Variables
             document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.className = "nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-white dark:hover:text-white light:hover:text-gray-900";
+                btn.className = "nav-btn px-4 py-2 rounded-lg transition cursor-pointer text-gray-400 dark:text-gray-400 light:text-slate-600 hover:text-white dark:hover:text-white light:hover:text-slate-900";
             });
             const targetedNavButton = document.getElementById('nav-' + pageId);
             if(targetedNavButton) {
-                targetedNavButton.className = "nav-btn px-4 py-2 rounded-lg transition cursor-pointer text-white dark:text-white light:text-gray-900 bg-zinc-800 dark:bg-zinc-800 light:bg-white shadow-sm";
+                targetedNavButton.className = "nav-btn px-4 py-2 rounded-lg transition cursor-pointer text-white dark:text-white light:text-slate-900 bg-zinc-800 dark:bg-zinc-800 light:bg-white shadow-sm font-bold";
             }
         }
 
-        // Persistent Light / Dark Engine
+        // Robust Local Storage Theme Sync Framework
         function toggleTheme() {
             const htmlNode = document.documentElement;
             if (htmlNode.classList.contains('light')) {
                 htmlNode.classList.remove('light');
                 htmlNode.classList.add('dark');
                 localStorage.setItem('theme', 'dark');
-                syncIcons('dark');
+                syncThemeIcons('dark');
             } else {
                 htmlNode.classList.remove('dark');
                 htmlNode.classList.add('light');
                 localStorage.setItem('theme', 'light');
-                syncIcons('light');
+                syncThemeIcons('light');
             }
         }
 
-        function syncIcons(mode) {
+        function syncThemeIcons(mode) {
             const sunIcon = document.getElementById('sun-icon');
             const moonIcon = document.getElementById('moon-icon');
             if(mode === 'light') {
@@ -179,21 +202,21 @@
             }
         }
 
-        // DevLog & Game Data Modal Populators
+        // Modal Content Population Engines
         function openGameModal(title, desc, events) {
             const container = document.getElementById('modal-content');
             container.innerHTML = `
                 <h3 class="text-2xl font-black text-blue-500">${title}</h3>
                 <div>
-                    <h4 class="text-xs font-bold uppercase text-gray-400 mb-1">Description</h4>
+                    <h4 class="text-xs font-bold uppercase text-gray-400 dark:text-gray-400 light:text-slate-400 mb-1">Summary Description</h4>
                     <p class="text-sm leading-relaxed">${desc}</p>
                 </div>
-                <div class="pt-2 border-t border-white/5 dark:border-white/5 light:border-gray-100">
-                    <h4 class="text-xs font-bold uppercase text-amber-500 mb-1">Upcoming Events & Pipeline Targets</h4>
+                <div class="pt-3 border-t border-white/5 dark:border-white/5 light:border-slate-100">
+                    <h4 class="text-xs font-bold uppercase text-amber-500 mb-1">Upcoming Milestone Releases</h4>
                     <p class="text-sm leading-relaxed">${events}</p>
                 </div>
                 <div class="pt-4 flex justify-end">
-                    <a href="https://www.roblox.com/games/74557176957885/Pillars" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase px-4 py-2 rounded-xl text-center">Launch on Roblox &rarr;</a>
+                    <a href="https://www.roblox.com/games/74557176957885/Pillars" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase px-5 py-2.5 rounded-xl text-center shadow-md shadow-blue-500/10">Launch on Roblox &rarr;</a>
                 </div>`;
             document.getElementById('info-modal').classList.remove('hidden');
         }
@@ -201,9 +224,9 @@
         function openDevLog(title, date, body) {
             const container = document.getElementById('modal-content');
             container.innerHTML = `
-                <span class="text-xs text-gray-500">${date} • Developer Bulletin Log</span>
-                <h3 class="text-2xl font-black mt-1">${title}</h3>
-                <div class="py-2 border-t border-white/5 dark:border-white/5 light:border-gray-100 text-sm leading-relaxed text-gray-300 dark:text-gray-300 light:text-gray-700">
+                <span class="text-xs text-gray-400 dark:text-gray-400 light:text-slate-500">${date} • Official Bulletin Log</span>
+                <h3 class="text-2xl font-black mt-1 text-white dark:text-white light:text-slate-900">${title}</h3>
+                <div class="py-3 border-t border-white/5 dark:border-white/5 light:border-slate-100 text-sm leading-relaxed text-gray-300 dark:text-gray-300 light:text-slate-600">
                     ${body}
                 </div>`;
             document.getElementById('info-modal').classList.remove('hidden');
@@ -213,11 +236,11 @@
             document.getElementById('info-modal').classList.add('hidden');
         }
 
-        // Initialize user system theme settings on window activation load
+        // Initialize and fetch cached layout setup parameters on browser mount
         window.addEventListener('DOMContentLoaded', () => {
             const cachedTheme = localStorage.getItem('theme') || 'dark';
             document.documentElement.className = cachedTheme;
-            syncIcons(cachedTheme);
+            syncThemeIcons(cachedTheme);
         });
     </script>
 </body>
