@@ -9,30 +9,6 @@
         /* Smooth Section Transitions */
         .page-section { display: none; opacity: 0; transform: translateY(6px); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         .page-section.active { display: block; opacity: 1; transform: translateY(0); }
-
-        /* Premium Minimal Sliders */
-        input[type="range"] {
-            -webkit-appearance: none;
-            appearance: none;
-            background: #f1f5f9;
-            height: 4px;
-            border-radius: 9999px;
-            outline: none;
-        }
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #0f172a;
-            cursor: pointer;
-            transition: all 0.15s ease;
-        }
-        input[type="range"]::-webkit-slider-thumb:hover {
-            background: #2563eb;
-            transform: scale(1.2);
-        }
     </style>
 </head>
 <body class="bg-[#f8fafc] text-slate-900 font-sans antialiased selection:bg-slate-950 selection:text-white">
@@ -47,7 +23,9 @@
                 <button onclick="switchPage('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer text-slate-950 bg-white shadow-xs">Home</button>
                 <button onclick="switchPage('games')" id="nav-games" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-slate-950">Our Game</button>
                 <button onclick="switchPage('news')" id="nav-news" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-slate-950">DevLogs</button>
-                <button onclick="switchPage('about')" id="nav-about" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-slate-950">About Studio</button>
+                <button onclick="switchPage('faq')" id="nav-faq" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-slate-950">FAQ</button>
+                <button onclick="switchPage('careers')" id="nav-careers" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-slate-950">Careers</button>
+                <button onclick="switchPage('about')" id="nav-about" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-slate-950">About</button>
             </nav>
 
             <div>
@@ -79,26 +57,18 @@
                 </div>
                 
                 <div class="md:col-span-5">
-                    <div class="p-6 bg-white border border-slate-200 rounded-2xl shadow-xs space-y-5">
-                        <div class="pb-1.5 border-b border-slate-100">
-                            <h3 class="text-[10px] font-black uppercase tracking-wider text-slate-400">System Analytics Console</h3>
-                        </div>
-                        
-                        <div class="space-y-2">
-                            <div class="flex justify-between text-xs font-bold text-slate-700">
-                                <span>Simulated Concurrents</span>
-                                <span id="player-count-val" class="font-mono text-slate-950 text-[11px]">180 CCU</span>
+                    <div class="p-6 bg-white border border-slate-200 rounded-2xl shadow-xs space-y-4">
+                        <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Live Traffic Monitor</span>
+                        <div>
+                            <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Active Players</h3>
+                            <div class="flex items-baseline space-x-2 mt-1">
+                                <span class="text-4xl font-black text-slate-900 tracking-tight">0</span>
+                                <span class="text-xs font-bold text-amber-600 uppercase bg-amber-50 border border-amber-100 px-2 py-0.5 rounded-md">Pending Alpha Release</span>
                             </div>
-                            <input type="range" id="player-slider" min="10" max="1500" value="180" class="w-full" oninput="updateSimulation()">
                         </div>
-
-                        <div class="space-y-2">
-                            <div class="flex justify-between text-xs font-bold text-slate-700">
-                                <span>Calculated Memory Pool</span>
-                                <span id="load-val" class="font-mono text-slate-950 text-[11px]">22% Capacity</span>
-                            </div>
-                            <input type="range" id="load-slider" min="5" max="100" value="22" class="w-full" oninput="updateSimulation()">
-                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed pt-2 border-t border-slate-100">
+                            Public player counts will populate here synchronously as soon as the active game build goes live on the Roblox domain portal.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -132,21 +102,6 @@
                             <span class="text-xs font-bold text-emerald-600 uppercase tracking-wide">Nominal</span>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div onclick="switchPage('games')" class="group bg-white border border-slate-200 p-5 rounded-2xl flex flex-col sm:flex-row gap-6 items-center cursor-pointer hover:border-slate-400 transition shadow-xs">
-                <div class="w-full sm:w-1/5 aspect-video bg-slate-950 rounded-xl flex items-center justify-center text-white font-black tracking-widest text-[10px] border border-slate-800">
-                    COMING SOON
-                </div>
-                <div class="flex-1 space-y-1">
-                    <div class="flex items-center space-x-2">
-                        <span class="bg-amber-50 text-amber-800 font-mono text-[9px] font-bold tracking-wider uppercase px-2 py-0.5 rounded border border-amber-100/50">ROADMAP FOCUS</span>
-                        <h3 class="text-base font-bold text-slate-950 group-hover:text-blue-600 transition">Pillars Pipeline Overview</h3>
-                    </div>
-                    <p class="text-slate-500 text-xs leading-relaxed max-w-xl">
-                        A highly synchronized spatial reflex simulation. Currently completing private infrastructure testing suites ahead of corporate distribution profiles.
-                    </p>
                 </div>
             </div>
         </section>
@@ -196,6 +151,45 @@
                         An engineering update detailing layout criteria protocols, system networking overhauls, and general project progression releases for Pillars.
                     </p>
                     <span class="inline-block text-[11px] font-bold text-blue-600 mt-3 hover:underline">Read Broad Bulletin &rarr;</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="page-section py-4 max-w-2xl space-y-6">
+            <div>
+                <h2 class="text-2xl font-black text-slate-950">Frequently Asked Questions</h2>
+                <p class="text-xs text-slate-400 mt-0.5">Quick answers regarding game access, platforms, and testing loops.</p>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="bg-white p-5 rounded-xl border border-slate-200">
+                    <h3 class="text-sm font-bold text-slate-900">When does Pillars release?</h3>
+                    <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+                        Pillars is actively under production. We plan to host private developer stress-tests first, followed by public alpha drops. Keep an eye on our DevLogs tab or our official Roblox group for active announcements.
+                    </p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200">
+                    <h3 class="text-sm font-bold text-slate-900">Which platforms will be supported?</h3>
+                    <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+                        Our experiences are engineered with adaptive input layouts, optimizing UI scales to support seamless play across PC, Mobile, and Console devices natively.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="careers" class="page-section py-4 max-w-2xl space-y-6">
+            <div>
+                <h2 class="text-2xl font-black text-slate-950">Work With Us</h2>
+                <p class="text-xs text-slate-400 mt-0.5">Help shape the future of immersive Roblox interaction loops.</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 text-xs text-slate-500 space-y-4">
+                <p>
+                    At <strong class="text-slate-900">HorseWorks</strong>, we are always on the lookout for talented 3D environment artists, sound engineers, and creative scripters specialized in optimized Roblox Luau architecture.
+                </p>
+                <div class="p-4 bg-slate-50 border border-slate-100 rounded-xl">
+                    <h3 class="font-bold text-slate-800 mb-1">Open Applications</h3>
+                    <p class="text-slate-400">There are no open public recruitment cycles at this moment. Roles open periodically based on milestone goals.</p>
                 </div>
             </div>
         </section>
@@ -255,15 +249,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Live Processing Slider Multiplier Sync
-        function updateSimulation() {
-            const players = document.getElementById('player-slider').value;
-            const load = document.getElementById('load-slider').value;
-
-            document.getElementById('player-count-val').innerText = `${players} CCU`;
-            document.getElementById('load-val').innerText = `${load}% Capacity`;
-        }
-
         // Custom Dynamic Dialogue Layout Builders
         function openGameModal(title, desc, pipeline) {
             const container = document.getElementById('modal-content');
@@ -278,11 +263,12 @@
                     <p class="text-xs text-slate-500 leading-relaxed">${pipeline}</p>
                 </div>
                 <div class="pt-3 flex justify-end">
-                    <a href="https://www.roblox.com/communities/880902718/Horseworks" target="_blank" class="bg-slate-950 hover:bg-slate-900 text-white font-bold text-xs uppercase px-4 py-2.5 rounded-xl text-center transition tracking-wide">Join Group Profile &rarr;</a>
+                    <a href="https://www.roblox.com/communities/880902718/Horseworks" target="_blank" class="bg-slate-950 hover:bg-slate-800 text-white font-bold text-xs uppercase px-4 py-2.5 rounded-xl text-center transition tracking-wide">Join Group Profile &rarr;</a>
                 </div>`;
             document.getElementById('info-modal').classList.remove('hidden');
         }
 
+        // Devlog Dialog Window Builder
         function openDevLog(title, date, text) {
             const container = document.getElementById('modal-content');
             container.innerHTML = `
