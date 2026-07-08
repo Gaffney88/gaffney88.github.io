@@ -6,9 +6,66 @@
     <title>HorseWorks Studios</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
-        /* Smooth Section Transitions */
-        .page-section { display: none; opacity: 0; transform: translateY(6px); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-        .page-section.active { display: block; opacity: 1; transform: translateY(0); }
+        * { -webkit-font-smoothing: antialiased; }
+
+        body { overflow-x: hidden; }
+
+        /* Section transitions */
+        .page-section { display: none; }
+        .page-section.active { display: block; }
+
+        /* Reveal-on-entry animation */
+        @keyframes revealUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal {
+            opacity: 0;
+            animation: revealUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: var(--d, 0ms);
+        }
+
+        /* Featured banner backdrop: vertical pillar motif */
+        .pillar-backdrop {
+            background-color: #0a0f1e;
+            background-image:
+                linear-gradient(180deg, rgba(10,15,30,0) 30%, rgba(10,15,30,0.92) 100%),
+                repeating-linear-gradient(90deg, rgba(148,163,184,0.14) 0px, rgba(148,163,184,0.14) 2px, transparent 2px, transparent 36px);
+            transition: background-position 0.8s ease;
+        }
+        .pillar-backdrop::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(55% 75% at 80% 15%, rgba(37,99,235,0.45), transparent 70%);
+            pointer-events: none;
+        }
+        .banner-card:hover .pillar-backdrop {
+            background-position: 0 -6px;
+        }
+        .banner-card:hover .banner-scale {
+            transform: scale(1.03);
+        }
+        .banner-scale {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .badge-skew { transform: skewX(-8deg); }
+        .badge-skew > span { display: inline-block; transform: skewX(8deg); }
+
+        @keyframes softPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.55; }
+        }
+        .pulse-dot { animation: softPulse 2s ease-in-out infinite; }
+
+        .stat-card { transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease; }
+        .stat-card:hover { transform: translateY(-3px); border-color: #cbd5e1; box-shadow: 0 8px 20px -8px rgba(15, 23, 42, 0.12); }
+
+        .nav-btn { transition: color 0.25s ease, background-color 0.25s ease; }
+
+        .link-arrow { transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+        .group:hover .link-arrow { transform: translateX(3px); }
     </style>
 </head>
 <body class="bg-[#f8fafc] text-slate-900 font-sans antialiased selection:bg-slate-950 selection:text-white">
@@ -18,14 +75,13 @@
             <button onclick="switchPage('home')" class="text-lg font-black tracking-tight uppercase cursor-pointer text-slate-950 hover:opacity-80 transition">
                 HorseWorks
             </button>
-            
+
             <nav class="hidden md:flex items-center space-x-1 bg-slate-200/40 p-1 rounded-xl text-xs font-bold text-slate-600">
-                <button onclick="switchPage('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer text-slate-950 bg-white shadow-xs">Home</button>
-                <button onclick="switchPage('games')" id="nav-games" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-slate-950">Our Game</button>
-                <button onclick="switchPage('news')" id="nav-news" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-slate-950">DevLogs</button>
-                <button onclick="switchPage('faq')" id="nav-faq" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-slate-950">FAQ</button>
-                <button onclick="switchPage('careers')" id="nav-careers" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-slate-950">Careers</button>
-                <button onclick="switchPage('about')" id="nav-about" class="nav-btn px-4 py-2 rounded-lg transition cursor-pointer hover:text-slate-950">About</button>
+                <button onclick="switchPage('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-lg cursor-pointer text-slate-950 bg-white shadow-xs">Home</button>
+                <button onclick="switchPage('games')" id="nav-games" class="nav-btn px-4 py-2 rounded-lg cursor-pointer hover:text-slate-950">Our Game</button>
+                <button onclick="switchPage('news')" id="nav-news" class="nav-btn px-4 py-2 rounded-lg cursor-pointer hover:text-slate-950">DevLogs</button>
+                <button onclick="switchPage('faq')" id="nav-faq" class="nav-btn px-4 py-2 rounded-lg cursor-pointer hover:text-slate-950">FAQ</button>
+                <button onclick="switchPage('about')" id="nav-about" class="nav-btn px-4 py-2 rounded-lg cursor-pointer hover:text-slate-950">About</button>
             </nav>
 
             <div>
@@ -37,26 +93,26 @@
     <main class="pt-28 pb-16 min-h-[calc(100vh-80px)] px-6 max-w-5xl mx-auto">
 
         <section id="home" class="page-section active py-4 space-y-12">
-            
+
             <div class="grid md:grid-cols-12 gap-12 items-center">
                 <div class="md:col-span-7 space-y-5">
-                    <div class="inline-flex items-center space-x-2 text-blue-600 font-bold text-[10px] uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100/60">
-                        <span class="w-1.5 h-1.5 bg-blue-600 rounded-full animate-pulse"></span>
+                    <div class="reveal inline-flex items-center space-x-2 text-blue-600 font-bold text-[10px] uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100/60" style="--d:0ms">
+                        <span class="w-1.5 h-1.5 bg-blue-600 rounded-full pulse-dot"></span>
                         <span>Project Status: In Production</span>
                     </div>
-                    <h1 class="text-3xl md:text-5xl font-black leading-tight tracking-tight text-slate-950">
-                        Next-Gen Roblox Experience Engineering.
+                    <h1 class="reveal text-3xl md:text-5xl font-black leading-tight tracking-tight text-slate-950" style="--d:80ms">
+                        Next-Gen Roblox<br class="hidden md:block"> Experience <span class="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">Engineering.</span>
                     </h1>
-                    <p class="text-slate-500 text-xs md:text-sm max-w-lg leading-relaxed">
+                    <p class="reveal text-slate-500 text-xs md:text-sm max-w-lg leading-relaxed" style="--d:160ms">
                         Welcome to HorseWorks. We engineer high-fidelity spatial interactions, low-overhead networking modules, and deeply rewarding mechanics designed exclusively for the Roblox platform ecosystem.
                     </p>
-                    <div class="flex items-center space-x-4 pt-1">
-                        <button onclick="switchPage('games')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase px-5 py-3 rounded-xl cursor-pointer transition shadow-xs">Explore Pillars</button>
-                        <button onclick="switchPage('news')" class="bg-slate-950 hover:bg-slate-800 text-white text-xs font-bold uppercase px-5 py-3 rounded-xl cursor-pointer transition">Read DevLogs</button>
+                    <div class="reveal flex items-center space-x-4 pt-1" style="--d:240ms">
+                        <button onclick="switchPage('games')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase px-5 py-3 rounded-xl cursor-pointer transition shadow-xs hover:shadow-md hover:-translate-y-0.5">Explore Pillars</button>
+                        <button onclick="switchPage('news')" class="bg-slate-950 hover:bg-slate-800 text-white text-xs font-bold uppercase px-5 py-3 rounded-xl cursor-pointer transition hover:-translate-y-0.5">Read DevLogs</button>
                     </div>
                 </div>
-                
-                <div class="md:col-span-5">
+
+                <div class="md:col-span-5 reveal" style="--d:200ms">
                     <div class="p-6 bg-white border border-slate-200 rounded-2xl shadow-xs space-y-4">
                         <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Live Traffic Monitor</span>
                         <div>
@@ -73,32 +129,60 @@
                 </div>
             </div>
 
+            <!-- Featured Games banner -->
             <div class="pt-6 border-t border-slate-200/60">
-                <div class="mb-4">
+                <div class="reveal mb-4" style="--d:0ms">
+                    <span class="text-[9px] font-black text-blue-600 uppercase tracking-widest">Studio Pipeline</span>
+                    <h2 class="text-xl font-bold text-slate-950 tracking-tight mt-0.5">Featured Games</h2>
+                </div>
+
+                <div onclick="switchPage('games')" class="reveal banner-card relative rounded-2xl border border-slate-200 overflow-hidden cursor-pointer group shadow-xs" style="--d:100ms">
+                    <div class="pillar-backdrop banner-scale relative aspect-[21/9] w-full flex items-end">
+                        <div class="absolute top-5 left-5 flex flex-col items-start z-10">
+                            <div class="badge-skew bg-white px-3 py-1.5 shadow-sm">
+                                <span class="text-slate-950 font-black text-lg md:text-xl tracking-tight leading-none">PILLARS</span>
+                            </div>
+                            <div class="badge-skew bg-blue-600 px-3 py-1 -mt-0.5 ml-1">
+                                <span class="text-white font-black text-[10px] tracking-widest uppercase leading-none">Coming Soon</span>
+                            </div>
+                        </div>
+
+                        <div class="relative z-10 w-full flex items-center justify-between px-5 py-4">
+                            <span class="text-[10px] font-bold text-slate-200 uppercase tracking-wider">Strategy / Puzzle</span>
+                            <span class="link-arrow text-[11px] font-bold text-white flex items-center gap-1">
+                                View Details &rarr;
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-slate-200/60">
+                <div class="reveal mb-4" style="--d:0ms">
                     <span class="text-[9px] font-black text-blue-600 uppercase tracking-widest">Platform Telemetry</span>
                     <h2 class="text-xl font-bold text-slate-950 tracking-tight mt-0.5">Pillars Matrix Profile</h2>
                 </div>
-                
+
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs">
+                    <div class="reveal stat-card bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs" style="--d:80ms">
                         <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Active Count</span>
                         <div class="flex items-baseline space-x-1.5 mt-1">
                             <span class="text-xl font-black text-blue-600">0</span>
                             <span class="text-[9px] font-bold text-slate-400 uppercase bg-slate-100 px-1.5 py-0.5 rounded">Pre-Alpha</span>
                         </div>
                     </div>
-                    <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs">
+                    <div class="reveal stat-card bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs" style="--d:140ms">
                         <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Total Visits</span>
                         <div class="text-xl font-black text-slate-950 mt-1">0+</div>
                     </div>
-                    <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs">
+                    <div class="reveal stat-card bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs" style="--d:200ms">
                         <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Favorites</span>
                         <div class="text-xl font-black text-slate-950 mt-1">--</div>
                     </div>
-                    <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs">
+                    <div class="reveal stat-card bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs" style="--d:260ms">
                         <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Cluster State</span>
                         <div class="flex items-center space-x-1.5 mt-2">
-                            <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                            <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full pulse-dot"></span>
                             <span class="text-xs font-bold text-emerald-600 uppercase tracking-wide">Nominal</span>
                         </div>
                     </div>
@@ -107,42 +191,46 @@
         </section>
 
         <section id="games" class="page-section py-4">
-            <div class="mb-10">
+            <div class="reveal mb-8" style="--d:0ms">
                 <h2 class="text-2xl font-black text-slate-950">Studio Pipeline</h2>
                 <p class="text-xs text-slate-400 mt-0.5">Current projects configured inside the HorseWorks development catalog.</p>
             </div>
-            
-            <div class="max-w-md">
-                <div onclick="openGameModal('Pillars (Coming Soon)', 'Pillars is our upcoming strategic puzzle challenge framework. Built on modern server architecture, it targets precision positioning, real-time coordination matrices, and high replay loops.', 'Networking replication clusters are fully compiled. Our studio is now skinning final interface components and finalizing local group verification checks.')" class="bg-white rounded-2xl border border-slate-200 overflow-hidden cursor-pointer hover:border-slate-400 transition shadow-xs flex flex-col justify-between">
-                    <div class="p-5 space-y-4">
-                        <div class="h-44 w-full bg-slate-950 rounded-xl flex flex-col items-center justify-center text-white p-4 border border-slate-800">
-                            <span class="text-lg font-black tracking-widest">PILLARS</span>
-                            <span class="text-[9px] tracking-wider font-mono opacity-50 uppercase mt-0.5">Status: In Production</span>
+
+            <div onclick="openGameModal('Pillars (Coming Soon)', 'Pillars is our upcoming strategic puzzle challenge framework. Built on modern server architecture, it targets precision positioning, real-time coordination matrices, and high replay loops.', 'Networking replication clusters are fully compiled. Our studio is now skinning final interface components and finalizing local group verification checks.')" class="reveal banner-card relative rounded-2xl border border-slate-200 overflow-hidden cursor-pointer group shadow-xs" style="--d:100ms">
+                <div class="pillar-backdrop banner-scale relative aspect-[21/9] w-full flex items-end">
+                    <div class="absolute top-5 left-5 flex flex-col items-start z-10">
+                        <div class="badge-skew bg-white px-3 py-1.5 shadow-sm">
+                            <span class="text-slate-950 font-black text-lg md:text-xl tracking-tight leading-none">PILLARS</span>
                         </div>
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-base font-bold text-slate-950">Pillars</h3>
-                            <span class="text-[10px] font-bold uppercase tracking-wider bg-amber-50 text-amber-700 px-2 py-0.5 rounded border border-amber-100">Coming Soon</span>
+                        <div class="badge-skew bg-blue-600 px-3 py-1 -mt-0.5 ml-1">
+                            <span class="text-white font-black text-[10px] tracking-widest uppercase leading-none">Coming Soon</span>
                         </div>
-                        <p class="text-xs text-slate-500 leading-relaxed">
-                            Prepare to test spatial coordination levels, timing pathways, and fluid network interaction frames. Follow our bulletin board for future early access announcements.
-                        </p>
                     </div>
-                    <div class="px-5 pb-5 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-slate-400">
-                        <span>Strategy / Puzzle</span>
-                        <span class="text-slate-950">Technical Specs &rarr;</span>
+
+                    <div class="relative z-10 w-full flex items-center justify-between px-5 py-4">
+                        <span class="text-[10px] font-bold text-slate-200 uppercase tracking-wider">Strategy / Puzzle</span>
+                        <span class="link-arrow text-[11px] font-bold text-white flex items-center gap-1">
+                            Technical Specs &rarr;
+                        </span>
                     </div>
                 </div>
+            </div>
+
+            <div class="reveal max-w-2xl mt-4" style="--d:200ms">
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Prepare to test spatial coordination levels, timing pathways, and fluid network interaction frames. Follow our bulletin board for future early access announcements.
+                </p>
             </div>
         </section>
 
         <section id="news" class="page-section py-4">
-            <div class="mb-8">
+            <div class="reveal mb-8" style="--d:0ms">
                 <h2 class="text-2xl font-black text-slate-950">Developer Bulletins</h2>
                 <p class="text-xs text-slate-400 mt-0.5">Verified engineering dispatches and system structural releases.</p>
             </div>
-            
+
             <div class="max-w-2xl">
-                <div onclick="openDevLog('Development Update: Pillars Coming Soon!', 'July 08, 2026', 'We are officially deep into the development phase for our upcoming flagship experience, Pillars! Our engineering timeline is strictly locked onto polishing low-overhead Luau network buffers, resolving player viewport synchronization variables, and formatting our clean auto-light site presentation models. Public alpha environment metrics will launch directly within the main community portal layout upon code certification.')" class="bg-white p-5 rounded-xl border border-slate-200 cursor-pointer hover:border-slate-400 transition shadow-xs">
+                <div onclick="openDevLog('Development Update: Pillars Coming Soon!', 'July 08, 2026', 'We are officially deep into the development phase for our upcoming flagship experience, Pillars! Our engineering timeline is strictly locked onto polishing low-overhead Luau network buffers, resolving player viewport synchronization variables, and formatting our clean auto-light site presentation models. Public alpha environment metrics will launch directly within the main community portal layout upon code certification.')" class="reveal bg-white p-5 rounded-xl border border-slate-200 cursor-pointer hover:border-slate-400 hover:-translate-y-0.5 transition shadow-xs" style="--d:100ms">
                     <div class="flex items-center space-x-2 text-[10px] text-blue-600 font-bold tracking-wider mb-1.5">
                         <span>JULY 08, 2026</span><span>•</span><span class="uppercase">PROJECT PRODUCTION REVEAL</span>
                     </div>
@@ -156,19 +244,19 @@
         </section>
 
         <section id="faq" class="page-section py-4 max-w-2xl space-y-6">
-            <div>
+            <div class="reveal" style="--d:0ms">
                 <h2 class="text-2xl font-black text-slate-950">Frequently Asked Questions</h2>
                 <p class="text-xs text-slate-400 mt-0.5">Quick answers regarding game access, platforms, and testing loops.</p>
             </div>
-            
+
             <div class="space-y-4">
-                <div class="bg-white p-5 rounded-xl border border-slate-200">
+                <div class="reveal bg-white p-5 rounded-xl border border-slate-200" style="--d:80ms">
                     <h3 class="text-sm font-bold text-slate-900">When does Pillars release?</h3>
                     <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
                         Pillars is actively under production. We plan to host private developer stress-tests first, followed by public alpha drops. Keep an eye on our DevLogs tab or our official Roblox group for active announcements.
                     </p>
                 </div>
-                <div class="bg-white p-5 rounded-xl border border-slate-200">
+                <div class="reveal bg-white p-5 rounded-xl border border-slate-200" style="--d:160ms">
                     <h3 class="text-sm font-bold text-slate-900">Which platforms will be supported?</h3>
                     <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
                         Our experiences are engineered with adaptive input layouts, optimizing UI scales to support seamless play across PC, Mobile, and Console devices natively.
@@ -177,30 +265,13 @@
             </div>
         </section>
 
-        <section id="careers" class="page-section py-4 max-w-2xl space-y-6">
-            <div>
-                <h2 class="text-2xl font-black text-slate-950">Work With Us</h2>
-                <p class="text-xs text-slate-400 mt-0.5">Help shape the future of immersive Roblox interaction loops.</p>
-            </div>
-            
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 text-xs text-slate-500 space-y-4">
-                <p>
-                    At <strong class="text-slate-900">HorseWorks</strong>, we are always on the lookout for talented 3D environment artists, sound engineers, and creative scripters specialized in optimized Roblox Luau architecture.
-                </p>
-                <div class="p-4 bg-slate-50 border border-slate-100 rounded-xl">
-                    <h3 class="font-bold text-slate-800 mb-1">Open Applications</h3>
-                    <p class="text-slate-400">There are no open public recruitment cycles at this moment. Roles open periodically based on milestone goals.</p>
-                </div>
-            </div>
-        </section>
-
         <section id="about" class="page-section py-4 max-w-2xl space-y-6">
-            <div class="space-y-0.5">
+            <div class="reveal space-y-0.5" style="--d:0ms">
                 <h2 class="text-2xl font-black text-slate-950">Studio Framework</h2>
                 <p class="text-xs text-slate-400">The structural mechanics guiding HorseWorks products.</p>
             </div>
-            
-            <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-4 text-xs leading-relaxed text-slate-500 shadow-xs">
+
+            <div class="reveal bg-white rounded-2xl border border-slate-200 p-6 space-y-4 text-xs leading-relaxed text-slate-500 shadow-xs" style="--d:100ms">
                 <p>
                     <strong class="text-slate-900 font-bold">HorseWorks</strong> functions as an independent software pipeline assembling optimized interactive networks and responsive multiplatform environments directly on the Roblox cloud engine layer.
                 </p>
@@ -224,7 +295,7 @@
     </footer>
 
     <div id="info-modal" class="hidden fixed inset-0 z-50 bg-slate-950/40 backdrop-blur-xs flex items-center justify-center p-4">
-        <div class="bg-white border border-slate-200 w-full max-w-md rounded-2xl p-5 shadow-xl relative">
+        <div id="modal-panel" class="bg-white border border-slate-200 w-full max-w-md rounded-2xl p-5 shadow-xl relative">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-950 font-bold cursor-pointer text-lg transition">&times;</button>
             <div id="modal-content" class="space-y-4 text-slate-800">
                 </div>
@@ -236,20 +307,31 @@
         function switchPage(pageId) {
             document.querySelectorAll('.page-section').forEach(section => section.classList.remove('active'));
             const activeSection = document.getElementById(pageId);
-            if(activeSection) activeSection.classList.add('active');
+            if (activeSection) {
+                activeSection.classList.add('active');
+                replayReveal(activeSection);
+            }
 
-            // Synchronize Nav Tab Elements
             document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.className = "nav-btn px-4 py-2 rounded-lg transition cursor-pointer text-slate-500 hover:text-slate-950 font-bold";
+                btn.className = "nav-btn px-4 py-2 rounded-lg cursor-pointer text-slate-500 hover:text-slate-950 font-bold";
             });
             const targetedNavButton = document.getElementById('nav-' + pageId);
-            if(targetedNavButton) {
-                targetedNavButton.className = "nav-btn px-4 py-2 rounded-lg transition cursor-pointer text-slate-950 bg-white shadow-xs font-bold";
+            if (targetedNavButton) {
+                targetedNavButton.className = "nav-btn px-4 py-2 rounded-lg cursor-pointer text-slate-950 bg-white shadow-xs font-bold";
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Custom Dynamic Dialogue Layout Builders
+        // Re-trigger the reveal animation whenever a section becomes active
+        function replayReveal(section) {
+            const items = section.querySelectorAll('.reveal');
+            items.forEach(el => {
+                el.style.animation = 'none';
+                void el.offsetWidth;
+                el.style.animation = '';
+            });
+        }
+
         function openGameModal(title, desc, pipeline) {
             const container = document.getElementById('modal-content');
             container.innerHTML = `
@@ -265,10 +347,9 @@
                 <div class="pt-3 flex justify-end">
                     <a href="https://www.roblox.com/communities/880902718/Horseworks" target="_blank" class="bg-slate-950 hover:bg-slate-800 text-white font-bold text-xs uppercase px-4 py-2.5 rounded-xl text-center transition tracking-wide">Join Group Profile &rarr;</a>
                 </div>`;
-            document.getElementById('info-modal').classList.remove('hidden');
+            showModal();
         }
 
-        // Devlog Dialog Window Builder
         function openDevLog(title, date, text) {
             const container = document.getElementById('modal-content');
             container.innerHTML = `
@@ -279,12 +360,26 @@
                 <div class="py-2 border-t border-slate-100 text-xs leading-relaxed text-slate-500">
                     ${text}
                 </div>`;
-            document.getElementById('info-modal').classList.remove('hidden');
+            showModal();
+        }
+
+        function showModal() {
+            const modal = document.getElementById('info-modal');
+            const panel = document.getElementById('modal-panel');
+            modal.classList.remove('hidden');
+            panel.style.animation = 'none';
+            void panel.offsetWidth;
+            panel.style.animation = 'revealUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards';
         }
 
         function closeModal() {
             document.getElementById('info-modal').classList.add('hidden');
         }
+
+        // Initial load-in animation
+        document.addEventListener('DOMContentLoaded', () => {
+            replayReveal(document.getElementById('home'));
+        });
     </script>
 </body>
 </html>
