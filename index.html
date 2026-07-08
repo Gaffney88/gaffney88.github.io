@@ -5,305 +5,411 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HorseWorks Studios</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { -webkit-font-smoothing: antialiased; }
+        * { -webkit-font-smoothing: antialiased; box-sizing: border-box; }
+        body {
+            overflow-x: hidden;
+            background: #FBF3E7;
+            color: #2B2320;
+            font-family: 'Nunito', sans-serif;
+        }
+        .font-display { font-family: 'Baloo 2', cursive; }
 
-        body { overflow-x: hidden; }
-
-        /* Section transitions */
         .page-section { display: none; }
         .page-section.active { display: block; }
 
-        /* Reveal-on-entry animation */
         @keyframes revealUp {
-            from { opacity: 0; transform: translateY(14px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(14px) rotate(var(--r, 0deg)); }
+            to { opacity: 1; transform: translateY(0) rotate(var(--r, 0deg)); }
         }
-        .reveal {
-            opacity: 0;
-            animation: revealUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: var(--d, 0ms);
-        }
+        .reveal { opacity: 0; animation: revealUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: var(--d, 0ms); }
 
-        /* Featured banner backdrop: vertical pillar motif */
+        @keyframes floaty { 0%, 100% { transform: translateY(0) rotate(var(--r,0deg)); } 50% { transform: translateY(-8px) rotate(var(--r,0deg)); } }
+        .floaty { animation: floaty 4s ease-in-out infinite; }
+
+        @keyframes wiggle { 0%, 100% { transform: rotate(var(--r,-3deg)); } 50% { transform: rotate(calc(var(--r,-3deg) * -1)); } }
+        .wiggle-hover:hover { animation: wiggle 0.5s ease-in-out; }
+
+        /* Sticker / neobrutalist card style */
+        .sticker {
+            background: #fff;
+            border: 2.5px solid #2B2320;
+            border-radius: 20px;
+            box-shadow: 5px 5px 0 #2B2320;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+        .sticker:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 #2B2320; }
+        .sticker:active { transform: translate(1px, 1px); box-shadow: 3px 3px 0 #2B2320; }
+
+        .btn-pop {
+            border: 2.5px solid #2B2320;
+            box-shadow: 4px 4px 0 #2B2320;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .btn-pop:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #2B2320; }
+        .btn-pop:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #2B2320; }
+
+        .nav-btn { transition: all 0.2s ease; }
+
         .pillar-backdrop {
-            background-color: #0a0f1e;
+            background-color: #1a1530;
             background-image:
-                linear-gradient(180deg, rgba(10,15,30,0) 30%, rgba(10,15,30,0.92) 100%),
-                repeating-linear-gradient(90deg, rgba(148,163,184,0.14) 0px, rgba(148,163,184,0.14) 2px, transparent 2px, transparent 36px);
-            transition: background-position 0.8s ease;
+                linear-gradient(180deg, rgba(26,21,48,0) 30%, rgba(26,21,48,0.92) 100%),
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 2px, transparent 2px, transparent 36px);
         }
         .pillar-backdrop::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(55% 75% at 80% 15%, rgba(37,99,235,0.45), transparent 70%);
+            background: radial-gradient(55% 75% at 80% 15%, rgba(255,107,74,0.4), transparent 70%);
             pointer-events: none;
         }
-        .banner-card:hover .pillar-backdrop {
-            background-position: 0 -6px;
-        }
-        .banner-card:hover .banner-scale {
-            transform: scale(1.03);
-        }
-        .banner-scale {
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        .banner-card:hover .banner-scale { transform: scale(1.03) rotate(0deg); }
+        .banner-scale { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
 
-        .badge-skew { transform: skewX(-8deg); }
-        .badge-skew > span { display: inline-block; transform: skewX(8deg); }
-
-        @keyframes softPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.55; }
-        }
-        .pulse-dot { animation: softPulse 2s ease-in-out infinite; }
-
-        .stat-card { transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease; }
-        .stat-card:hover { transform: translateY(-3px); border-color: #cbd5e1; box-shadow: 0 8px 20px -8px rgba(15, 23, 42, 0.12); }
-
-        .nav-btn { transition: color 0.25s ease, background-color 0.25s ease; }
-
-        .link-arrow { transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
-        .group:hover .link-arrow { transform: translateX(3px); }
+        .confetti-piece { position: fixed; top: -10px; z-index: 9999; pointer-events: none; border-radius: 2px; }
     </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-900 font-sans antialiased selection:bg-slate-950 selection:text-white">
+<body>
 
-    <header class="fixed top-0 left-0 w-full z-50 bg-[#f8fafc]/80 backdrop-blur-md border-b border-slate-200/60">
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#FBF3E7]/90 backdrop-blur-md border-b-[2.5px] border-[#2B2320]">
         <div class="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
-            <button onclick="switchPage('home')" class="text-lg font-black tracking-tight uppercase cursor-pointer text-slate-950 hover:opacity-80 transition">
-                HorseWorks
+            <button onclick="switchPage('home')" class="font-display flex items-center gap-2 text-xl font-extrabold tracking-tight cursor-pointer hover:-rotate-1 transition">
+                <span class="text-2xl">🐴</span> HorseWorks
             </button>
 
-            <nav class="hidden md:flex items-center space-x-1 bg-slate-200/40 p-1 rounded-xl text-xs font-bold text-slate-600">
-                <button onclick="switchPage('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-lg cursor-pointer text-slate-950 bg-white shadow-xs">Home</button>
-                <button onclick="switchPage('games')" id="nav-games" class="nav-btn px-4 py-2 rounded-lg cursor-pointer hover:text-slate-950">Our Game</button>
-                <button onclick="switchPage('news')" id="nav-news" class="nav-btn px-4 py-2 rounded-lg cursor-pointer hover:text-slate-950">DevLogs</button>
-                <button onclick="switchPage('faq')" id="nav-faq" class="nav-btn px-4 py-2 rounded-lg cursor-pointer hover:text-slate-950">FAQ</button>
-                <button onclick="switchPage('about')" id="nav-about" class="nav-btn px-4 py-2 rounded-lg cursor-pointer hover:text-slate-950">About</button>
+            <nav class="hidden md:flex items-center gap-1 text-xs font-extrabold">
+                <button onclick="switchPage('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-full cursor-pointer bg-[#2B2320] text-[#FBF3E7]">Home</button>
+                <button onclick="switchPage('games')" id="nav-games" class="nav-btn px-4 py-2 rounded-full cursor-pointer hover:bg-[#2B2320]/10">Our Game</button>
+                <button onclick="switchPage('team')" id="nav-team" class="nav-btn px-4 py-2 rounded-full cursor-pointer hover:bg-[#2B2320]/10">The Crew</button>
+                <button onclick="switchPage('news')" id="nav-news" class="nav-btn px-4 py-2 rounded-full cursor-pointer hover:bg-[#2B2320]/10">DevLogs</button>
+                <button onclick="switchPage('faq')" id="nav-faq" class="nav-btn px-4 py-2 rounded-full cursor-pointer hover:bg-[#2B2320]/10">FAQ</button>
+                <button onclick="switchPage('about')" id="nav-about" class="nav-btn px-4 py-2 rounded-full cursor-pointer hover:bg-[#2B2320]/10">About</button>
             </nav>
 
-            <div>
-                <a href="https://www.roblox.com/communities/880902718/Horseworks" target="_blank" class="bg-slate-950 hover:bg-slate-800 text-white font-bold text-xs uppercase px-4 py-2.5 rounded-xl transition tracking-wide shadow-xs">Join Group</a>
-            </div>
+            <a href="https://www.roblox.com/communities/880902718/Horseworks" target="_blank" onclick="burstConfetti(event)" class="btn-pop bg-[#FF6B4A] text-[#2B2320] font-extrabold text-xs uppercase px-4 py-2.5 rounded-full">Join the Group</a>
         </div>
     </header>
 
-    <main class="pt-28 pb-16 min-h-[calc(100vh-80px)] px-6 max-w-5xl mx-auto">
+    <main class="pt-28 pb-20 px-6 max-w-5xl mx-auto">
 
-        <section id="home" class="page-section active py-4 space-y-12">
+        <section id="home" class="page-section active py-4 space-y-16">
 
-            <div class="grid md:grid-cols-12 gap-12 items-center">
+            <div class="grid md:grid-cols-12 gap-10 items-center relative">
+                <div class="hidden md:block absolute -top-6 right-10 text-4xl floaty" style="--r:8deg">⭐</div>
+                <div class="hidden md:block absolute top-24 -right-2 text-3xl floaty" style="--r:-6deg; animation-delay: -1.5s">✨</div>
+
                 <div class="md:col-span-7 space-y-5">
-                    <div class="reveal inline-flex items-center space-x-2 text-blue-600 font-bold text-[10px] uppercase tracking-wider bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100/60" style="--d:0ms">
-                        <span class="w-1.5 h-1.5 bg-blue-600 rounded-full pulse-dot"></span>
-                        <span>Project Status: In Production</span>
+                    <div class="reveal inline-flex items-center gap-2 font-display font-bold text-xs bg-[#FFC857] px-3 py-1.5 rounded-full border-2 border-[#2B2320] -rotate-2" style="--d:0ms; --r:-2deg">
+                        🚧 Building this thing in public
                     </div>
-                    <h1 class="reveal text-3xl md:text-5xl font-black leading-tight tracking-tight text-slate-950" style="--d:80ms">
-                        Next-Gen Roblox<br class="hidden md:block"> Experience <span class="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">Engineering.</span>
+                    <h1 class="reveal font-display text-4xl md:text-6xl font-extrabold leading-[1.05] tracking-tight" style="--d:80ms">
+                        Hey, we're HorseWorks.<br>
+                        We make <span class="text-[#FF6B4A]">games</span> for Roblox.
                     </h1>
-                    <p class="reveal text-slate-500 text-xs md:text-sm max-w-lg leading-relaxed" style="--d:160ms">
-                        Welcome to HorseWorks. We engineer high-fidelity spatial interactions, low-overhead networking modules, and deeply rewarding mechanics designed exclusively for the Roblox platform ecosystem.
+                    <p class="reveal text-[#2B2320]/70 text-sm md:text-base max-w-lg leading-relaxed" style="--d:160ms">
+                        A tiny crew that likes puzzles, tight controls, and shipping things that are actually fun. Right now every ounce of energy is going into our first game, <strong>Pillars</strong>. Come hang out while we build it.
                     </p>
-                    <div class="reveal flex items-center space-x-4 pt-1" style="--d:240ms">
-                        <button onclick="switchPage('games')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase px-5 py-3 rounded-xl cursor-pointer transition shadow-xs hover:shadow-md hover:-translate-y-0.5">Explore Pillars</button>
-                        <button onclick="switchPage('news')" class="bg-slate-950 hover:bg-slate-800 text-white text-xs font-bold uppercase px-5 py-3 rounded-xl cursor-pointer transition hover:-translate-y-0.5">Read DevLogs</button>
+                    <div class="reveal flex flex-wrap items-center gap-4 pt-1" style="--d:240ms">
+                        <button onclick="switchPage('games')" class="btn-pop bg-[#2EC4B6] text-[#2B2320] font-extrabold text-xs uppercase px-5 py-3 rounded-full cursor-pointer">Peek at Pillars 👀</button>
+                        <button onclick="switchPage('news')" class="btn-pop bg-white text-[#2B2320] font-extrabold text-xs uppercase px-5 py-3 rounded-full cursor-pointer">Read the DevLogs</button>
                     </div>
                 </div>
 
-                <div class="md:col-span-5 reveal" style="--d:200ms">
-                    <div class="p-6 bg-white border border-slate-200 rounded-2xl shadow-xs space-y-4">
-                        <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Live Traffic Monitor</span>
-                        <div>
-                            <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Active Players</h3>
-                            <div class="flex items-baseline space-x-2 mt-1">
-                                <span class="text-4xl font-black text-slate-900 tracking-tight">0</span>
-                                <span class="text-xs font-bold text-amber-600 uppercase bg-amber-50 border border-amber-100 px-2 py-0.5 rounded-md">Pending Alpha Release</span>
-                            </div>
+                <div class="md:col-span-5 reveal" style="--d:200ms; --r:2deg">
+                    <div class="sticker p-6 space-y-4 rotate-1">
+                        <span class="font-display font-bold text-xs uppercase tracking-wide block">Sneak peek 🐎</span>
+                        <div class="bg-[#1a1530] rounded-2xl h-32 flex items-center justify-center text-4xl">
+                            🏗️
                         </div>
-                        <p class="text-xs text-slate-400 leading-relaxed pt-2 border-t border-slate-100">
-                            Public player counts will populate here synchronously as soon as the active game build goes live on the Roblox domain portal.
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-3xl font-extrabold font-display">Soon<span class="text-[#FF6B4A]">™</span></span>
+                        </div>
+                        <p class="text-xs text-[#2B2320]/60 leading-relaxed pt-2 border-t-2 border-dashed border-[#2B2320]/20">
+                            Real screenshots land here the moment we're not embarrassed by them.
                         </p>
                     </div>
                 </div>
             </div>
 
             <!-- Featured Games banner -->
-            <div class="pt-6 border-t border-slate-200/60">
-                <div class="reveal mb-4" style="--d:0ms">
-                    <span class="text-[9px] font-black text-blue-600 uppercase tracking-widest">Studio Pipeline</span>
-                    <h2 class="text-xl font-bold text-slate-950 tracking-tight mt-0.5">Featured Games</h2>
+            <div class="space-y-4">
+                <div class="reveal" style="--d:0ms">
+                    <span class="font-display font-bold text-xs uppercase text-[#FF6B4A]">Our first game</span>
+                    <h2 class="font-display text-2xl font-extrabold tracking-tight mt-0.5">Featured game</h2>
                 </div>
 
-                <div onclick="switchPage('games')" class="reveal banner-card relative rounded-2xl border border-slate-200 overflow-hidden cursor-pointer group shadow-xs" style="--d:100ms">
+                <div onclick="switchPage('games')" class="reveal banner-card relative rounded-3xl border-2.5 border-[#2B2320] overflow-hidden cursor-pointer group shadow-[6px_6px_0_#2B2320]" style="--d:100ms; border-width:2.5px">
                     <div class="pillar-backdrop banner-scale relative aspect-[21/9] w-full flex items-end">
                         <div class="absolute top-5 left-5 flex flex-col items-start z-10">
-                            <div class="badge-skew bg-white px-3 py-1.5 shadow-sm">
-                                <span class="text-slate-950 font-black text-lg md:text-xl tracking-tight leading-none">PILLARS</span>
+                            <div class="bg-white px-3 py-1.5 rounded-xl border-2 border-[#2B2320] -rotate-2">
+                                <span class="font-display text-[#2B2320] font-extrabold text-lg md:text-xl tracking-tight leading-none">PILLARS</span>
                             </div>
-                            <div class="badge-skew bg-blue-600 px-3 py-1 -mt-0.5 ml-1">
-                                <span class="text-white font-black text-[10px] tracking-widest uppercase leading-none">Coming Soon</span>
+                            <div class="bg-[#FF6B4A] px-3 py-1 mt-1.5 rounded-lg border-2 border-[#2B2320] rotate-1">
+                                <span class="text-[#2B2320] font-extrabold text-[10px] tracking-widest uppercase leading-none">Coming soon</span>
                             </div>
                         </div>
 
                         <div class="relative z-10 w-full flex items-center justify-between px-5 py-4">
-                            <span class="text-[10px] font-bold text-slate-200 uppercase tracking-wider">Strategy / Puzzle</span>
-                            <span class="link-arrow text-[11px] font-bold text-white flex items-center gap-1">
-                                View Details &rarr;
+                            <span class="text-[10px] font-bold text-white/80 uppercase tracking-wider">Strategy · Puzzle</span>
+                            <span class="text-[11px] font-extrabold text-white flex items-center gap-1">
+                                Take a look &rarr;
                             </span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="pt-6 border-t border-slate-200/60">
-                <div class="reveal mb-4" style="--d:0ms">
-                    <span class="text-[9px] font-black text-blue-600 uppercase tracking-widest">Platform Telemetry</span>
-                    <h2 class="text-xl font-bold text-slate-950 tracking-tight mt-0.5">Pillars Matrix Profile</h2>
+            <!-- Squad stats -->
+            <div class="space-y-4">
+                <div class="reveal" style="--d:0ms">
+                    <span class="font-display font-bold text-xs uppercase text-[#FF6B4A]">The numbers that matter</span>
+                    <h2 class="font-display text-2xl font-extrabold tracking-tight mt-0.5">Squad stats</h2>
                 </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="reveal stat-card bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs" style="--d:80ms">
-                        <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Active Count</span>
-                        <div class="flex items-baseline space-x-1.5 mt-1">
-                            <span class="text-xl font-black text-blue-600">0</span>
-                            <span class="text-[9px] font-bold text-slate-400 uppercase bg-slate-100 px-1.5 py-0.5 rounded">Pre-Alpha</span>
+                    <div class="reveal sticker p-4 -rotate-1" style="--d:80ms">
+                        <span class="text-2xl block mb-1">🧑‍🤝‍🧑</span>
+                        <span class="block text-[10px] font-bold uppercase text-[#2B2320]/50">Humans on the team</span>
+                        <div class="text-2xl font-display font-extrabold mt-1">4</div>
+                    </div>
+                    <div class="reveal sticker p-4 rotate-1" style="--d:140ms">
+                        <span class="text-2xl block mb-1">🐛</span>
+                        <span class="block text-[10px] font-bold uppercase text-[#2B2320]/50">Bugs squashed</span>
+                        <div class="text-2xl font-display font-extrabold mt-1">137</div>
+                    </div>
+                    <div class="reveal sticker p-4 -rotate-1" style="--d:200ms">
+                        <span class="text-2xl block mb-1">☕</span>
+                        <span class="block text-[10px] font-bold uppercase text-[#2B2320]/50">Cups of coffee</span>
+                        <div class="text-2xl font-display font-extrabold mt-1">∞</div>
+                    </div>
+                    <div class="reveal sticker p-4 rotate-1" style="--d:260ms">
+                        <span class="text-2xl block mb-1">🎮</span>
+                        <span class="block text-[10px] font-bold uppercase text-[#2B2320]/50">Playtests run</span>
+                        <div class="text-2xl font-display font-extrabold mt-1">22</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Roadmap -->
+            <div class="space-y-4">
+                <div class="reveal" style="--d:0ms">
+                    <span class="font-display font-bold text-xs uppercase text-[#FF6B4A]">Where we're headed</span>
+                    <h2 class="font-display text-2xl font-extrabold tracking-tight mt-0.5">The roadmap (roughly)</h2>
+                </div>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="reveal sticker p-5 space-y-2" style="--d:80ms">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-[#2EC4B6] border-2 border-[#2B2320]"></span>
+                            <span class="font-display font-bold text-xs uppercase">Right now</span>
                         </div>
+                        <p class="text-xs text-[#2B2320]/70 leading-relaxed">Building core mechanics, breaking them, fixing them, breaking them again.</p>
                     </div>
-                    <div class="reveal stat-card bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs" style="--d:140ms">
-                        <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Total Visits</span>
-                        <div class="text-xl font-black text-slate-950 mt-1">0+</div>
-                    </div>
-                    <div class="reveal stat-card bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs" style="--d:200ms">
-                        <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Favorites</span>
-                        <div class="text-xl font-black text-slate-950 mt-1">--</div>
-                    </div>
-                    <div class="reveal stat-card bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs" style="--d:260ms">
-                        <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-wider">Cluster State</span>
-                        <div class="flex items-center space-x-1.5 mt-2">
-                            <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full pulse-dot"></span>
-                            <span class="text-xs font-bold text-emerald-600 uppercase tracking-wide">Nominal</span>
+                    <div class="reveal sticker p-5 space-y-2" style="--d:160ms">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-[#FFC857] border-2 border-[#2B2320]"></span>
+                            <span class="font-display font-bold text-xs uppercase">Up next</span>
                         </div>
+                        <p class="text-xs text-[#2B2320]/70 leading-relaxed">Private stress-tests with folks from our Roblox group. You could be one of them.</p>
+                    </div>
+                    <div class="reveal sticker p-5 space-y-2" style="--d:240ms">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-[#FF6B4A] border-2 border-[#2B2320]"></span>
+                            <span class="font-display font-bold text-xs uppercase">Later</span>
+                        </div>
+                        <p class="text-xs text-[#2B2320]/70 leading-relaxed">Public alpha. Nervous excitement. Probably a launch day snack run.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="games" class="page-section py-4">
-            <div class="reveal mb-8" style="--d:0ms">
-                <h2 class="text-2xl font-black text-slate-950">Studio Pipeline</h2>
-                <p class="text-xs text-slate-400 mt-0.5">Current projects configured inside the HorseWorks development catalog.</p>
+        <section id="games" class="page-section py-4 space-y-8">
+            <div class="reveal" style="--d:0ms">
+                <h2 class="font-display text-3xl font-extrabold">Our game</h2>
+                <p class="text-sm text-[#2B2320]/60 mt-1">The one and only thing we're pouring ourselves into right now.</p>
             </div>
 
-            <div onclick="openGameModal('Pillars (Coming Soon)', 'Pillars is our upcoming strategic puzzle challenge framework. Built on modern server architecture, it targets precision positioning, real-time coordination matrices, and high replay loops.', 'Networking replication clusters are fully compiled. Our studio is now skinning final interface components and finalizing local group verification checks.')" class="reveal banner-card relative rounded-2xl border border-slate-200 overflow-hidden cursor-pointer group shadow-xs" style="--d:100ms">
+            <div onclick="openGameModal('Pillars (Coming Soon)', 'Pillars is a strategic puzzle game about positioning, timing, and reading your opponent. Think fast, place smart, and don\'t get boxed in.', 'Core mechanics and networking are done. Right now we\'re polishing the interface and running small group playtests before opening things up wider.')" class="reveal banner-card relative rounded-3xl border-[2.5px] border-[#2B2320] overflow-hidden cursor-pointer group shadow-[6px_6px_0_#2B2320]" style="--d:100ms">
                 <div class="pillar-backdrop banner-scale relative aspect-[21/9] w-full flex items-end">
                     <div class="absolute top-5 left-5 flex flex-col items-start z-10">
-                        <div class="badge-skew bg-white px-3 py-1.5 shadow-sm">
-                            <span class="text-slate-950 font-black text-lg md:text-xl tracking-tight leading-none">PILLARS</span>
+                        <div class="bg-white px-3 py-1.5 rounded-xl border-2 border-[#2B2320] -rotate-2">
+                            <span class="font-display text-[#2B2320] font-extrabold text-lg md:text-xl tracking-tight leading-none">PILLARS</span>
                         </div>
-                        <div class="badge-skew bg-blue-600 px-3 py-1 -mt-0.5 ml-1">
-                            <span class="text-white font-black text-[10px] tracking-widest uppercase leading-none">Coming Soon</span>
+                        <div class="bg-[#FF6B4A] px-3 py-1 mt-1.5 rounded-lg border-2 border-[#2B2320] rotate-1">
+                            <span class="text-[#2B2320] font-extrabold text-[10px] tracking-widest uppercase leading-none">Coming soon</span>
                         </div>
                     </div>
-
                     <div class="relative z-10 w-full flex items-center justify-between px-5 py-4">
-                        <span class="text-[10px] font-bold text-slate-200 uppercase tracking-wider">Strategy / Puzzle</span>
-                        <span class="link-arrow text-[11px] font-bold text-white flex items-center gap-1">
-                            Technical Specs &rarr;
-                        </span>
+                        <span class="text-[10px] font-bold text-white/80 uppercase tracking-wider">Strategy · Puzzle</span>
+                        <span class="text-[11px] font-extrabold text-white flex items-center gap-1">Tap for details &rarr;</span>
                     </div>
                 </div>
             </div>
 
-            <div class="reveal max-w-2xl mt-4" style="--d:200ms">
-                <p class="text-xs text-slate-500 leading-relaxed">
-                    Prepare to test spatial coordination levels, timing pathways, and fluid network interaction frames. Follow our bulletin board for future early access announcements.
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="reveal sticker p-5" style="--d:80ms">
+                    <span class="text-2xl block mb-2">🧠</span>
+                    <h3 class="font-display font-bold text-sm mb-1">Actually think</h3>
+                    <p class="text-xs text-[#2B2320]/60 leading-relaxed">Real decisions every round, not just reflexes.</p>
+                </div>
+                <div class="reveal sticker p-5" style="--d:160ms">
+                    <span class="text-2xl block mb-2">⚡</span>
+                    <h3 class="font-display font-bold text-sm mb-1">Fast rounds</h3>
+                    <p class="text-xs text-[#2B2320]/60 leading-relaxed">Quick to learn, easy to fall into a "one more round."</p>
+                </div>
+                <div class="reveal sticker p-5" style="--d:240ms">
+                    <span class="text-2xl block mb-2">📱</span>
+                    <h3 class="font-display font-bold text-sm mb-1">Plays anywhere</h3>
+                    <p class="text-xs text-[#2B2320]/60 leading-relaxed">PC, mobile, or console — same great chaos.</p>
+                </div>
+            </div>
+
+            <div class="reveal max-w-2xl" style="--d:280ms">
+                <p class="text-sm text-[#2B2320]/60 leading-relaxed">
+                    Want early access before anyone else? Join our Roblox group — that's where we post playtest invites first.
                 </p>
             </div>
         </section>
 
-        <section id="news" class="page-section py-4">
-            <div class="reveal mb-8" style="--d:0ms">
-                <h2 class="text-2xl font-black text-slate-950">Developer Bulletins</h2>
-                <p class="text-xs text-slate-400 mt-0.5">Verified engineering dispatches and system structural releases.</p>
+        <section id="team" class="page-section py-4 space-y-8">
+            <div class="reveal" style="--d:0ms">
+                <h2 class="font-display text-3xl font-extrabold">Meet the crew</h2>
+                <p class="text-sm text-[#2B2320]/60 mt-1">Small team, big opinions about level design.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4">
+                <div class="reveal sticker p-5 flex items-start gap-4" style="--d:80ms">
+                    <div class="w-14 h-14 shrink-0 rounded-2xl bg-[#2EC4B6] border-2 border-[#2B2320] flex items-center justify-center text-2xl">🛠️</div>
+                    <div>
+                        <h3 class="font-display font-bold text-sm">Lead builder</h3>
+                        <p class="text-[11px] text-[#2B2320]/50 font-bold uppercase mb-1">@studio-founder</p>
+                        <p class="text-xs text-[#2B2320]/60 leading-relaxed">Draws the levels, argues with the physics engine, usually wins.</p>
+                    </div>
+                </div>
+                <div class="reveal sticker p-5 flex items-start gap-4" style="--d:140ms">
+                    <div class="w-14 h-14 shrink-0 rounded-2xl bg-[#FFC857] border-2 border-[#2B2320] flex items-center justify-center text-2xl">🎨</div>
+                    <div>
+                        <h3 class="font-display font-bold text-sm">Art & vibes</h3>
+                        <p class="text-[11px] text-[#2B2320]/50 font-bold uppercase mb-1">@pixel-wrangler</p>
+                        <p class="text-xs text-[#2B2320]/60 leading-relaxed">Makes everything look like it belongs in the same universe.</p>
+                    </div>
+                </div>
+                <div class="reveal sticker p-5 flex items-start gap-4" style="--d:200ms">
+                    <div class="w-14 h-14 shrink-0 rounded-2xl bg-[#FF6B4A] border-2 border-[#2B2320] flex items-center justify-center text-2xl">🎧</div>
+                    <div>
+                        <h3 class="font-display font-bold text-sm">Sound & sfx</h3>
+                        <p class="text-[11px] text-[#2B2320]/50 font-bold uppercase mb-1">@ear-candy</p>
+                        <p class="text-xs text-[#2B2320]/60 leading-relaxed">If it doesn't feel satisfying to click, it gets redone.</p>
+                    </div>
+                </div>
+                <div class="reveal sticker p-5 flex items-start gap-4" style="--d:260ms">
+                    <div class="w-14 h-14 shrink-0 rounded-2xl bg-[#B8A6FF] border-2 border-[#2B2320] flex items-center justify-center text-2xl">🐞</div>
+                    <div>
+                        <h3 class="font-display font-bold text-sm">Bug whisperer</h3>
+                        <p class="text-[11px] text-[#2B2320]/50 font-bold uppercase mb-1">@ctrl-z-hero</p>
+                        <p class="text-xs text-[#2B2320]/60 leading-relaxed">Finds the edge case nobody thought to test. Every time.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal sticker p-6" style="--d:320ms">
+                <h3 class="font-display font-bold text-base mb-1">Want to hang out or help out?</h3>
+                <p class="text-xs text-[#2B2320]/60 leading-relaxed mb-3">We're not hiring formally right now, but we're always up for meeting other builders, artists, and players in our Roblox group. Come say hi.</p>
+                <a href="https://www.roblox.com/communities/880902718/Horseworks" target="_blank" onclick="burstConfetti(event)" class="btn-pop inline-block bg-[#2EC4B6] text-[#2B2320] font-extrabold text-xs uppercase px-5 py-3 rounded-full">Say hello 👋</a>
+            </div>
+        </section>
+
+        <section id="news" class="page-section py-4 space-y-6">
+            <div class="reveal" style="--d:0ms">
+                <h2 class="font-display text-3xl font-extrabold">DevLogs</h2>
+                <p class="text-sm text-[#2B2320]/60 mt-1">What we've been up to, mistakes included.</p>
             </div>
 
             <div class="max-w-2xl">
-                <div onclick="openDevLog('Development Update: Pillars Coming Soon!', 'July 08, 2026', 'We are officially deep into the development phase for our upcoming flagship experience, Pillars! Our engineering timeline is strictly locked onto polishing low-overhead Luau network buffers, resolving player viewport synchronization variables, and formatting our clean auto-light site presentation models. Public alpha environment metrics will launch directly within the main community portal layout upon code certification.')" class="reveal bg-white p-5 rounded-xl border border-slate-200 cursor-pointer hover:border-slate-400 hover:-translate-y-0.5 transition shadow-xs" style="--d:100ms">
-                    <div class="flex items-center space-x-2 text-[10px] text-blue-600 font-bold tracking-wider mb-1.5">
-                        <span>JULY 08, 2026</span><span>•</span><span class="uppercase">PROJECT PRODUCTION REVEAL</span>
+                <div onclick="openDevLog('Pillars is coming!', 'July 08, 2026', 'We\'re deep in it: polishing the networking, fixing the viewport so nothing looks weird on mobile, and giving the site a coat of paint that actually feels like us. Playtest invites go out through the Roblox group first, so that\'s the place to be.')" class="reveal sticker p-5 cursor-pointer" style="--d:100ms">
+                    <div class="flex items-center gap-2 text-[10px] text-[#FF6B4A] font-extrabold tracking-wider mb-1.5">
+                        <span>JULY 08, 2026</span><span>•</span><span class="uppercase">Big update</span>
                     </div>
-                    <h3 class="text-base font-bold text-slate-950">Development Update: Pillars Coming Soon!</h3>
-                    <p class="text-xs text-slate-500 mt-1.5 leading-relaxed line-clamp-2">
-                        An engineering update detailing layout criteria protocols, system networking overhauls, and general project progression releases for Pillars.
+                    <h3 class="font-display text-base font-bold">Pillars is coming!</h3>
+                    <p class="text-xs text-[#2B2320]/60 mt-1.5 leading-relaxed line-clamp-2">
+                        A quick look at where the game's at, what's left, and how to get in early.
                     </p>
-                    <span class="inline-block text-[11px] font-bold text-blue-600 mt-3 hover:underline">Read Broad Bulletin &rarr;</span>
+                    <span class="inline-block text-[11px] font-extrabold text-[#FF6B4A] mt-3">Read the full log &rarr;</span>
                 </div>
             </div>
         </section>
 
         <section id="faq" class="page-section py-4 max-w-2xl space-y-6">
             <div class="reveal" style="--d:0ms">
-                <h2 class="text-2xl font-black text-slate-950">Frequently Asked Questions</h2>
-                <p class="text-xs text-slate-400 mt-0.5">Quick answers regarding game access, platforms, and testing loops.</p>
+                <h2 class="font-display text-3xl font-extrabold">FAQ</h2>
+                <p class="text-sm text-[#2B2320]/60 mt-1">The stuff people actually ask us.</p>
             </div>
 
             <div class="space-y-4">
-                <div class="reveal bg-white p-5 rounded-xl border border-slate-200" style="--d:80ms">
-                    <h3 class="text-sm font-bold text-slate-900">When does Pillars release?</h3>
-                    <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
-                        Pillars is actively under production. We plan to host private developer stress-tests first, followed by public alpha drops. Keep an eye on our DevLogs tab or our official Roblox group for active announcements.
+                <div class="reveal sticker p-5" style="--d:80ms">
+                    <h3 class="font-display font-bold text-sm">When can I play Pillars?</h3>
+                    <p class="text-xs text-[#2B2320]/60 mt-1.5 leading-relaxed">
+                        Soon-ish! We're running small private playtests before opening it up. Join the Roblox group so you're first in line for an invite.
                     </p>
                 </div>
-                <div class="reveal bg-white p-5 rounded-xl border border-slate-200" style="--d:160ms">
-                    <h3 class="text-sm font-bold text-slate-900">Which platforms will be supported?</h3>
-                    <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
-                        Our experiences are engineered with adaptive input layouts, optimizing UI scales to support seamless play across PC, Mobile, and Console devices natively.
+                <div class="reveal sticker p-5" style="--d:160ms">
+                    <h3 class="font-display font-bold text-sm">What can I play it on?</h3>
+                    <p class="text-xs text-[#2B2320]/60 mt-1.5 leading-relaxed">
+                        PC, mobile, or console — we're building it to feel good no matter how you're holding your device.
+                    </p>
+                </div>
+                <div class="reveal sticker p-5" style="--d:240ms">
+                    <h3 class="font-display font-bold text-sm">Are you hiring?</h3>
+                    <p class="text-xs text-[#2B2320]/60 mt-1.5 leading-relaxed">
+                        Not formally, but we love meeting people who build things. Pop into our Roblox group and say hi.
                     </p>
                 </div>
             </div>
         </section>
 
         <section id="about" class="page-section py-4 max-w-2xl space-y-6">
-            <div class="reveal space-y-0.5" style="--d:0ms">
-                <h2 class="text-2xl font-black text-slate-950">Studio Framework</h2>
-                <p class="text-xs text-slate-400">The structural mechanics guiding HorseWorks products.</p>
+            <div class="reveal" style="--d:0ms">
+                <h2 class="font-display text-3xl font-extrabold">About us</h2>
+                <p class="text-sm text-[#2B2320]/60 mt-1">The short version.</p>
             </div>
 
-            <div class="reveal bg-white rounded-2xl border border-slate-200 p-6 space-y-4 text-xs leading-relaxed text-slate-500 shadow-xs" style="--d:100ms">
+            <div class="reveal sticker p-6 space-y-4 text-sm leading-relaxed text-[#2B2320]/70" style="--d:100ms">
                 <p>
-                    <strong class="text-slate-900 font-bold">HorseWorks</strong> functions as an independent software pipeline assembling optimized interactive networks and responsive multiplatform environments directly on the Roblox cloud engine layer.
+                    <strong class="text-[#2B2320]">HorseWorks</strong> is a small, independent team building games on Roblox. No big studio, no suits — just a handful of people who like making things that are satisfying to play.
                 </p>
                 <p>
-                    Rather than building multiple unoptimized projects, our studio channels resources into specialized core logic modules. By centering our design cycles entirely around our upcoming title <span class="font-bold text-slate-950">Pillars</span>, we guarantee long-term stability matrices and balanced rulesets for all group profile assets.
+                    Instead of spreading ourselves across ten half-finished ideas, we're putting everything into one game first: <span class="font-bold text-[#2B2320]">Pillars</span>. If it goes well, there'll be more where that came from.
+                </p>
+                <p class="text-xs text-[#2B2320]/50">
+                    (And yes — "HorseWorks" is just a name we liked. No relation to any other Horse Works, HorseWorks, or horse-adjacent business out there.)
                 </p>
             </div>
         </section>
 
     </main>
 
-    <footer class="bg-[#f8fafc] border-t border-slate-200/60 py-10 text-center text-[11px] text-slate-400 font-medium">
+    <footer class="border-t-[2.5px] border-[#2B2320] py-10 text-center text-xs text-[#2B2320]/60 font-bold">
         <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p>&copy; 2026 HorseWorks Studios. Clean architecture compiled successfully.</p>
-            <div class="space-x-3">
-                <a href="https://www.roblox.com/communities/880902718/Horseworks" target="_blank" class="hover:text-slate-900 font-bold transition">Roblox Portal</a>
+            <p>Made with 🧡 (and probably too much caffeine) by HorseWorks, 2026.</p>
+            <div class="flex items-center gap-3">
+                <a href="https://www.roblox.com/communities/880902718/Horseworks" target="_blank" class="hover:text-[#FF6B4A] transition">Roblox group</a>
                 <span>•</span>
-                <button onclick="switchPage('news')" class="hover:text-slate-900 transition cursor-pointer">System Dispatches</button>
+                <button onclick="switchPage('news')" class="hover:text-[#FF6B4A] transition cursor-pointer">DevLogs</button>
             </div>
         </div>
     </footer>
 
-    <div id="info-modal" class="hidden fixed inset-0 z-50 bg-slate-950/40 backdrop-blur-xs flex items-center justify-center p-4">
-        <div id="modal-panel" class="bg-white border border-slate-200 w-full max-w-md rounded-2xl p-5 shadow-xl relative">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-950 font-bold cursor-pointer text-lg transition">&times;</button>
-            <div id="modal-content" class="space-y-4 text-slate-800">
-                </div>
+    <div id="info-modal" class="hidden fixed inset-0 z-50 bg-[#2B2320]/50 backdrop-blur-sm flex items-center justify-center p-4">
+        <div id="modal-panel" class="sticker w-full max-w-md p-5 relative bg-white">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-[#2B2320]/40 hover:text-[#2B2320] font-extrabold cursor-pointer text-lg transition">&times;</button>
+            <div id="modal-content" class="space-y-4 text-[#2B2320]"></div>
         </div>
     </div>
 
     <script>
-        // High-Stability Section Routing Logic
         function switchPage(pageId) {
             document.querySelectorAll('.page-section').forEach(section => section.classList.remove('active'));
             const activeSection = document.getElementById(pageId);
@@ -313,16 +419,15 @@
             }
 
             document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.className = "nav-btn px-4 py-2 rounded-lg cursor-pointer text-slate-500 hover:text-slate-950 font-bold";
+                btn.className = "nav-btn px-4 py-2 rounded-full cursor-pointer hover:bg-[#2B2320]/10";
             });
             const targetedNavButton = document.getElementById('nav-' + pageId);
             if (targetedNavButton) {
-                targetedNavButton.className = "nav-btn px-4 py-2 rounded-lg cursor-pointer text-slate-950 bg-white shadow-xs font-bold";
+                targetedNavButton.className = "nav-btn px-4 py-2 rounded-full cursor-pointer bg-[#2B2320] text-[#FBF3E7]";
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Re-trigger the reveal animation whenever a section becomes active
         function replayReveal(section) {
             const items = section.querySelectorAll('.reveal');
             items.forEach(el => {
@@ -335,17 +440,17 @@
         function openGameModal(title, desc, pipeline) {
             const container = document.getElementById('modal-content');
             container.innerHTML = `
-                <h3 class="text-lg font-black text-slate-950 tracking-tight">${title}</h3>
+                <h3 class="font-display text-lg font-extrabold">${title}</h3>
                 <div class="space-y-1">
-                    <h4 class="text-[9px] font-bold uppercase text-slate-400 tracking-wider">Functional Abstract</h4>
-                    <p class="text-xs text-slate-500 leading-relaxed">${desc}</p>
+                    <h4 class="text-[10px] font-extrabold uppercase text-[#2B2320]/40 tracking-wider">What it's about</h4>
+                    <p class="text-xs text-[#2B2320]/60 leading-relaxed">${desc}</p>
                 </div>
-                <div class="pt-3 border-t border-slate-100 space-y-1">
-                    <h4 class="text-[9px] font-bold uppercase text-blue-600 tracking-wider">Milestone Production Target</h4>
-                    <p class="text-xs text-slate-500 leading-relaxed">${pipeline}</p>
+                <div class="pt-3 border-t-2 border-dashed border-[#2B2320]/20 space-y-1">
+                    <h4 class="text-[10px] font-extrabold uppercase text-[#FF6B4A] tracking-wider">Where things stand</h4>
+                    <p class="text-xs text-[#2B2320]/60 leading-relaxed">${pipeline}</p>
                 </div>
                 <div class="pt-3 flex justify-end">
-                    <a href="https://www.roblox.com/communities/880902718/Horseworks" target="_blank" class="bg-slate-950 hover:bg-slate-800 text-white font-bold text-xs uppercase px-4 py-2.5 rounded-xl text-center transition tracking-wide">Join Group Profile &rarr;</a>
+                    <a href="https://www.roblox.com/communities/880902718/Horseworks" target="_blank" onclick="burstConfetti(event)" class="btn-pop bg-[#2EC4B6] text-[#2B2320] font-extrabold text-xs uppercase px-4 py-2.5 rounded-full text-center">Join the group &rarr;</a>
                 </div>`;
             showModal();
         }
@@ -354,10 +459,10 @@
             const container = document.getElementById('modal-content');
             container.innerHTML = `
                 <div class="space-y-0.5">
-                    <span class="text-[9px] font-bold text-slate-400 tracking-wider uppercase">${date} &bull; Official Studio Record</span>
-                    <h3 class="text-lg font-black text-slate-950 tracking-tight">${title}</h3>
+                    <span class="text-[10px] font-extrabold text-[#2B2320]/40 tracking-wider uppercase">${date}</span>
+                    <h3 class="font-display text-lg font-extrabold">${title}</h3>
                 </div>
-                <div class="py-2 border-t border-slate-100 text-xs leading-relaxed text-slate-500">
+                <div class="py-2 border-t-2 border-dashed border-[#2B2320]/20 text-xs leading-relaxed text-[#2B2320]/60">
                     ${text}
                 </div>`;
             showModal();
@@ -376,7 +481,32 @@
             document.getElementById('info-modal').classList.add('hidden');
         }
 
-        // Initial load-in animation
+        function burstConfetti(e) {
+            const colors = ['#FF6B4A', '#2EC4B6', '#FFC857', '#B8A6FF'];
+            const originX = e ? e.clientX : window.innerWidth / 2;
+            const originY = e ? e.clientY : window.innerHeight / 2;
+            for (let i = 0; i < 18; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                const size = 6 + Math.random() * 6;
+                piece.style.width = size + 'px';
+                piece.style.height = size + 'px';
+                piece.style.left = originX + 'px';
+                piece.style.top = originY + 'px';
+                piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+                const angle = Math.random() * Math.PI * 2;
+                const dist = 60 + Math.random() * 100;
+                const dx = Math.cos(angle) * dist;
+                const dy = Math.sin(angle) * dist - 40;
+                document.body.appendChild(piece);
+                piece.animate([
+                    { transform: 'translate(0,0) rotate(0deg)', opacity: 1 },
+                    { transform: `translate(${dx}px, ${dy + 160}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], { duration: 900 + Math.random() * 400, easing: 'cubic-bezier(0.16,1,0.3,1)' });
+                setTimeout(() => piece.remove(), 1400);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             replayReveal(document.getElementById('home'));
         });
