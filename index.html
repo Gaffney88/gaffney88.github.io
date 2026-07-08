@@ -57,15 +57,10 @@
         .pillar-backdrop {
             background-color: #1a1530;
             background-image:
-                linear-gradient(180deg, rgba(26,21,48,0) 30%, rgba(26,21,48,0.92) 100%),
-                repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 2px, transparent 2px, transparent 36px);
-        }
-        .pillar-backdrop::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(55% 75% at 80% 15%, rgba(255,107,74,0.4), transparent 70%);
-            pointer-events: none;
+                linear-gradient(180deg, rgba(26,21,48,0.05) 40%, rgba(26,21,48,0.92) 100%),
+                url('pillars-banner.png');
+            background-size: cover;
+            background-position: center;
         }
         .banner-card:hover .banner-scale { transform: scale(1.03) rotate(0deg); }
         .banner-scale { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -122,14 +117,12 @@
                 <div class="md:col-span-5 reveal" style="--d:200ms; --r:2deg">
                     <div class="sticker p-6 space-y-4 rotate-1">
                         <span class="font-display font-bold text-xs uppercase tracking-wide block">Sneak peek 🐎</span>
-                        <div class="bg-[#1a1530] rounded-2xl h-32 flex items-center justify-center text-4xl">
-                            🏗️
-                        </div>
+                        <div class="rounded-2xl h-32 border-2 border-[#2B2320] bg-cover bg-center" style="background-image: url('pillars-banner.png');"></div>
                         <div class="flex items-baseline gap-2">
                             <span class="text-3xl font-extrabold font-display">Soon<span class="text-[#FF6B4A]">™</span></span>
                         </div>
                         <p class="text-xs text-[#2B2320]/60 leading-relaxed pt-2 border-t-2 border-dashed border-[#2B2320]/20">
-                            Real screenshots land here the moment we're not embarrassed by them.
+                            An actual look at Pillars. Don't tell anyone we showed you early.
                         </p>
                     </div>
                 </div>
@@ -282,35 +275,35 @@
 
             <div class="grid sm:grid-cols-2 gap-4">
                 <div class="reveal sticker p-5 flex items-start gap-4" style="--d:80ms">
-                    <div class="w-14 h-14 shrink-0 rounded-2xl bg-[#2EC4B6] border-2 border-[#2B2320] flex items-center justify-center text-2xl">🛠️</div>
+                    <div class="w-14 h-14 shrink-0 rounded-2xl bg-[#FFC857] border-2 border-[#2B2320] flex items-center justify-center text-2xl">👑</div>
                     <div>
-                        <h3 class="font-display font-bold text-sm">Lead builder</h3>
-                        <p class="text-[11px] text-[#2B2320]/50 font-bold uppercase mb-1">@studio-founder</p>
-                        <p class="text-xs text-[#2B2320]/60 leading-relaxed">Draws the levels, argues with the physics engine, usually wins.</p>
+                        <h3 class="font-display font-bold text-sm">gaffney88</h3>
+                        <p class="text-[11px] text-[#2B2320]/50 font-bold uppercase mb-1">@gaffney88 · Owner / Horse</p>
+                        <p class="text-xs text-[#2B2320]/60 leading-relaxed">Runs the show. If something's broken, it's ultimately someone's fault, and that someone reports here.</p>
                     </div>
                 </div>
                 <div class="reveal sticker p-5 flex items-start gap-4" style="--d:140ms">
-                    <div class="w-14 h-14 shrink-0 rounded-2xl bg-[#FFC857] border-2 border-[#2B2320] flex items-center justify-center text-2xl">🎨</div>
+                    <div class="w-14 h-14 shrink-0 rounded-2xl bg-[#2EC4B6] border-2 border-[#2B2320] flex items-center justify-center text-2xl">🛠️</div>
                     <div>
-                        <h3 class="font-display font-bold text-sm">Art & vibes</h3>
-                        <p class="text-[11px] text-[#2B2320]/50 font-bold uppercase mb-1">@pixel-wrangler</p>
-                        <p class="text-xs text-[#2B2320]/60 leading-relaxed">Makes everything look like it belongs in the same universe.</p>
+                        <h3 class="font-display font-bold text-sm">Gaffney13</h3>
+                        <p class="text-[11px] text-[#2B2320]/50 font-bold uppercase mb-1">@gaffney13 · Manager</p>
+                        <p class="text-xs text-[#2B2320]/60 leading-relaxed">Keeps the project on track and the group running smoothly.</p>
                     </div>
                 </div>
                 <div class="reveal sticker p-5 flex items-start gap-4" style="--d:200ms">
-                    <div class="w-14 h-14 shrink-0 rounded-2xl bg-[#FF6B4A] border-2 border-[#2B2320] flex items-center justify-center text-2xl">🎧</div>
+                    <div class="w-14 h-14 shrink-0 rounded-2xl bg-[#FF6B4A] border-2 border-[#2B2320] flex items-center justify-center text-2xl">⛄</div>
                     <div>
-                        <h3 class="font-display font-bold text-sm">Sound & sfx</h3>
-                        <p class="text-[11px] text-[#2B2320]/50 font-bold uppercase mb-1">@ear-candy</p>
-                        <p class="text-xs text-[#2B2320]/60 leading-relaxed">If it doesn't feel satisfying to click, it gets redone.</p>
+                        <h3 class="font-display font-bold text-sm">Bdowsett</h3>
+                        <p class="text-[11px] text-[#2B2320]/50 font-bold uppercase mb-1">@bdowsett_itsme · Manager</p>
+                        <p class="text-xs text-[#2B2320]/60 leading-relaxed">Also keeps the project on track. Two managers, double the accountability.</p>
                     </div>
                 </div>
                 <div class="reveal sticker p-5 flex items-start gap-4" style="--d:260ms">
-                    <div class="w-14 h-14 shrink-0 rounded-2xl bg-[#B8A6FF] border-2 border-[#2B2320] flex items-center justify-center text-2xl">🐞</div>
+                    <div class="w-14 h-14 shrink-0 rounded-2xl bg-[#B8A6FF] border-2 border-[#2B2320] flex items-center justify-center text-2xl">🎩</div>
                     <div>
-                        <h3 class="font-display font-bold text-sm">Bug whisperer</h3>
-                        <p class="text-[11px] text-[#2B2320]/50 font-bold uppercase mb-1">@ctrl-z-hero</p>
-                        <p class="text-xs text-[#2B2320]/60 leading-relaxed">Finds the edge case nobody thought to test. Every time.</p>
+                        <h3 class="font-display font-bold text-sm">Riobrohaz1</h3>
+                        <p class="text-[11px] text-[#2B2320]/50 font-bold uppercase mb-1">@riobrohaz1 · Co-Horse</p>
+                        <p class="text-xs text-[#2B2320]/60 leading-relaxed">Second-in-command of the stable. Title pending better naming ideas.</p>
                     </div>
                 </div>
             </div>
