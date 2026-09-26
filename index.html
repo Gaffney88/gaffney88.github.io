@@ -1,234 +1,347 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eurotunnel & E2 - Live Operations Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0f1115; color: #f3f4f6; }
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #0f1115; }
-        ::-webkit-scrollbar-thumb { background: #262a33; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #374151; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eurotunnel & E2 - Live Operations Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Inter', sans-serif; background-color: #0f1115; color: #f3f4f6; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #0f1115; }
+  ::-webkit-scrollbar-thumb { background: #262a33; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #374151; }
+  .input { width:100%; background:#0e0e11; border:1px solid #262a33; color:#eceef1; border-radius:7px; padding:9px 10px; font-size:13.5px; }
+</style>
 </head>
-<body class="min-h-screen p-6 md:p-8 flex flex-col justify-between">
+<body class="min-h-screen p-6 md:p-8">
+<div class="max-w-7xl mx-auto w-full">
 
-    <div class="max-w-7xl mx-auto w-full">
+  <div id="games-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4"></div>
 
-        <!-- Top Game Status Cards -->
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-            <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Eurotunnel Main Game Card -->
-                <div class="bg-[#181b20] border border-[#262a33] hover:border-[#374151] transition rounded-xl p-4 shadow-sm relative group">
-                    <div class="flex justify-between items-start">
-                        <div class="flex items-center gap-2">
-                            <div class="w-6 h-6 rounded bg-cyan-600/30 text-cyan-400 flex items-center justify-center font-bold text-xs">🚆</div>
-                            <span class="text-sm font-semibold text-gray-200">Eurotunnel Main Game</span>
-                        </div>
-                        <span class="text-xs text-gray-400">Updated 2m ago</span>
-                    </div>
-                    <div class="mt-3 flex items-baseline gap-2">
-                        <span id="main-players" class="text-3xl font-bold tracking-tight text-white">4,832</span>
-                        <span class="text-xs bg-[#153f34] text-[#34d399] px-1.5 py-0.5 rounded font-semibold">+128</span>
-                    </div>
-                    <div class="text-xs text-gray-500 mt-1">players in-game</div>
-                </div>
+  <div class="flex flex-wrap justify-end items-center text-xs text-gray-400 mb-6 gap-2 font-medium">
+    <span id="updated-label">Updated just now</span>
+    <span class="text-gray-600">•</span>
+    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span><span id="online-count">0</span> online</span>
+    <span class="text-gray-600">•</span>
+    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-500 inline-block"></span><span id="studio-count">0</span> in studio</span>
+  </div>
 
-                <!-- E2 Testing Game Card -->
-                <div class="bg-[#181b20] border border-[#262a33] hover:border-[#374151] transition rounded-xl p-4 shadow-sm relative">
-                    <div class="flex justify-between items-start">
-                        <div class="flex items-center gap-2">
-                            <div class="w-6 h-6 rounded bg-indigo-600/30 text-indigo-400 flex items-center justify-center font-bold text-xs">🧪</div>
-                            <span class="text-sm font-semibold text-gray-200">E2 (Testing Place)</span>
-                        </div>
-                        <span class="text-xs text-gray-400">Updated just now</span>
-                    </div>
-                    <div class="mt-3 flex items-baseline gap-2">
-                        <span id="e2-players" class="text-3xl font-bold tracking-tight text-white">24</span>
-                        <span class="text-xs bg-[#153f34] text-[#34d399] px-1.5 py-0.5 rounded font-semibold">+6</span>
-                    </div>
-                    <div class="text-xs text-gray-500 mt-1">players in-game</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Meta Header stats -->
-        <div class="flex justify-end items-center text-xs text-gray-400 mb-6 gap-2 font-medium">
-            <span id="live-timer-label">Updated just now</span>
-            <span class="text-gray-600">•</span>
-            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span><span id="online-count">3</span> online</span>
-            <span class="text-gray-600">•</span>
-            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-500 inline-block"></span><span id="studio-count">2</span> in studio</span>
-        </div>
-
-        <!-- Filter Dropdown Bar -->
-        <div class="flex flex-wrap gap-3 mb-8">
-            <div class="relative">
-                <button onclick="toggleDropdown('rankDropdown')" class="bg-[#181b20] border border-[#262a33] hover:border-[#374151] text-sm px-4 py-2 rounded-lg flex items-center justify-between w-32 text-gray-300 transition">
-                    Rank <span class="text-xs text-gray-500">▼</span>
-                </button>
-                <div id="rankDropdown" class="hidden absolute left-0 mt-2 w-32 bg-[#181b20] border border-[#262a33] rounded-lg shadow-xl z-10 py-1 text-sm text-gray-300">
-                    <a href="#" class="block px-4 py-1.5 hover:bg-[#262a33]">All Ranks</a>
-                    <a href="#" class="block px-4 py-1.5 hover:bg-[#262a33]">Owner</a>
-                    <a href="#" class="block px-4 py-1.5 hover:bg-[#262a33]">Management</a>
-                </div>
-            </div>
-            <div class="relative">
-                <button onclick="toggleDropdown('stageDropdown')" class="bg-[#181b20] border border-[#262a33] hover:border-[#374151] text-sm px-4 py-2 rounded-lg flex items-center justify-between w-32 text-gray-300 transition">
-                    Stage <span class="text-xs text-gray-500">▼</span>
-                </button>
-                <div id="stageDropdown" class="hidden absolute left-0 mt-2 w-32 bg-[#181b20] border border-[#262a33] rounded-lg shadow-xl z-10 py-1 text-sm text-gray-300">
-                    <a href="#" class="block px-4 py-1.5 hover:bg-[#262a33]">All Stages</a>
-                    <a href="#" class="block px-4 py-1.5 hover:bg-[#262a33]">Active</a>
-                    <a href="#" class="block px-4 py-1.5 hover:bg-[#262a33]">Testing</a>
-                </div>
-            </div>
-            <div class="relative">
-                <button onclick="toggleDropdown('statusDropdown')" class="bg-[#181b20] border border-[#262a33] hover:border-[#374151] text-sm px-4 py-2 rounded-lg flex items-center justify-between w-32 text-gray-300 transition">
-                    Status <span class="text-xs text-gray-500">▼</span>
-                </button>
-                <div id="statusDropdown" class="hidden absolute left-0 mt-2 w-32 bg-[#181b20] border border-[#262a33] rounded-lg shadow-xl z-10 py-1 text-sm text-gray-300">
-                    <a href="#" class="block px-4 py-1.5 hover:bg-[#262a33]">All Status</a>
-                    <a href="#" class="block px-4 py-1.5 hover:bg-[#262a33]">Online</a>
-                    <a href="#" class="block px-4 py-1.5 hover:bg-[#262a33]">Offline</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Owner Section -->
-        <div class="mb-8">
-            <div class="flex justify-between items-center mb-4 border-b border-[#262a33] pb-2">
-                <h2 class="text-md font-semibold tracking-wide text-gray-200">Owner</h2>
-                <span class="text-xs font-semibold text-gray-500">1</span>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="owner-container">
-                <!-- Dynamically loaded via Roblox API -->
-            </div>
-        </div>
-
-        <!-- Management Section -->
-        <div class="mb-8">
-            <div class="flex justify-between items-center mb-4 border-b border-[#262a33] pb-2">
-                <h2 class="text-md font-semibold tracking-wide text-gray-200">Management</h2>
-                <span class="text-xs font-semibold text-gray-500">2</span>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="management-container">
-                <!-- Dynamically loaded via Roblox API -->
-            </div>
-        </div>
-
+  <div class="flex flex-wrap gap-3 mb-8 items-center">
+    <div class="relative">
+      <button onclick="toggleDropdown('rankDropdown')" class="bg-[#181b20] border border-[#262a33] hover:border-[#374151] text-sm px-4 py-2 rounded-lg flex items-center justify-between w-36 text-gray-300 transition">
+        Rank <span class="text-xs text-gray-500">▼</span>
+      </button>
+      <div id="rankDropdown" class="hidden absolute left-0 mt-2 w-36 bg-[#181b20] border border-[#262a33] rounded-lg shadow-xl z-10 py-1 text-sm text-gray-300"></div>
     </div>
+    <div class="relative">
+      <button onclick="toggleDropdown('statusDropdown')" class="bg-[#181b20] border border-[#262a33] hover:border-[#374151] text-sm px-4 py-2 rounded-lg flex items-center justify-between w-36 text-gray-300 transition">
+        Status <span class="text-xs text-gray-500">▼</span>
+      </button>
+      <div id="statusDropdown" class="hidden absolute left-0 mt-2 w-36 bg-[#181b20] border border-[#262a33] rounded-lg shadow-xl z-10 py-1 text-sm text-gray-300"></div>
+    </div>
+    <button onclick="openUserModal()" class="ml-auto bg-cyan-600 hover:bg-cyan-500 transition text-white text-sm font-semibold px-4 py-2 rounded-lg">+ Add user</button>
+    <button onclick="openGameModal()" class="bg-[#181b20] border border-[#262a33] hover:border-[#374151] text-sm px-4 py-2 rounded-lg text-gray-300">+ Add game</button>
+    <button onclick="addCategory()" class="bg-[#181b20] border border-[#262a33] hover:border-[#374151] text-sm px-4 py-2 rounded-lg text-gray-300">+ Category</button>
+  </div>
 
-    <!-- Footer -->
-    <footer class="max-w-7xl mx-auto w-full text-center text-xs text-gray-600 pt-8 border-t border-[#181b20]">
-        Eurotunnel & E2 Operational Hub • Synchronized with Roblox API & Vercel
-    </footer>
+  <div id="sections"></div>
+</div>
 
-    <script>
-        // Dropdown toggle handler
-        function toggleDropdown(id) {
-            ['rankDropdown', 'stageDropdown', 'statusDropdown'].forEach(d => {
-                if (d !== id) document.getElementById(d).classList.add('hidden');
-            });
-            document.getElementById(id).classList.toggle('hidden');
-        }
+<footer class="max-w-7xl mx-auto w-full text-center text-xs text-gray-600 pt-8 border-t border-[#181b20]">
+  Live Roblox presence via Roblox APIs • Deployed on Vercel
+</footer>
 
-        window.addEventListener('click', function(e) {
-            if (!e.target.closest('button')) {
-                ['rankDropdown', 'stageDropdown', 'statusDropdown'].forEach(d => {
-                    document.getElementById(d).classList.add('hidden');
-                });
-            }
-        });
+<!-- Add user modal -->
+<div id="userModal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-5">
+  <div class="bg-[#181b20] border border-[#262a33] rounded-xl p-6 w-full max-w-sm">
+    <h3 class="text-base font-semibold mb-4 text-white">Add user</h3>
+    <div class="mb-3"><label class="block text-xs text-gray-500 mb-1.5">Roblox user ID</label><input id="fUserId" class="input" placeholder="e.g. 1"></div>
+    <div class="mb-3"><label class="block text-xs text-gray-500 mb-1.5">Role</label><input id="fRole" class="input" placeholder="e.g. Senior Manager"></div>
+    <div class="mb-3"><label class="block text-xs text-gray-500 mb-1.5">Category</label><select id="fCategory" class="input"></select></div>
+    <div class="flex justify-end gap-2 mt-5">
+      <button onclick="closeUserModal()" class="text-sm px-4 py-2 rounded-lg border border-[#262a33] text-gray-300 hover:border-[#374151]">Cancel</button>
+      <button onclick="saveUser()" class="text-sm px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-semibold">Save</button>
+    </div>
+  </div>
+</div>
 
-        // Live Timer state updater
-        let secondsElapsed = 0;
-        setInterval(() => {
-            secondsElapsed++;
-            const label = secondsElapsed < 5 ? "Updated just now" : `Updated ${secondsElapsed}s ago`;
-            document.getElementById('live-timer-label').innerText = label;
-        }, 1000);
+<!-- Add game modal -->
+<div id="gameModal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-5">
+  <div class="bg-[#181b20] border border-[#262a33] rounded-xl p-6 w-full max-w-sm">
+    <h3 class="text-base font-semibold mb-4 text-white">Add game</h3>
+    <div class="mb-3"><label class="block text-xs text-gray-500 mb-1.5">Roblox place ID</label><input id="fPlaceId" class="input" placeholder="e.g. 1818"></div>
+    <div class="mb-3"><label class="block text-xs text-gray-500 mb-1.5">Label</label><input id="fGameLabel" class="input" placeholder="e.g. Main Game"></div>
+    <div class="flex justify-end gap-2 mt-5">
+      <button onclick="closeGameModal()" class="text-sm px-4 py-2 rounded-lg border border-[#262a33] text-gray-300 hover:border-[#374151]">Cancel</button>
+      <button onclick="saveGame()" class="text-sm px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-semibold">Save</button>
+    </div>
+  </div>
+</div>
 
-        // Live Player Count fluctuation simulation
-        setInterval(() => {
-            const mainEl = document.getElementById('main-players');
-            const e2El = document.getElementById('e2-players');
-            
-            let mainVal = 4830 + Math.floor(Math.random() * 15) - 7;
-            let e2Val = 24 + Math.floor(Math.random() * 5) - 2;
-            
-            mainEl.innerText = mainVal.toLocaleString();
-            e2El.innerText = e2Val.toLocaleString();
-        }, 6000);
+<script>
+/* ---------- State ---------- */
+const GAMES_KEY = "dash_games_v1";
+const CATS_KEY = "dash_categories_v1";
+const ROSTER_KEY = "dash_roster_v1";
 
-        // User Data Config
-        const ownerConfig = { id: "423428585", role: "Group Owner", border: "border-[#f59e0b]/40 hover:border-[#f59e0b]" };
-        const managementConfig = [
-            { id: "154454341", role: "Management Lead" },
-            { id: "7029489314", role: "Senior Manager" }
-        ];
+let games = load(GAMES_KEY, [{ placeId: "", label: "Eurotunnel Main Game" }, { placeId: "", label: "E2 (Testing Place)" }]);
+let categories = load(CATS_KEY, ["Owner", "Management"]);
+let roster = load(ROSTER_KEY, []); // {id, role, category}
+let gameStats = {};   // placeId -> {name, playing}
+let presence = {};    // userId -> {displayName, avatarUrl, status, detail}
+let rankFilter = "All";
+let statusFilter = "All";
+let secondsAgo = 0;
 
-        // Fetch Roblox Username & Avatar via public APIs
-        async function fetchRobloxUser(userId, role, isOwner = false, borderStyle = "border-[#262a33] hover:border-[#374151]") {
-            const containerId = isOwner ? 'owner-container' : 'management-container';
-            const container = document.getElementById(containerId);
+const STATUS_META = {
+  online:    { label: "Online",    dot: "bg-emerald-500", text: "text-emerald-400" },
+  in_studio: { label: "In Studio", dot: "bg-amber-500",   text: "text-amber-400" },
+  in_game:   { label: "In Game",   dot: "bg-cyan-500",    text: "text-cyan-400" },
+  offline:   { label: "Offline",   dot: "bg-gray-500",    text: "text-gray-500" }
+};
 
-            let username = `User_${userId}`;
-            let avatarUrl = `https://placehold.co/150x150/181b20/888888?text=ID-${userId}`;
-            let isOnline = isOwner ? true : Math.random() > 0.3; // Owner active by default for realism
+function load(key, fallback) {
+  try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }
+  catch { return fallback; }
+}
+function persist() {
+  localStorage.setItem(GAMES_KEY, JSON.stringify(games));
+  localStorage.setItem(CATS_KEY, JSON.stringify(categories));
+  localStorage.setItem(ROSTER_KEY, JSON.stringify(roster));
+}
 
-            // 1. Fetch Username
-            try {
-                const userRes = await fetch(`https://users.roblox.com/v1/users/${userId}`);
-                if (userRes.ok) {
-                    const userData = await userRes.json();
-                    username = userData.name || userData.displayName || username;
-                }
-            } catch (err) {
-                console.warn(`Fallback username used for ID ${userId}`);
-            }
+/* ---------- Roblox API calls (client-side, no server needed) ---------- */
+async function fetchPresence(userIds) {
+  if (userIds.length === 0) return;
+  try {
+    const [presRes, usersRes, thumbRes] = await Promise.all([
+      fetch("https://presence.roblox.com/v1/presence/users", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userIds })
+      }),
+      fetch("https://users.roblox.com/v1/users", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userIds, excludeBannedUsers: false })
+      }),
+      fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userIds.join(",")}&size=150x150&format=Png&isCircular=false`)
+    ]);
+    const presData = await presRes.json();
+    const usersData = await usersRes.json();
+    const thumbData = await thumbRes.json();
 
-            // 2. Fetch Avatar Headshot Thumbnail
-            try {
-                const thumbRes = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=false`);
-                if (thumbRes.ok) {
-                    const thumbData = await thumbRes.json();
-                    if (thumbData.data && thumbData.data.length > 0 && thumbData.data[0].imageUrl) {
-                        avatarUrl = thumbData.data[0].imageUrl;
-                    }
-                }
-            } catch (err) {
-                console.warn(`Fallback avatar used for ID ${userId}`);
-            }
+    const presById = new Map((presData.userPresences || []).map(p => [p.userId, p]));
+    const thumbById = new Map((thumbData.data || []).map(t => [t.targetId, t.imageUrl]));
+    const STATUS = { 0: "offline", 1: "online", 2: "in_game", 3: "in_studio" };
 
-            const statusColor = isOnline ? 'bg-emerald-500' : 'bg-gray-500';
+    // Resolve game names for anyone in-game.
+    const universeIds = [...new Set((presData.userPresences || [])
+      .filter(p => p.userPresenceType === 2 && p.universeId).map(p => p.universeId))];
+    let nameByUniverse = new Map();
+    if (universeIds.length > 0) {
+      try {
+        const gd = await (await fetch(`https://games.roblox.com/v1/games?universeIds=${universeIds.join(",")}`)).json();
+        nameByUniverse = new Map((gd.data || []).map(g => [g.id, g.name]));
+      } catch {}
+    }
 
-            const cardHTML = `
-                <div class="bg-[#181b20] border ${borderStyle} transition rounded-xl p-3.5 flex items-center gap-3.5 relative shadow-sm">
-                    <div class="relative flex-shrink-0">
-                        <img src="${avatarUrl}" alt="${username}" class="w-12 h-12 rounded-lg bg-[#14171c] object-cover" onerror="this.src='https://placehold.co/150x150/181b20/ffffff?text=Roblox'">
-                        <span class="absolute bottom-0 right-0 w-3 h-3 ${statusColor} border-2 border-[#181b20] rounded-full"></span>
-                    </div>
-                    <div class="min-w-0 flex-1">
-                        <h3 class="font-semibold text-sm text-white truncate">${username}</h3>
-                        <p class="text-xs text-gray-400 truncate mt-0.5">${role}</p>
-                        <p class="text-[10px] text-gray-500 font-mono mt-0.5">ID: ${userId}</p>
-                    </div>
+    userIds.forEach(id => {
+      const info = (usersData.data || []).find(u => u.id === id) || {};
+      const p = presById.get(id) || {};
+      const type = p.userPresenceType ?? 0;
+      let detail = null;
+      if (type === 2) detail = nameByUniverse.get(p.universeId) || p.lastLocation || "In a game";
+      if (type === 3) detail = "Building in Studio";
+      presence[id] = {
+        displayName: info.displayName || info.name || `User_${id}`,
+        avatarUrl: thumbById.get(id) || null,
+        status: STATUS[type] || "offline",
+        detail
+      };
+    });
+  } catch (e) { console.warn("presence fetch failed", e); }
+}
+
+async function fetchGameStats() {
+  const ids = games.map(g => g.placeId).filter(Boolean);
+  await Promise.all(ids.map(async placeId => {
+    try {
+      const uni = await (await fetch(`https://apis.roblox.com/universes/v1/places/${placeId}/universe`)).json();
+      if (!uni.universeId) return;
+      const gd = await (await fetch(`https://games.roblox.com/v1/games?universeIds=${uni.universeId}`)).json();
+      const info = (gd.data || [])[0];
+      if (info) gameStats[placeId] = { name: info.name, playing: info.playing };
+    } catch (e) { console.warn("game stat fetch failed for", placeId, e); }
+  }));
+}
+
+/* ---------- Rendering ---------- */
+function renderGames() {
+  const grid = document.getElementById("games-grid");
+  grid.innerHTML = games.map(g => {
+    const stat = g.placeId ? gameStats[g.placeId] : null;
+    return `
+      <div class="bg-[#181b20] border border-[#262a33] hover:border-[#374151] transition rounded-xl p-4 shadow-sm relative group">
+        <div class="flex justify-between items-start">
+          <div class="flex items-center gap-2">
+            <div class="w-6 h-6 rounded bg-cyan-600/30 text-cyan-400 flex items-center justify-center font-bold text-xs">🚆</div>
+            <span class="text-sm font-semibold text-gray-200">${esc(stat?.name || g.label)}</span>
+          </div>
+          ${g.placeId ? `<button onclick="removeGame('${g.placeId}')" class="text-xs text-gray-600 hover:text-red-400 opacity-0 group-hover:opacity-100 transition">✕</button>` : ""}
+        </div>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span class="text-3xl font-bold tracking-tight text-white">${g.placeId ? (stat?.playing ?? "—") : "—"}</span>
+        </div>
+        <div class="text-xs text-gray-500 mt-1">${g.placeId ? "players in-game" : "add a place ID to track this game"}</div>
+      </div>`;
+  }).join("") + `
+    <button onclick="openGameModal()" class="border border-dashed border-[#262a33] hover:border-[#374151] rounded-xl p-4 text-sm text-gray-500 hover:text-gray-300 transition flex items-center justify-center min-h-[104px]">+ Add game</button>`;
+}
+
+function renderFilters() {
+  document.getElementById("rankDropdown").innerHTML = ["All", ...categories].map(c =>
+    `<button onclick="setRankFilter('${escAttr(c)}')" class="block w-full text-left px-4 py-1.5 hover:bg-[#262a33] ${rankFilter===c?'text-cyan-400':''}">${c==="All"?"All Ranks":esc(c)}</button>`
+  ).join("");
+  const statusOpts = [["All","All Status"],["online","Online"],["in_game","In Game"],["in_studio","In Studio"],["offline","Offline"]];
+  document.getElementById("statusDropdown").innerHTML = statusOpts.map(([v,l]) =>
+    `<button onclick="setStatusFilter('${v}')" class="block w-full text-left px-4 py-1.5 hover:bg-[#262a33] ${statusFilter===v?'text-cyan-400':''}">${l}</button>`
+  ).join("");
+}
+
+function renderSections() {
+  const container = document.getElementById("sections");
+  const visibleCats = rankFilter === "All" ? categories : categories.filter(c => c === rankFilter);
+  container.innerHTML = visibleCats.map(cat => {
+    const members = roster.filter(r => r.category === cat && (statusFilter === "All" || (presence[r.id]?.status || "offline") === statusFilter));
+    return `
+      <div class="mb-8">
+        <div class="flex justify-between items-center mb-4 border-b border-[#262a33] pb-2">
+          <h2 class="text-md font-semibold tracking-wide text-gray-200">${esc(cat)}</h2>
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-semibold text-gray-500">${members.length}</span>
+            <button onclick="removeCategory('${escAttr(cat)}')" class="text-xs text-gray-600 hover:text-red-400" title="Remove category">✕</button>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          ${members.length === 0 ? `<p class="text-xs text-gray-600 col-span-full">Nobody here yet.</p>` : members.map(m => {
+            const p = presence[m.id];
+            const status = p?.status || "offline";
+            const meta = STATUS_META[status];
+            return `
+              <div class="bg-[#181b20] border border-[#262a33] hover:border-[#374151] transition rounded-xl p-3.5 flex items-center gap-3.5 relative shadow-sm group">
+                <div class="relative flex-shrink-0">
+                  <div class="w-12 h-12 rounded-lg bg-[#14171c] bg-cover bg-center" style="background-image:${p?.avatarUrl ? `url('${p.avatarUrl}')` : 'none'}"></div>
+                  <span class="absolute bottom-0 right-0 w-3 h-3 ${meta.dot} border-2 border-[#181b20] rounded-full"></span>
                 </div>
-            `;
-            container.insertAdjacentHTML('beforeend', cardHTML);
-        }
+                <div class="min-w-0 flex-1">
+                  <h3 class="font-semibold text-sm text-white truncate">${esc(p?.displayName || `User_${m.id}`)}</h3>
+                  <p class="text-xs text-gray-400 truncate mt-0.5">${esc(m.role || "")}</p>
+                  <p class="text-[11px] mt-0.5 font-medium ${meta.text}">${meta.label}${p?.detail ? " — " + esc(p.detail) : ""}</p>
+                </div>
+                <button onclick="removeUser(${m.id})" class="absolute top-2 right-2 text-xs text-gray-600 hover:text-red-400 opacity-0 group-hover:opacity-100 transition">✕</button>
+              </div>`;
+          }).join("")}
+        </div>
+      </div>`;
+  }).join("");
+}
 
-        // Initialize dashboard items on window load
-        window.onload = function() {
-            fetchRobloxUser(ownerConfig.id, ownerConfig.role, true, ownerConfig.border);
-            managementConfig.forEach(mgr => {
-                fetchRobloxUser(mgr.id, mgr.role, false);
-            });
-        };
-    </script>
+function renderMeta() {
+  const online = roster.filter(r => presence[r.id]?.status === "online" || presence[r.id]?.status === "in_game").length;
+  const studio = roster.filter(r => presence[r.id]?.status === "in_studio").length;
+  document.getElementById("online-count").textContent = online;
+  document.getElementById("studio-count").textContent = studio;
+  document.getElementById("updated-label").textContent = secondsAgo < 3 ? "Updated just now" : `Updated ${secondsAgo}s ago`;
+}
+
+function renderAll() { renderGames(); renderFilters(); renderSections(); renderMeta(); }
+
+/* ---------- Actions ---------- */
+function toggleDropdown(id) {
+  ["rankDropdown","statusDropdown"].forEach(d => { if (d !== id) document.getElementById(d).classList.add("hidden"); });
+  document.getElementById(id).classList.toggle("hidden");
+}
+window.addEventListener("click", e => {
+  if (!e.target.closest("button")) ["rankDropdown","statusDropdown"].forEach(d => document.getElementById(d).classList.add("hidden"));
+});
+function setRankFilter(v) { rankFilter = v; document.getElementById("rankDropdown").classList.add("hidden"); renderAll(); }
+function setStatusFilter(v) { statusFilter = v; document.getElementById("statusDropdown").classList.add("hidden"); renderAll(); }
+
+function openUserModal() {
+  document.getElementById("fCategory").innerHTML = categories.map(c => `<option value="${escAttr(c)}">${esc(c)}</option>`).join("");
+  document.getElementById("fUserId").value = "";
+  document.getElementById("fRole").value = "";
+  document.getElementById("userModal").classList.remove("hidden");
+}
+function closeUserModal() { document.getElementById("userModal").classList.add("hidden"); }
+async function saveUser() {
+  const id = Number(document.getElementById("fUserId").value.trim());
+  const role = document.getElementById("fRole").value.trim();
+  const category = document.getElementById("fCategory").value;
+  if (!Number.isFinite(id) || id <= 0 || roster.some(r => r.id === id)) return closeUserModal();
+  roster.push({ id, role, category });
+  persist();
+  closeUserModal();
+  renderAll();
+  await fetchPresence([id]);
+  renderAll();
+}
+function removeUser(id) { roster = roster.filter(r => r.id !== id); persist(); renderAll(); }
+
+function openGameModal() {
+  document.getElementById("fPlaceId").value = "";
+  document.getElementById("fGameLabel").value = "";
+  document.getElementById("gameModal").classList.remove("hidden");
+}
+function closeGameModal() { document.getElementById("gameModal").classList.add("hidden"); }
+async function saveGame() {
+  const placeId = document.getElementById("fPlaceId").value.trim();
+  const label = document.getElementById("fGameLabel").value.trim();
+  if (!placeId) return closeGameModal();
+  games.push({ placeId, label: label || `Place ${placeId}` });
+  persist();
+  closeGameModal();
+  renderAll();
+  await fetchGameStats();
+  renderAll();
+}
+function removeGame(placeId) { games = games.filter(g => g.placeId !== placeId); persist(); renderAll(); }
+
+function addCategory() {
+  const name = prompt("New category name:");
+  if (!name) return;
+  const trimmed = name.trim();
+  if (!trimmed || categories.includes(trimmed)) return;
+  categories.push(trimmed);
+  persist();
+  renderAll();
+}
+function removeCategory(cat) {
+  if (roster.some(r => r.category === cat) && !confirm(`Remove "${cat}"? Everyone in it will also be removed.`)) return;
+  categories = categories.filter(c => c !== cat);
+  roster = roster.filter(r => r.category !== cat);
+  persist();
+  renderAll();
+}
+
+function esc(s) { const d = document.createElement("div"); d.textContent = s ?? ""; return d.innerHTML; }
+function escAttr(s) { return esc(s).replace(/"/g, "&quot;"); }
+
+/* ---------- Polling ---------- */
+async function refreshAll() {
+  await Promise.all([
+    fetchPresence(roster.map(r => r.id)),
+    fetchGameStats()
+  ]);
+  secondsAgo = 0;
+  renderAll();
+}
+setInterval(() => { secondsAgo++; renderMeta(); }, 1000);
+setInterval(refreshAll, 30000);
+
+renderAll();
+refreshAll();
+</script>
 </body>
 </html>
