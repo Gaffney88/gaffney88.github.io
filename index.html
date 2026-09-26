@@ -64,7 +64,6 @@
                 <span class="text-sm text-gray-500">1</span>
             </div>
             <div id="owner-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <!-- Injected via JS -->
                 <div class="bg-[#14171f] border border-[#222734] rounded-2xl p-4 animate-pulse h-24"></div>
             </div>
         </div>
@@ -76,7 +75,6 @@
                 <span class="text-sm text-gray-500">2</span>
             </div>
             <div id="management-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <!-- Injected via JS -->
                 <div class="bg-[#14171f] border border-[#222734] rounded-2xl p-4 animate-pulse h-24"></div>
                 <div class="bg-[#14171f] border border-[#222734] rounded-2xl p-4 animate-pulse h-24"></div>
             </div>
@@ -85,21 +83,16 @@
     </div>
 
     <script>
-        // CONFIGURATION: Roblox IDs
         const OWNER_ID = "423428585";
         const MANAGEMENT_IDS = ["154454341", "7029489314"];
-        
-        // EUROTUNNEL PLACE IDs (Replace with your actual main game & E2 Place IDs if needed)
-        const MAIN_GAME_PLACE_ID = "1848354536"; // Example Main Game Place ID
-        const E2_GAME_PLACE_ID = "6194241635";      // Example E2 Game Place ID
+        const MAIN_GAME_PLACE_ID = "1848354536"; 
+        const E2_GAME_PLACE_ID = "6194241635";      
 
         let lastDataFetchTime = new Date();
 
         async function fetchRobloxUserData() {
             const allIds = [OWNER_ID, ...MANAGEMENT_IDS];
-            
             try {
-                // 1. Fetch Usernames & Display Names
                 const userRes = await fetch('https://users.roproxy.com/v1/users', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -107,11 +100,9 @@
                 });
                 const userData = await userRes.json();
 
-                // 2. Fetch Headshot Avatars
                 const thumbRes = await fetch(`https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds=${allIds.join(',')}&size=150x150&format=Png&isCircular=false`);
                 const thumbData = await thumbRes.json();
 
-                // 3. Fetch User Presences (Online/Offline Status)
                 const presenceRes = await fetch('https://presence.roproxy.com/v1/presence/users', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -127,17 +118,14 @@
 
         function renderProfiles(users, thumbnails, presences) {
             const userMap = {};
-            users.forEach(u => userMap[u.id] = u);
+            if (users) users.forEach(u => userMap[u.id] = u);
 
             const thumbMap = {};
-            thumbnails.forEach(t => thumbMap[t.targetId] = t.imageUrl);
+            if (thumbnails) thumbnails.forEach(t => thumbMap[t.targetId] = t.imageUrl);
 
             const presenceMap = {};
-            if (presences) {
-                presences.forEach(p => presenceMap[p.userId] = p.userPresenceType); // 0 = Offline, 1 = Online, 2 = In Game, 3 = In Studio
-            }
+            if (presences) presences.forEach(p => presenceMap[p.userId] = p.userPresenceType);
 
-            // Render Owner
             const ownerContainer = document.getElementById('owner-container');
             const ownerUser = userMap[OWNER_ID] || { name: "Owner", displayName: "Owner" };
             const ownerThumb = thumbMap[OWNER_ID] || "";
@@ -145,7 +133,6 @@
             
             ownerContainer.innerHTML = createCardHTML(ownerUser, ownerThumb, ownerPresence, "Group Owner", true);
 
-            // Render Management
             const managementContainer = document.getElementById('management-container');
             managementContainer.innerHTML = MANAGEMENT_IDS.map(id => {
                 const user = userMap[id] || { name: "Manager", displayName: "Manager" };
@@ -158,7 +145,6 @@
         }
 
         function createCardHTML(user, thumbUrl, presenceType, roleText, isOwner) {
-            // Presence Types: 0: Offline, 1: Online, 2: In Game, 3: In Studio
             let dotColor = "bg-gray-500";
             if (presenceType === 1 || presenceType === 2 || presenceType === 3) {
                 dotColor = "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.7)]";
@@ -170,7 +156,7 @@
             return `
                 <div class="border ${borderColor} rounded-2xl p-4 flex items-center gap-4 relative transition hover:border-gray-600">
                     <div class="relative flex-shrink-0">
-                        <img src="${thumbUrl}" alt="${user.name}" class="w-13 h-13 w-12 h-12 rounded-xl bg-gray-800 object-cover border border-gray-700/50">
+                        <img src="${thumbUrl}" alt="${user.name}" class="w-12 h-12 rounded-xl bg-gray-800 object-cover border border-gray-700/50">
                         <span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 ${dotColor} border-2 border-[#14171f] rounded-full"></span>
                     </div>
                     <div class="overflow-hidden">
@@ -189,16 +175,13 @@
                 if (type === 1 || type === 2) onlineCount++;
                 if (type === 3) studioCount++;
             });
-
             document.getElementById('online-count-badge').innerText = `${onlineCount} online • ${studioCount} in studio`;
         }
 
         async function fetchGameStats() {
             try {
-                // Fetching Universe/Game CCU using RoProxy Games API
                 const res = await fetch(`https://games.roproxy.com/v1/games?universeIds=${MAIN_GAME_PLACE_ID},${E2_GAME_PLACE_ID}`);
                 const data = await res.json();
-                
                 if (data && data.data) {
                     data.data.forEach(game => {
                         if (game.id.toString() === MAIN_GAME_PLACE_ID || game.rootPlaceId?.toString() === MAIN_GAME_PLACE_ID) {
@@ -209,7 +192,6 @@
                     });
                 }
             } catch (e) {
-                // Fallback simulation numbers if proxies hit rate limits
                 document.getElementById('main-players').innerText = "1,240";
                 document.getElementById('e2-players').innerText = "48";
             }
@@ -220,17 +202,14 @@
             document.getElementById('global-refresh-timer').innerText = "Updated just now";
         }
 
-        // Initialize & Set intervals
         fetchRobloxUserData();
         fetchGameStats();
 
-        // Auto refresh stats every 30 seconds
         setInterval(() => {
             fetchGameStats();
             fetchRobloxUserData();
         }, 30000);
 
-        // Timer text update ticker every 10 seconds
         setInterval(() => {
             const secondsAgo = Math.floor((new Date() - lastDataFetchTime) / 1000);
             const text = secondsAgo < 15 ? "Updated just now" : `Updated ${secondsAgo}s ago`;
