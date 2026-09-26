@@ -23,7 +23,7 @@
                     <span id="main-updated" class="text-xs text-gray-400">Updated just now</span>
                 </div>
                 <div class="mt-4 flex items-baseline gap-3">
-                    <span id="main-players" class="text-3xl font-extrabold tracking-tight">1,142</span>
+                    <span id="main-players" class="text-3xl font-extrabold tracking-tight">Loading...</span>
                     <span class="text-xs bg-emerald-950 text-emerald-400 border border-emerald-800/40 px-2 py-0.5 rounded font-medium">Active</span>
                 </div>
                 <div class="text-xs text-gray-500 mt-1">players in-game</div>
@@ -36,7 +36,7 @@
                     <span id="e2-updated" class="text-xs text-gray-400">Updated just now</span>
                 </div>
                 <div class="mt-4 flex items-baseline gap-3">
-                    <span id="e2-players" class="text-3xl font-extrabold tracking-tight">38</span>
+                    <span id="e2-players" class="text-3xl font-extrabold tracking-tight">Loading...</span>
                     <span class="text-xs bg-blue-950 text-blue-400 border border-blue-800/40 px-2 py-0.5 rounded font-medium">Testing</span>
                 </div>
                 <div class="text-xs text-gray-500 mt-1">players in-game</div>
@@ -64,7 +64,7 @@
                 <span class="text-sm text-gray-500">1</span>
             </div>
             <div id="owner-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <!-- Rendered dynamically -->
+                <div class="bg-[#14171f] border border-[#222734] rounded-2xl p-4 animate-pulse h-24"></div>
             </div>
         </div>
 
@@ -75,30 +75,33 @@
                 <span class="text-sm text-gray-500">2</span>
             </div>
             <div id="management-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <!-- Rendered dynamically -->
+                <div class="bg-[#14171f] border border-[#222734] rounded-2xl p-4 animate-pulse h-24"></div>
+                <div class="bg-[#14171f] border border-[#222734] rounded-2xl p-4 animate-pulse h-24"></div>
             </div>
         </div>
 
     </div>
 
     <script>
-        // Target Usernames
         const OWNER_USERNAME = "HARRY2O6";
         const MANAGEMENT_USERNAMES = ["ericplane", "Abbinat0r"];
         
+        // Exact Place IDs provided
+        const MAIN_PLACE_ID = "18352872370";
+        const E2_PLACE_ID = "110170053127507";
+
         let lastDataFetchTime = new Date();
 
         function renderCard(user, roleText, isOwner) {
             const borderColor = isOwner ? "border-amber-500/40 bg-[#17171d]" : "border-[#222734] bg-[#14171f]";
             const badgeColor = isOwner ? "text-amber-400" : "text-gray-400";
             const dotColor = "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.7)]";
-
             const avatarUrl = user.avatar || `https://tr.rbxcdn.com/30DAY-AvatarHeadshot-154454341-Png/150/150/AvatarHeadshot/Png/noFilter`;
 
             return `
                 <div class="border ${borderColor} rounded-2xl p-4 flex items-center gap-4 relative transition hover:border-gray-600">
                     <div class="relative flex-shrink-0">
-                        <img src="${avatarUrl}" alt="${user.name}" class="w-12 h-12 rounded-xl bg-gray-800 object-cover border border-gray-700/50">
+                        <img src="${avatarUrl}" alt="${user.name}" class="w-12 h-12 rounded-xl bg-gray-800 object-cover border border-gray-700/50" onerror="this.src='https://tr.rbxcdn.com/30DAY-AvatarHeadshot-154454341-Png/150/150/AvatarHeadshot/Png/noFilter'">
                         <span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 ${dotColor} border-2 border-[#14171f] rounded-full"></span>
                     </div>
                     <div class="overflow-hidden">
@@ -112,7 +115,6 @@
 
         async function fetchUserData() {
             try {
-                // Step 1: Convert Usernames to IDs via Roblox User Lookup API
                 const allNames = [OWNER_USERNAME, ...MANAGEMENT_USERNAMES];
                 const userRes = await fetch('https://users.roproxy.com/v1/usernames/users', {
                     method: 'POST',
@@ -120,12 +122,9 @@
                     body: JSON.stringify({ usernames: allNames, excludeBannedUsers: true })
                 });
                 const userData = await userRes.json();
-                
-                if (!userData.data || userData.data.length === 0) return;
+                if (!userData.data) return;
 
                 const userIds = userData.data.map(u => u.id);
-
-                // Step 2: Fetch Avatars for these IDs
                 const thumbRes = await fetch(`https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds=${userIds.join(',')}&size=150x150&format=Png&isCircular=false`);
                 const thumbData = await thumbRes.json();
 
@@ -143,33 +142,55 @@
                     };
                 });
 
-                // Render Owner Card
+                // Render Owner
                 const ownerData = userMap[OWNER_USERNAME.toLowerCase()] || { name: OWNER_USERNAME, displayName: OWNER_USERNAME };
                 document.getElementById('owner-container').innerHTML = renderCard(ownerData, "Group Owner", true);
 
-                // Render Management Cards
+                // Render Management
                 const managementHTML = MANAGEMENT_USERNAMES.map(username => {
                     const mData = userMap[username.toLowerCase()] || { name: username, displayName: username };
                     return renderCard(mData, "Management Team", false);
                 }).join('');
                 document.getElementById('management-container').innerHTML = managementHTML;
-
             } catch (err) {
-                console.error("Error fetching user data:", err);
+                console.error("Error loading profiles:", err);
             }
         }
 
-        function updateTimestamps() {
+        async function fetchGameUniverseStats(placeId, elementId) {
+            try {
+                // Get Universe ID from Place ID
+                const univRes = await fetch(`https://apis.roproxy.com/universes/v1/places/${placeId}/universe`);
+                const univData = await univRes.json();
+                if (!univData.universeId) return;
+
+                // Get Active Player Count
+                const gameRes = await fetch(`https://games.roproxy.com/v1/games?universeIds=${univData.universeId}`);
+                const gameData = await gameRes.json();
+                if (gameData && gameData.data && gameData.data[0]) {
+                    document.getElementById(elementId).innerText = (gameData.data[0].playing || 0).toLocaleString();
+                }
+            } catch (e) {
+                console.error("Could not fetch game players for place " + placeId, e);
+            }
+        }
+
+        function refreshAllData() {
+            fetchUserData();
+            fetchGameUniverseStats(MAIN_PLACE_ID, 'main-players');
+            fetchGameUniverseStats(E2_PLACE_ID, 'e2-players');
             lastDataFetchTime = new Date();
             document.getElementById('main-updated').innerText = "Updated just now";
             document.getElementById('e2-updated').innerText = "Updated just now";
             document.getElementById('global-refresh-timer').innerText = "Updated just now";
         }
 
-        fetchUserData();
-        updateTimestamps();
+        refreshAllData();
 
-        // Update timestamps every 10 seconds
+        // Auto refresh every 30 seconds
+        setInterval(refreshAllData, 30000);
+
+        // Update timestamps ticker every 10 seconds
         setInterval(() => {
             const secondsAgo = Math.floor((new Date() - lastDataFetchTime) / 1000);
             const text = secondsAgo < 15 ? "Updated just now" : `Updated ${secondsAgo}s ago`;
