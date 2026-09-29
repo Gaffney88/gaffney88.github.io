@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eurotunnel Roblox | Unofficial Community Fan Hub</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            black: '#0A0A0C',
+                            surface: '#F8FAFC',
+                            border: '#E2E8F0',
+                            accent: '#18181B'
+                        }
+                    },
+                    animation: {
+                        'marquee': 'marquee 22s linear infinite',
+                        'fade-in': 'fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(8px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FFFFFF;
+            color: #0A0A0C;
+        }
+        .page-view {
+            display: none;
+        }
+        .page-view.active {
+            display: block;
+            animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .ticker-wrap {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .ticker-content {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="bg-white text-black min-h-screen flex flex-col antialiased selection:bg-black selection:text-white">
+
+    <!-- ANIMATED MOVING TOP BANNER TICKER -->
+    <div class="bg-black text-white text-xs font-bold py-2.5 overflow-hidden border-b border-neutral-800 relative z-50 select-none">
+        <div class="ticker-wrap w-full flex items-center">
+            <div class="ticker-content animate-marquee flex items-center space-x-8 text-neutral-300">
+                <span class="flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>UNOFFICIAL EUROTUNNEL ROBLOX FAN HUB</span>
+                </span>
+                <span>•</span>
+                <span>SUMMER UPDATE PT 2 LEAKS LIVE BELOW</span>
+                <span>•</span>
+                <span>ESTIMATED RELEASE COUNTDOWN RUNNING</span>
+                <span>•</span>
+                <span>CAR & BORDER CONTROL ROLEPLAY</span>
+                <span>•</span>
+                <span>NOT AFFILIATED WITH GAME DEVELOPERS</span>
+                <span>•</span>
+                <!-- Duplicate set for seamless continuous marquee loop -->
+                <span class="flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>UNOFFICIAL EUROTUNNEL ROBLOX FAN HUB</span>
+                </span>
+                <span>•</span>
+                <span>SUMMER UPDATE PT 2 LEAKS LIVE BELOW</span>
+                <span>•</span>
+                <span>ESTIMATED RELEASE COUNTDOWN RUNNING</span>
+                <span>•</span>
+                <span>CAR & BORDER CONTROL ROLEPLAY</span>
+                <span>•</span>
+                <span>NOT AFFILIATED WITH GAME DEVELOPERS</span>
+                <span>•</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN HEADER NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-200 transition-all">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            
+            <!-- Clean Logo Title -->
+            <a href="javascript:void(0)" onclick="navigateTo('home')" class="group flex items-center space-x-2 text-lg font-black tracking-tight text-black">
+                <span class="group-hover:translate-x-0.5 transition-transform">Eurotunnel Roblox</span>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-1 text-xs font-extrabold">
+                <button onclick="navigateTo('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-xl text-white bg-black transition-all">
+                    Home
+                </button>
+                <button onclick="navigateTo('summer-update')" id="nav-summer-update" class="nav-btn px-4 py-2 rounded-xl text-gray-600 hover:text-black hover:bg-gray-100 transition-all">
+                    Summer Update Pt 2
+                </button>
+                <button onclick="navigateTo('leaks')" id="nav-leaks" class="nav-btn px-4 py-2 rounded-xl text-gray-600 hover:text-black hover:bg-gray-100 transition-all">
+                    Leaks
+                </button>
+                <button onclick="navigateTo('updates')" id="nav-updates" class="nav-btn px-4 py-2 rounded-xl text-gray-600 hover:text-black hover:bg-gray-100 transition-all">
+                    Update Logs
+                </button>
+                <button onclick="navigateTo('about')" id="nav-about" class="nav-btn px-4 py-2 rounded-xl text-gray-600 hover:text-black hover:bg-gray-100 transition-all">
+                    About
+                </button>
+            </nav>
+
+            <!-- Roblox Play CTA -->
+            <div class="hidden md:block">
+                <a href="https://www.roblox.com" target="_blank" rel="noopener noreferrer" class="bg-black hover:bg-neutral-800 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition-all shadow-sm hover:shadow-md active:scale-95 inline-flex items-center space-x-1.5">
+                    <span>Play Game</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="mobile-menu-btn" aria-label="Toggle Mobile Navigation" class="md:hidden text-black p-2 rounded-lg hover:bg-gray-100 transition-colors focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 px-4 py-4 space-y-2 shadow-lg animate-fade-in">
+            <button onclick="navigateTo('home'); toggleMobileMenu()" class="block w-full text-left py-2.5 px-3 font-bold rounded-lg hover:bg-gray-100 text-black">Home</button>
+            <button onclick="navigateTo('summer-update'); toggleMobileMenu()" class="block w-full text-left py-2.5 px-3 font-bold rounded-lg hover:bg-gray-100 text-black">Summer Update Pt 2</button>
+            <button onclick="navigateTo('leaks'); toggleMobileMenu()" class="block w-full text-left py-2.5 px-3 font-bold rounded-lg hover:bg-gray-100 text-black">Leaks</button>
+            <button onclick="navigateTo('updates'); toggleMobileMenu()" class="block w-full text-left py-2.5 px-3 font-bold rounded-lg hover:bg-gray-100 text-black">Update Logs</button>
+            <button onclick="navigateTo('about'); toggleMobileMenu()" class="block w-full text-left py-2.5 px-3 font-bold rounded-lg hover:bg-gray-100 text-black">About</button>
+            <div class="pt-2">
+                <a href="https://www.roblox.com" target="_blank" class="block text-center bg-black text-white font-bold py-3 rounded-xl text-xs shadow">Play Game on Roblox</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+
+        <!-- PAGE 1: HOME VIEW -->
+        <div id="page-home" class="page-view active">
+            <section class="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-10">
+                
+                <!-- Main Game Banner Container -->
+                <div class="group relative rounded-2xl overflow-hidden border border-gray-200/80 shadow-lg shadow-gray-200/50 bg-gray-100 aspect-video max-h-[500px] transition-all duration-500 hover:shadow-xl">
+                    <img src="image_b4b740.jpg" 
+                         onerror="this.src='https://placehold.co/1200x675/f8fafc/000000?text=Eurotunnel+Roblox+Primary+Checkpoint'" 
+                         alt="Eurotunnel Roblox Primary Checkpoint" 
+                         class="w-full h-full object-cover group-hover:scale-[1.01] transition-transform duration-700 ease-out">
+                    <div class="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md text-white text-[11px] font-extrabold px-3 py-1.5 rounded-lg border border-white/10">
+                        Primary Checkpoint Inspection
+                    </div>
+                </div>
+
+                <!-- Hero Text Block -->
+                <div class="space-y-5 max-w-3xl">
+                    <div class="inline-flex items-center space-x-2 bg-gray-100 border border-gray-200 text-black px-3.5 py-1.5 rounded-full text-xs font-extrabold">
+                        <span class="w-2 h-2 rounded-full bg-black animate-ping"></span>
+                        <span>Unofficial Community Hub</span>
+                    </div>
+                    <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-black leading-tight">
+                        Border Control. High Speed Highways. Driving Roleplay.
+                    </h1>
+                    <p class="text-gray-600 text-sm sm:text-base leading-relaxed font-medium">
+                        The ultimate fan-run community resource for Eurotunnel Roblox. Drive cars across UK-France border checkpoints, roleplay as Police or Customs officers, inspect passports, and travel along motorways.
+                    </p>
+                    <div class="flex flex-wrap gap-3 pt-2">
+                        <button onclick="navigateTo('summer-update')" class="bg-black hover:bg-neutral-800 text-white font-bold px-6 py-3.5 rounded-xl text-xs sm:text-sm shadow-md hover:shadow-lg transition-all active:scale-95 flex items-center space-x-2">
+                            <span>Summer Update Pt 2</span>
+                            <span class="bg-white/20 px-1.5 py-0.5 rounded text-[10px]">Countdown</span>
+                        </button>
+                        <button onclick="navigateTo('leaks')" class="bg-gray-100 hover:bg-gray-200 text-black border border-gray-200 font-bold px-6 py-3.5 rounded-xl text-xs sm:text-sm transition-all active:scale-95">
+                            View All Leaks →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Info Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-50/80 border border-gray-200 rounded-2xl p-6 space-y-2 hover:border-black/30 transition-all">
+                        <div class="flex items-center space-x-2 text-black font-extrabold text-sm">
+                            <span class="text-base">🚘</span>
+                            <span>What is the game about?</span>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed font-medium">
+                            Driving civilian vehicles, transport trucks, and emergency service cars through realistic border control lanes between the UK and France.
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50/80 border border-gray-200 rounded-2xl p-6 space-y-2 hover:border-black/30 transition-all">
+                        <div class="flex items-center space-x-2 text-black font-extrabold text-sm">
+                            <span class="text-base">ℹ️</span>
+                            <span>Can you drive trains?</span>
+                        </div>
+                        <p class="text-xs text-gray-600 leading-relaxed font-medium">
+                            No, train driving is <strong>not featured</strong> in Eurotunnel Roblox. The game focuses strictly on road driving, border control, customs, and law enforcement RP.
+                        </p>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+
+        <!-- PAGE 2: SUMMER UPDATE PT 2 VIEW -->
+        <div id="page-summer-update" class="page-view">
+            <section class="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-10">
+                
+                <div class="text-center space-y-3">
+                    <span class="text-[11px] font-black uppercase tracking-widest text-gray-500 bg-gray-100 px-3 py-1 rounded-full border border-gray-200 inline-block">
+                        Upcoming Release
+                    </span>
+                    <h1 class="text-3xl sm:text-5xl font-black text-black tracking-tight">Summer Update Pt 2</h1>
+                    <p class="text-gray-600 text-xs sm:text-sm max-w-md mx-auto">Estimated release countdown clock for the upcoming Eurotunnel content drop.</p>
+                </div>
+
+                <!-- Live Countdown Box -->
+                <div class="bg-black text-white rounded-3xl p-8 sm:p-12 text-center space-y-8 shadow-2xl relative overflow-hidden border border-neutral-800">
+                    <div class="absolute -top-24 -right-24 w-48 h-48 bg-white/5 rounded-full blur-2xl pointer-events-none"></div>
+                    
+                    <span class="text-xs font-bold text-neutral-400 uppercase tracking-widest block">Estimated Time Remaining</span>
+                    
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6 max-w-2xl mx-auto">
+                        <div class="bg-neutral-900/90 border border-neutral-800 rounded-2xl p-5 text-center transform transition-transform hover:scale-105">
+                            <span id="days" class="text-4xl sm:text-5xl font-black text-white block tracking-tight">00</span>
+                            <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mt-1 block">Days</span>
+                        </div>
+                        <div class="bg-neutral-900/90 border border-neutral-800 rounded-2xl p-5 text-center transform transition-transform hover:scale-105">
+                            <span id="hours" class="text-4xl sm:text-5xl font-black text-white block tracking-tight">00</span>
+                            <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mt-1 block">Hours</span>
+                        </div>
+                        <div class="bg-neutral-900/90 border border-neutral-800 rounded-2xl p-5 text-center transform transition-transform hover:scale-105">
+                            <span id="minutes" class="text-4xl sm:text-5xl font-black text-white block tracking-tight">00</span>
+                            <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mt-1 block">Mins</span>
+                        </div>
+                        <div class="bg-neutral-900/90 border border-neutral-800 rounded-2xl p-5 text-center transform transition-transform hover:scale-105">
+                            <span id="seconds" class="text-4xl sm:text-5xl font-black text-white block tracking-tight">00</span>
+                            <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mt-1 block">Secs</span>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-neutral-400 font-medium pt-2">
+                        Estimated Target Date: <span class="text-white font-bold">October 31, 2026</span>
+                    </p>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="navigateTo('leaks')" class="bg-black hover:bg-neutral-800 text-white font-bold px-8 py-3.5 rounded-xl text-xs sm:text-sm shadow-md hover:shadow-lg transition-all active:scale-95">
+                        Browse Summer Update Pt 2 Leaks →
+                    </button>
+                </div>
+
+            </section>
+        </div>
+
+        <!-- PAGE 3: LEAKS VIEW -->
+        <div id="page-leaks" class="page-view">
+            <section class="max-w-5xl mx-auto px-4 sm:px-6 py-10 space-y-8">
+                
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-gray-200 pb-6 gap-4">
+                    <div>
+                        <h1 class="text-3xl font-black text-black tracking-tight">Leaks</h1>
+                        <p class="text-gray-600 text-xs sm:text-sm mt-1">Publicly gathered leaks and sneak peeks from the community.</p>
+                    </div>
+                    <span class="text-xs font-extrabold bg-gray-100 text-gray-700 px-3 py-1 rounded-lg border border-gray-200 self-start sm:self-auto">
+                        Click image to view full size
+                    </span>
+                </div>
+
+                <!-- Dynamic Leaks Grid -->
+                <div id="leaks-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Populated dynamically via JavaScript LEAKS array -->
+                </div>
+
+            </section>
+        </div>
+
+        <!-- PAGE 4: UPDATE LOGS VIEW -->
+        <div id="page-updates" class="page-view">
+            <section class="max-w-4xl mx-auto px-4 sm:px-6 py-10 space-y-8">
+                
+                <div class="border-b border-gray-200 pb-6">
+                    <h1 class="text-3xl font-black text-black tracking-tight">Update Logs</h1>
+                    <p class="text-gray-600 text-xs sm:text-sm mt-1">Historical updates and patch history for Eurotunnel Roblox.</p>
+                </div>
+
+                <div id="updates-container" class="space-y-6">
+                    <!-- Populated dynamically via JavaScript UPDATES array -->
+                </div>
+
+            </section>
+        </div>
+
+        <!-- PAGE 5: ABOUT VIEW -->
+        <div id="page-about" class="page-view">
+            <section class="max-w-3xl mx-auto px-4 sm:px-6 py-10 space-y-8">
+                
+                <div class="border-b border-gray-200 pb-6">
+                    <h1 class="text-3xl font-black text-black tracking-tight">About This Fan Hub</h1>
+                    <p class="text-gray-600 text-xs sm:text-sm mt-1">Community guidelines and disclaimer information.</p>
+                </div>
+
+                <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 sm:p-8 space-y-5 text-sm text-gray-700 leading-relaxed">
+                    <div class="space-y-2">
+                        <h3 class="font-black text-black text-base">Community Project Notice</h3>
+                        <p>
+                            <strong>Eurotunnel Roblox Fan Hub</strong> is an independent community project built to centralize public leaks, provide release countdowns, and share information for players of the Eurotunnel Roblox game.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h3 class="font-black text-black text-base">Disclaimer</h3>
+                        <p>
+                            We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with the developers of Eurotunnel Roblox or Roblox Corporation.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h3 class="font-black text-black text-base">Game Gameplay Summary</h3>
+                        <p>
+                            Eurotunnel Roblox features highway car driving, customs passport checks, toll gates, emergency services, and border patrol roleplay. <strong>Train driving is not supported.</strong>
+                        </p>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+
+    </main>
+
+    <!-- IMAGE MODAL OVERLAY -->
+    <div id="image-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4 transition-all duration-200" onclick="closeImageModal()">
+        <div class="bg-white rounded-2xl p-4 sm:p-6 max-w-3xl w-full space-y-4 shadow-2xl border border-gray-200 animate-fade-in" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+                <h3 id="modal-title" class="font-black text-black text-base">Leak Preview</h3>
+                <button onclick="closeImageModal()" class="text-gray-400 hover:text-black font-bold text-lg p-1 transition-colors">✕</button>
+            </div>
+            <div class="bg-gray-100 rounded-xl overflow-hidden aspect-video border border-gray-200">
+                <img id="modal-image" src="" alt="Leak Full Preview" class="w-full h-full object-contain">
+            </div>
+            <div class="text-right">
+                <button onclick="closeImageModal()" class="bg-black text-white font-bold px-5 py-2 rounded-xl text-xs hover:bg-neutral-800 transition-colors">
+                    Close Preview
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-gray-200 py-10 mt-12 text-center text-xs text-gray-500 space-y-4">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="font-medium">Eurotunnel Roblox Community Fan Hub — Unofficial Fan Site</p>
+            <div class="flex flex-wrap justify-center gap-4 font-bold text-gray-700">
+                <button onclick="navigateTo('home')" class="hover:text-black transition-colors">Home</button>
+                <button onclick="navigateTo('summer-update')" class="hover:text-black transition-colors">Summer Update Pt 2</button>
+                <button onclick="navigateTo('leaks')" class="hover:text-black transition-colors">Leaks</button>
+                <button onclick="navigateTo('updates')" class="hover:text-black transition-colors">Update Logs</button>
+                <button onclick="navigateTo('about')" class="hover:text-black transition-colors">About</button>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // =========================================================================
+        // ✏️ EASY LEAKS MANAGEMENT - EDIT THIS ARRAY TO ADD NEW LEAKS!
+        // Copy-paste lines below to add new leaks with titles and photos:
+        // =========================================================================
+        const LEAKS = [
+            { 
+                title: "Primary Checkpoint Inspection Lanes", 
+                photo: "image_b4b740.jpg" 
+            },
+            { 
+                title: "Customs & Toll Gate System", 
+                photo: "image_b4b740.jpg" 
+            },
+            { 
+                title: "Highway Patrol Patrol Vehicle", 
+                photo: "https://placehold.co/600x350/f8fafc/000000?text=Highway+Patrol+Teaser" 
+            }
+        ];
+
+        // ESTIMATED COUNTDOWN TARGET FOR SUMMER UPDATE PT 2 (YYYY-MM-DDTHH:MM:SSZ)
+        const COUNTDOWN_TARGET = "2026-10-31T18:00:00Z";
+
+        // HISTORICAL UPDATE LOGS
+        const UPDATES = [
+            {
+                version: "v2.8 Patch",
+                title: "Primary Checkpoint Overhaul",
+                date: "August 2026",
+                photo: "image_b4b740.jpg",
+                details: "Redesigned primary inspection booths, updated customs barriers, and refreshed UK Police vehicle lights."
+            },
+            {
+                version: "v2.7 Patch",
+                title: "Motorway Route Extension",
+                date: "June 2026",
+                photo: "https://placehold.co/600x350/f8fafc/000000?text=v2.7+Highway",
+                details: "Extended motorway routes, added functional toll barriers, and expanded civilian vehicle choices."
+            }
+        ];
+
+        // Page Navigation Router
+        function navigateTo(pageId) {
+            document.querySelectorAll('.page-view').forEach(page => page.classList.remove('active'));
+            
+            const selectedPage = document.getElementById(`page-${pageId}`);
+            if (selectedPage) selectedPage.classList.add('active');
+
+            // Reset desktop nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.className = "nav-btn px-4 py-2 rounded-xl text-gray-600 hover:text-black hover:bg-gray-100 transition-all font-extrabold";
+            });
+
+            // Highlight active nav button
+            const activeNav = document.getElementById(`nav-${pageId}`);
+            if (activeNav) {
+                activeNav.className = "nav-btn px-4 py-2 rounded-xl text-white bg-black transition-all font-extrabold";
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+
+        // Render Leaks Grid
+        function renderLeaks() {
+            const container = document.getElementById('leaks-container');
+            if (!container) return;
+
+            container.innerHTML = LEAKS.map((item) => `
+                <div onclick="openImageModal('${item.title}', '${item.photo}')" class="group bg-gray-50 border border-gray-200 rounded-2xl overflow-hidden cursor-pointer hover:border-black hover:shadow-lg transition-all duration-300">
+                    <div class="aspect-video bg-gray-200 overflow-hidden relative">
+                        <img src="${item.photo}" 
+                             onerror="this.src='https://placehold.co/600x350/f8fafc/000000?text=${encodeURIComponent(item.title)}'" 
+                             alt="${item.title}" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out">
+                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="bg-black text-white text-xs font-extrabold px-3 py-1.5 rounded-lg shadow">Click to Enlarge 🔍</span>
+                        </div>
+                    </div>
+                    <div class="p-4 flex items-center justify-between bg-white border-t border-gray-100">
+                        <span class="font-extrabold text-sm text-black">${item.title}</span>
+                        <span class="text-[10px] font-black uppercase tracking-wider text-gray-600 bg-gray-100 px-2 py-0.5 rounded border border-gray-200">
+                            Leak Photo
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Update Logs
+        function renderUpdates() {
+            const container = document.getElementById('updates-container');
+            if (!container) return;
+
+            container.innerHTML = UPDATES.map(item => `
+                <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 grid grid-cols-1 md:grid-cols-12 gap-5 items-center hover:border-black/30 transition-all">
+                    <div class="md:col-span-8 space-y-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-black text-white text-[10px] font-black px-2.5 py-0.5 rounded-md uppercase tracking-wider">${item.version}</span>
+                            <span class="text-xs font-bold text-gray-500">${item.date}</span>
+                        </div>
+                        <h3 class="text-xl font-black text-black">${item.title}</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed font-medium">${item.details}</p>
+                    </div>
+                    <div class="md:col-span-4 aspect-video rounded-xl overflow-hidden border border-gray-200 bg-gray-200">
+                        <img src="${item.photo}" onerror="this.src='https://placehold.co/600x350/f8fafc/000000?text=Update'" alt="${item.title}" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Image Modal Handler
+        function openImageModal(title, imageSrc) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-image').src = imageSrc;
+            const modal = document.getElementById('image-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('image-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Countdown Timer Logic
+        function initCountdown() {
+            const targetTime = new Date(COUNTDOWN_TARGET).getTime();
+
+            function updateTimer() {
+                const now = new Date().getTime();
+                const diff = targetTime - now;
+
+                if (diff <= 0) {
+                    document.getElementById('days').innerText = '00';
+                    document.getElementById('hours').innerText = '00';
+                    document.getElementById('minutes').innerText = '00';
+                    document.getElementById('seconds').innerText = '00';
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerText = String(days).padStart(2, '0');
+                document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+            }
+
+            setInterval(updateTimer, 1000);
+            updateTimer();
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderLeaks();
+            renderUpdates();
+            initCountdown();
+        });
+    </script>
+</body>
+</html>
