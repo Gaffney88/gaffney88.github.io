@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eurotunnel Wiki</title>
+    <!-- Favicon Icon -->
+    <link rel="icon" type="image/x-icon" href="https://static.wikia.nocookie.net/rblxeurotunnel/images/0/08/Site-background-dark/revision/latest?cb=20260625112929">
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,9 +67,9 @@
             <div class="flex items-center space-x-3">
                 <button onclick="openNewsArticle('beta')" class="text-xs font-semibold px-3 py-1.5 rounded-md bg-blue-900/30 text-accentblue border border-blue-700/40 hover:bg-blue-800/40 transition flex items-center gap-1.5">
                     <span class="w-2 h-2 rounded-full bg-accentblue animate-ping"></span>
-                    Beta Wiki Update
+                    Beta Testing Live
                 </button>
-                <a href="https://discord.gg/eurotunnel" target="_blank" class="bg-electricblue hover:bg-electricbluehover text-white text-xs font-semibold px-4 py-2 rounded-lg transition shadow-lg shadow-blue-500/20">
+                <a href="https://discord.gg/6a2yVew8E7" target="_blank" class="bg-electricblue hover:bg-electricbluehover text-white text-xs font-semibold px-4 py-2 rounded-lg transition shadow-lg shadow-blue-500/20">
                     Join Discord
                 </a>
             </div>
@@ -83,20 +85,20 @@
                 <div class="absolute inset-0 bg-gradient-to-r from-blue-950/30 via-transparent to-transparent pointer-events-none"></div>
                 <div class="relative z-10 max-w-2xl space-y-4">
                     <span class="inline-block text-xs font-semibold tracking-wider text-accentblue uppercase bg-blue-950/80 px-3 py-1 rounded-full border border-blue-800/50">
-                        Community-Run Portal
+                        Community-Run Portal • Beta Stage
                     </span>
                     <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white">
                         Eurotunnel Wiki Hub
                     </h1>
                     <p class="text-gray-300 text-sm md:text-base leading-relaxed">
-                        Your definitive community guide to cross-border tunnels, operational standards, roleplay guidelines, and vehicle fleets.
+                        Your definitive community guide to cross-border tunnels, operational standards, roleplay guidelines, and vehicle fleets. Currently undergoing active beta testing and improvements.
                     </p>
                     <div class="pt-4 flex flex-wrap gap-4">
                         <button onclick="switchTab('wiki')" class="bg-electricblue hover:bg-electricbluehover text-white text-sm font-semibold px-6 py-3 rounded-xl transition shadow-lg shadow-blue-500/25">
                             Explore Wiki Hub
                         </button>
                         <button onclick="switchTab('news')" class="glass-panel hover:bg-cardborder text-gray-200 text-sm font-semibold px-6 py-3 rounded-xl transition border border-cardborder">
-                            View News & Updates
+                            View Beta News
                         </button>
                     </div>
                 </div>
@@ -106,22 +108,22 @@
         <!-- NEWS TAB -->
         <div id="tab-news" class="space-y-6 hidden">
             <div class="border-b border-cardborder pb-4">
-                <h2 class="text-2xl font-bold text-white tracking-tight">Announcements & News</h2>
-                <p class="text-sm text-gray-400">Official bulletins, patch notes, and roadmap updates.</p>
+                <h2 class="text-2xl font-bold text-white tracking-tight">Announcements & Updates</h2>
+                <p class="text-sm text-gray-400">Official bulletins regarding the website's public beta phase.</p>
             </div>
             
             <div class="grid gap-6">
-                <!-- Beta Wiki Banner Article -->
+                <!-- Beta Testing Banner Article -->
                 <div onclick="openNewsArticle('beta')" class="glass-panel rounded-xl overflow-hidden cursor-pointer hover:border-electricblue transition group border border-cardborder">
                     <div class="h-48 bg-gradient-to-r from-blue-950 via-indigo-950 to-slate-900 relative flex items-end p-6">
                         <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.15),transparent_50%)]"></div>
                         <div class="relative z-10">
-                            <span class="text-xs font-bold text-accentblue uppercase bg-blue-900/40 px-2.5 py-1 rounded border border-blue-700/30">Major Release</span>
-                            <h3 class="text-xl font-bold text-white mt-2 group-hover:text-accentblue transition">Wiki Beta System Launch & Redesign</h3>
+                            <span class="text-xs font-bold text-accentblue uppercase bg-blue-900/40 px-2.5 py-1 rounded border border-blue-700/30">Active Beta</span>
+                            <h3 class="text-xl font-bold text-white mt-2 group-hover:text-accentblue transition">Website Officially in Beta Testing</h3>
                         </div>
                     </div>
                     <div class="p-6 space-y-3">
-                        <p class="text-sm text-gray-300">Explore the newly upgraded Wiki Beta architecture featuring instant search indexing, streamlined roleplay guides, and lightning-fast navigation.</p>
+                        <p class="text-sm text-gray-300">The Eurotunnel Wiki platform is currently undergoing open beta testing. Explore our redesigned high-performance layout and report feedback via our community Discord.</p>
                         <div class="flex items-center text-xs font-semibold text-electricblue gap-1">
                             Read full announcement &rarr;
                         </div>
@@ -135,20 +137,23 @@
             <div class="border-b border-cardborder pb-4 flex justify-between items-center">
                 <div>
                     <h2 class="text-2xl font-bold text-white tracking-tight">Wiki Database</h2>
-                    <p class="text-sm text-gray-400">Browse official roleplay documentation and procedures.</p>
+                    <p class="text-sm text-gray-400">Official roleplay documentation and procedures.</p>
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="glass-panel p-6 rounded-xl border border-cardborder hover:border-electricblue/50 transition cursor-pointer">
-                    <h3 class="font-bold text-white text-base mb-2">Border Operations</h3>
+                <div class="glass-panel p-6 rounded-xl border border-cardborder opacity-75">
+                    <span class="text-[10px] font-bold uppercase bg-blue-950 text-accentblue px-2 py-0.5 rounded border border-blue-800/40">Coming Soon</span>
+                    <h3 class="font-bold text-white text-base mt-3 mb-2">Border Operations</h3>
                     <p class="text-xs text-gray-400 leading-relaxed">Standard operating procedures for passport control, vehicle inspections, and security protocols.</p>
                 </div>
-                <div class="glass-panel p-6 rounded-xl border border-cardborder hover:border-electricblue/50 transition cursor-pointer">
-                    <h3 class="font-bold text-white text-base mb-2">Tunnel Transit Guide</h3>
+                <div class="glass-panel p-6 rounded-xl border border-cardborder opacity-75">
+                    <span class="text-[10px] font-bold uppercase bg-blue-950 text-accentblue px-2 py-0.5 rounded border border-blue-800/40">Coming Soon</span>
+                    <h3 class="font-bold text-white text-base mt-3 mb-2">Tunnel Transit Guide</h3>
                     <p class="text-xs text-gray-400 leading-relaxed">Safety protocols, speed limits, and emergency evacuation guidelines inside the Channel tunnel.</p>
                 </div>
-                <div class="glass-panel p-6 rounded-xl border border-cardborder hover:border-electricblue/50 transition cursor-pointer">
-                    <h3 class="font-bold text-white text-base mb-2">Vehicle Fleet Regulations</h3>
+                <div class="glass-panel p-6 rounded-xl border border-cardborder opacity-75">
+                    <span class="text-[10px] font-bold uppercase bg-blue-950 text-accentblue px-2 py-0.5 rounded border border-blue-800/40">Coming Soon</span>
+                    <h3 class="font-bold text-white text-base mt-3 mb-2">Vehicle Fleet Regulations</h3>
                     <p class="text-xs text-gray-400 leading-relaxed">Approved emergency, commercial, and civilian vehicle models permitted across checkpoint zones.</p>
                 </div>
             </div>
@@ -161,7 +166,7 @@
         <div class="glass-panel max-w-2xl w-full rounded-2xl overflow-hidden border border-cardborder shadow-2xl animate-in fade-in zoom-in duration-200">
             <div class="h-40 bg-gradient-to-r from-blue-900 to-slate-900 p-6 flex flex-col justify-end relative">
                 <button onclick="closeNewsArticle()" class="absolute top-4 right-4 text-gray-400 hover:text-white bg-black/40 hover:bg-black/60 w-8 h-8 rounded-full flex items-center justify-center transition">✕</button>
-                <span id="modal-tag" class="text-xs font-semibold text-accentblue uppercase w-max bg-blue-950/60 px-2.5 py-1 rounded">Update</span>
+                <span id="modal-tag" class="text-xs font-semibold text-accentblue uppercase w-max bg-blue-950/60 px-2.5 py-1 rounded">Beta Status</span>
                 <h2 id="modal-title" class="text-xl font-bold text-white mt-2">Article Title</h2>
             </div>
             <div class="p-6 space-y-4 text-sm text-gray-300">
@@ -176,7 +181,6 @@
     </div>
 
     <script>
-        // Client-side router fallback to prevent server 404s
         function handleRouting() {
             const hash = window.location.hash.replace('#', '');
             if (['home', 'news', 'wiki'].includes(hash)) {
@@ -213,17 +217,18 @@
             const tag = document.getElementById('modal-tag');
 
             if (id === 'beta') {
-                tag.innerText = "Major Release";
-                title.innerText = "Wiki Beta System Launch & Redesign";
+                tag.innerText = "Beta Testing";
+                title.innerText = "Website Officially in Beta Testing";
                 content.innerHTML = `
-                    <p>We are thrilled to roll out the new <strong>Wiki Beta System</strong> designed specifically to improve reading speed and document accessibility for all Roblox border roleplay members.</p>
-                    <p><strong>What's New:</strong></p>
+                    <p>We are excited to announce that the new <strong>Eurotunnel Wiki</strong> web platform is officially live in <strong>Beta Testing</strong>!</p>
+                    <p>Our team has overhauled the site architecture for lightning-fast speeds, a deep electric-blue matte theme, and streamlined layouts tailored specifically for border roleplay members.</p>
+                    <p><strong>What to expect during Beta:</strong></p>
                     <ul class="list-disc pl-5 space-y-1 text-gray-300">
-                        <li>Streamlined dark matte electric blue interface matching community standards.</li>
-                        <li>Removal of extraneous sections and legacy clutter for lightning-fast navigation.</li>
-                        <li>Interactive banner reader system for instant updates and patch notes.</li>
+                        <li>Wiki database sections are currently populating and marked as coming soon.</li>
+                        <li>Interface optimizations and style refinements are rolling out continuously.</li>
+                        <li>Join our <a href="https://discord.gg/6a2yVew8E7" target="_blank" class="text-electricblue underline font-semibold">Discord Server</a> to submit feedback or report bugs.</li>
                     </ul>
-                    <p class="text-xs text-gray-400 pt-2">Published by Eurotunnel Community Editorial Team.</p>
+                    <p class="text-xs text-gray-400 pt-2">Published by Eurotunnel Community Staff.</p>
                 `;
             }
             modal.classList.remove('hidden');
