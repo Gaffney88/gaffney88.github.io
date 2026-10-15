@@ -40,7 +40,7 @@
             font-family: 'Inter', sans-serif;
         }
         .glass-panel {
-            background: rgba(13, 16, 23, 0.85);
+            background: rgba(13, 16, 23, 0.88);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(31, 41, 61, 0.7);
         }
@@ -52,7 +52,7 @@
     <header class="w-full glass-panel border-b border-cardborder sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-8">
-                <span class="font-bold text-lg tracking-wider text-white uppercase flex items-center gap-2">
+                <span class="font-bold text-lg tracking-wider text-white uppercase flex items-center gap-2 cursor-pointer" onclick="switchTab('home')">
                     <span class="w-2.5 h-2.5 rounded-full bg-electricblue animate-pulse"></span>
                     Eurotunnel Wiki
                 </span>
@@ -176,15 +176,33 @@
     </div>
 
     <script>
-        function switchTab(tabId) {
+        // Client-side router fallback to prevent server 404s
+        function handleRouting() {
+            const hash = window.location.hash.replace('#', '');
+            if (['home', 'news', 'wiki'].includes(hash)) {
+                switchTab(hash, false);
+            }
+        }
+
+        function switchTab(tabId, updateHash = true) {
             ['home', 'news', 'wiki'].forEach(t => {
-                document.getElementById('tab-' + t).classList.add('hidden');
+                const el = document.getElementById('tab-' + t);
+                if (el) el.classList.add('hidden');
                 const navBtn = document.getElementById('nav-' + t);
-                navBtn.className = "px-4 py-2 rounded-lg text-sm font-medium transition text-gray-400 hover:text-white hover:bg-cardborder/50";
+                if (navBtn) navBtn.className = "px-4 py-2 rounded-lg text-sm font-medium transition text-gray-400 hover:text-white hover:bg-cardborder/50";
             });
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            
+            const targetTab = document.getElementById('tab-' + tabId);
+            if (targetTab) targetTab.classList.remove('hidden');
+            
             const activeBtn = document.getElementById('nav-' + tabId);
-            activeBtn.className = "px-4 py-2 rounded-lg text-sm font-medium transition text-electricblue bg-blue-950/40 border border-blue-900/50";
+            if (activeBtn) {
+                activeBtn.className = "px-4 py-2 rounded-lg text-sm font-medium transition text-electricblue bg-blue-950/40 border border-blue-900/50";
+            }
+
+            if (updateHash) {
+                window.location.hash = tabId;
+            }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -214,6 +232,9 @@
         function closeNewsArticle() {
             document.getElementById('news-modal').classList.add('hidden');
         }
+
+        window.addEventListener('hashchange', handleRouting);
+        window.addEventListener('DOMContentLoaded', handleRouting);
     </script>
 </body>
 </html>
