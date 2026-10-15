@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eurotunnel Wiki</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        siteDark: '#06070a',
+                        siteCard: '#0d111a',
+                        siteBorder: '#1e2638',
+                        siteAccent: '#3b82f6',
+                        siteAccentHover: '#2563eb'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #06070a; color: #e2e8f0; }
+        .glass-panel { background: rgba(13, 17, 26, 0.85); backdrop-filter: blur(12px); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+    <!-- TOP NAVIGATION BAR -->
+    <header class="sticky top-0 z-50 border-b border-siteBorder bg-siteDark/90 backdrop-blur-md px-8 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3 cursor-pointer group" onclick="switchTab('home')">
+            <span class="font-bold text-sm tracking-wide text-white uppercase flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]"></span>
+                Eurotunnel Wiki
+            </span>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-8 text-xs font-medium text-gray-400">
+            <button onclick="switchTab('home')" id="nav-home" class="text-white transition hover:text-white">Home</button>
+            <button onclick="switchTab('news')" id="nav-news" class="transition hover:text-white">News</button>
+            <button onclick="switchTab('wiki')" id="nav-wiki" class="transition hover:text-white">Wiki</button>
+        </nav>
+
+        <div class="flex items-center gap-3">
+            <button onclick="openNewsModal('Wiki Beta Update', 'Explore the newly released Wiki Beta portal featuring live database archives, improved security protocols, and refined cross-border transit regulations.')" class="px-4 py-2 rounded-lg bg-blue-600/10 border border-blue-500/30 text-blue-400 text-xs font-medium hover:bg-blue-600/20 transition flex items-center gap-2">
+                <span>⚡</span> Beta Wiki News
+            </button>
+            <a href="https://discord.gg/7dNuTzREff" target="_blank" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium transition shadow-sm">
+                Discord
+            </a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-1 max-w-5xl w-full mx-auto p-6 space-y-12 my-6">
+
+        <!-- HOME TAB -->
+        <div id="tab-home" class="space-y-12">
+            <div class="relative rounded-2xl overflow-hidden border border-siteBorder shadow-2xl min-h-[440px] flex flex-col items-center justify-center text-center p-8 md:p-16">
+                <div class="absolute inset-0 bg-cover bg-center z-0 opacity-25" style="background-image: url('https://static.wikia.nocookie.net/rblxeurotunnel/images/0/08/Site-background-dark/revision/latest?cb=20260625112929');"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-siteDark via-siteDark/80 to-siteDark/40 z-0"></div>
+
+                <div class="relative z-10 space-y-4 max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-semibold uppercase tracking-wider">
+                        Official Community Hub
+                    </div>
+                    <h1 class="text-3xl md:text-5xl font-bold text-white tracking-tight uppercase leading-tight">
+                        Eurotunnel Wiki Portal
+                    </h1>
+                    <p class="text-xs md:text-sm text-gray-400 max-w-lg mx-auto leading-relaxed">
+                        Your definitive directory for cross-border transit standards, procedural regulations, and roleplay documentation.
+                    </p>
+                    <div class="flex items-center justify-center gap-3 pt-3">
+                        <button onclick="switchTab('wiki')" class="px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs transition shadow-lg">
+                            Open Wiki Portal
+                        </button>
+                        <button onclick="switchTab('news')" class="px-5 py-2.5 rounded-lg bg-siteCard hover:bg-siteBorder border border-siteBorder text-gray-300 font-medium text-xs transition">
+                            View News Feed
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Modules Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass-panel border border-siteBorder rounded-xl p-6 space-y-3 hover:border-blue-500/40 transition">
+                    <div class="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-xs font-bold">📘</div>
+                    <h3 class="text-sm font-semibold text-white">Transit Guidelines</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Detailed reference materials for security operations, vehicle passage, and compliance across checkpoints.</p>
+                </div>
+                <div class="glass-panel border border-siteBorder rounded-xl p-6 space-y-3 hover:border-blue-500/40 transition">
+                    <div class="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-xs font-bold">⚡</div>
+                    <h3 class="text-sm font-semibold text-white">Wiki Beta Updates</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Check the centralized news reader for live development updates and system improvements.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEWS TAB -->
+        <div id="tab-news" class="space-y-6 hidden">
+            <h2 class="text-xl font-bold text-white uppercase tracking-wider">News & Announcements</h2>
+            <div class="space-y-4">
+                <!-- Wiki Beta News Banner Card -->
+                <div onclick="openNewsModal('Wiki Beta Released', 'The new Wiki Beta is now live! Explore the updated database pages, improved layouts, and upcoming content archives directly through the navigation menu.')" class="cursor-pointer glass-panel border border-siteBorder hover:border-blue-500/50 rounded-xl p-6 flex flex-col md:flex-row items-center gap-6 transition group">
+                    <img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/0/08/Site-background-dark/revision/latest?cb=20260625112929" class="w-full md:w-44 h-24 object-cover rounded-lg opacity-80" alt="News Banner" />
+                    <div class="space-y-2 flex-1">
+                        <div class="text-[10px] text-blue-400 font-mono tracking-wider">📅 RELEASE UPDATE • WIKI BETA</div>
+                        <h3 class="text-base font-bold text-white group-hover:text-blue-400 transition">Wiki Beta Released</h3>
+                        <p class="text-xs text-gray-400 line-clamp-2 leading-relaxed">The new Wiki Beta is now live! Explore updated database pages and improved navigation features.</p>
+                    </div>
+                    <span class="text-sm font-bold text-blue-400 group-hover:translate-x-1 transition pr-2">&rarr;</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- WIKI TAB -->
+        <div id="tab-wiki" class="space-y-6 hidden text-center py-20">
+            <div class="glass-panel border border-siteBorder rounded-2xl p-12 max-w-md mx-auto space-y-4 shadow-2xl">
+                <div class="text-4xl">🚀</div>
+                <h2 class="text-lg font-bold text-white uppercase">Wiki Beta Portal</h2>
+                <p class="text-xs text-gray-400 leading-relaxed">Active documentation archives and procedural guides are currently being populated.</p>
+                <button onclick="switchTab('home')" class="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs transition">Return Home</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- NEWS DETAILS MODAL -->
+    <div id="newsModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="glass-panel border border-siteBorder rounded-xl max-w-lg w-full p-6 relative space-y-4 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-siteBorder pb-3">
+                <h3 id="modalTitle" class="text-sm font-bold text-white uppercase tracking-wide">Title</h3>
+                <button onclick="closeNewsModal()" class="text-gray-400 hover:text-white font-bold text-xs">✕</button>
+            </div>
+            <p id="modalBody" class="text-xs text-gray-300 leading-relaxed"></p>
+            <div class="pt-2 flex justify-end">
+                <button onclick="closeNewsModal()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium rounded-lg transition">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+        function switchTab(tabId) {
+            ['home', 'news', 'wiki'].forEach(t => {
+                const el = document.getElementById('tab-' + t);
+                const nav = document.getElementById('nav-' + t);
+                if(el) el.classList.add('hidden');
+                if(nav) nav.classList.remove('text-white');
+            });
+            const active = document.getElementById('tab-' + tabId);
+            const activeNav = document.getElementById('nav-' + tabId);
+            if(active) active.classList.remove('hidden');
+            if(activeNav) activeNav.classList.add('text-white');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openNewsModal(title, body) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalBody').innerText = body;
+            document.getElementById('newsModal').classList.remove('hidden');
+        }
+
+        function closeNewsModal() {
+            document.getElementById('newsModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
