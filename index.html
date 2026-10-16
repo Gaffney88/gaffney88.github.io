@@ -1,6 +1,10 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="https://static.wikia.nocookie.net/rblxeurotunnel/images/0/08/Site-background-dark/revision/latest?cb=20260625112929">
 <title>Eurotunnel Wiki</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Montserrat:wght@800;900&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap">
@@ -861,6 +865,170 @@ a.wiki-row:hover .chev { transform: translateX(4px); color: var(--text); }
 @media (max-width: 860px) { .gp-list { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 480px) { .gp-top { flex-wrap: wrap; } .gp-badges { flex-direction: row; align-items: flex-start; flex-basis: 100%; } }
 
+/* v2 pages: hero headers, wiki cards, gamepasses, servers */
+.hero-sm { min-height: 0; }
+.hero-sm .hero-copy { gap: 16px; padding: clamp(36px, 6vw, 64px) clamp(16px, 5vw, 48px); }
+.hero-sm h1 { font-size: clamp(2rem, 6.5vw, 4rem); }
+.hero-sm .lede { max-width: 52ch; }
+.hero-sm .crumb { margin-bottom: 4px; padding: 6px 14px; border: 1px solid var(--line-strong); border-radius: 999px; }
+.article, .server, .srv-notice { margin-inline: 0; }
+.server { width: 100%; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px 24px; }
+.server-head { grid-column: 1; }
+.server p { grid-column: 1; }
+.server .btn-discord { grid-column: 2; grid-row: 1 / span 2; padding: 0 28px; }
+@media (max-width: 640px) { .server { grid-template-columns: minmax(0, 1fr); } .server .btn-discord { grid-column: 1; grid-row: auto; } }
+#tab-home .server { width: min(400px, 100%); grid-template-columns: minmax(0, 1fr); margin-inline: auto; }
+#tab-home .server .btn-discord { grid-column: 1; grid-row: auto; }
+
+.wiki-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.wiki-card { display: grid; gap: 6px; align-content: start; padding: 24px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); color: var(--text); text-decoration: none; transition: border-color 0.15s, transform 0.2s; }
+a.wiki-card:hover { border-color: var(--accent-text); transform: translateY(-3px); }
+.wiki-card .wiki-ico { width: 56px; height: 56px; margin-bottom: 10px; border-radius: 14px; }
+.wiki-card strong { font: 800 1.1rem/1.2 var(--font-display); text-transform: uppercase; }
+.wiki-card small { color: var(--muted); font-size: 0.92rem; }
+.wiki-go { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; color: var(--accent-text); font-size: 0.88rem; font-weight: 600; }
+.wiki-go .chev { width: 16px; height: 16px; transition: transform 0.2s; }
+a.wiki-card:hover .wiki-go .chev { transform: translateX(4px); }
+.wiki-soon { border-style: dashed; border-color: var(--line-strong); background: transparent; color: var(--muted); }
+@media (max-width: 900px) { .wiki-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .wiki-grid { grid-template-columns: minmax(0, 1fr); } }
+
+.gp-tools { padding: 14px 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.gp-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.gp { gap: 0; padding: 0; overflow: hidden; border-radius: 18px; transition: border-color 0.15s, transform 0.2s; }
+.gp:hover { border-color: var(--accent-text); transform: translateY(-3px); }
+.gp-art {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 170px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+  background: radial-gradient(circle at 50% 55%, rgba(59, 130, 246, 0.35), transparent 62%), linear-gradient(160deg, #0e2152, #070b13 80%);
+}
+.gp-art img { position: relative; z-index: 1; width: 120px; height: 120px; object-fit: contain; filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.55)); transition: transform 0.25s; }
+.gp:hover .gp-art img { transform: scale(1.07); }
+.gp-ini { position: absolute; font: 900 4.5rem/1 var(--font-display); color: rgba(130, 179, 255, 0.22); letter-spacing: -0.04em; }
+.gp-badges { position: absolute; z-index: 2; top: 12px; left: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+.gp-badge { padding: 4px 10px; border-radius: 999px; font: 700 0.68rem var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; }
+.b-best { background: var(--warn); color: #1a1303; }
+.b-free { background: var(--good); color: #04180b; }
+.gp-body { display: grid; gap: 10px; align-content: start; padding: 20px; }
+.gp-body h3 { margin: 0; font: 800 1.05rem/1.2 var(--font-display); text-transform: uppercase; }
+.gp-price { display: flex; align-items: baseline; gap: 6px; }
+.gp-price strong { font: 900 1.9rem/1 var(--font-display); letter-spacing: -0.02em; }
+.gp-price b { color: var(--accent-text); font: 800 0.9rem var(--font-display); }
+.gp-price span { margin-left: auto; padding: 3px 10px; border: 1px solid var(--line-strong); border-radius: 999px; color: var(--muted); font-size: 0.8rem; }
+.gp-price.free strong { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 2px; }
+.gp-tag { margin: 0; color: var(--text-soft); font-size: 0.9rem; }
+.gp-perks { display: grid; gap: 8px; margin: 4px 0 0; padding: 12px 0 0; border-top: 1px solid var(--line); list-style: none; color: var(--text-soft); font-size: 0.88rem; }
+.gp-more .gp-perks { margin-top: 0; padding-top: 10px; border-top: 0; }
+.gp-perks li { display: flex; align-items: flex-start; gap: 10px; }
+.gp-perks li svg { flex: none; width: 16px; height: 16px; margin-top: 2px; padding: 2px; border-radius: 50%; background: var(--good-bg); color: var(--good); }
+.gp-perks .grp { margin-top: 4px; color: var(--accent-text); font: 600 0.7rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; }
+.gp-more summary { display: inline-flex; align-items: center; gap: 6px; padding: 4px 0 8px; color: var(--accent-text); font-size: 0.85rem; font-weight: 600; cursor: pointer; list-style: none; }
+.gp-more summary::-webkit-details-marker { display: none; }
+.gp-more summary b { padding: 1px 8px; border-radius: 999px; background: var(--info-bg); font-size: 0.78rem; }
+.gp-more[open] summary { display: none; }
+@media (max-width: 1000px) { .gp-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .gp-list { grid-template-columns: minmax(0, 1fr); } }
+
+.srv-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; overflow: visible; border: 0; border-radius: 0; background: transparent; }
+.srv { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; align-content: start; padding: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); transition: border-color 0.15s, transform 0.2s; }
+.srv:first-child { border-top: 1px solid var(--line); }
+.srv:hover { transform: translateY(-3px); border-color: var(--accent-text); background: var(--surface); }
+.srv-banner {
+  display: block;
+  height: 96px;
+  background-color: #0b1530;
+  background-image: var(--banner, none), radial-gradient(circle at 80% 20%, hsla(var(--h), 85%, 62%, 0.5), transparent 55%), linear-gradient(135deg, hsl(var(--h), 55%, 22%), #070b13);
+  background-size: cover;
+  background-position: center;
+}
+.srv-av {
+  position: absolute;
+  top: 64px;
+  left: 18px;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  border: 3px solid var(--surface);
+  border-radius: 16px;
+  background-color: var(--surface-2);
+  background-image: var(--icon, none);
+  background-size: cover;
+  background-position: center;
+  color: var(--accent-text);
+  font: 800 1.05rem var(--font-display);
+}
+.srv:hover .srv-av { background-color: var(--surface-2); }
+.srv-main { display: grid; gap: 4px; padding: 44px 18px 14px; }
+.srv-main strong { font: 800 1rem/1.25 var(--font-display); text-transform: uppercase; overflow-wrap: anywhere; }
+.srv-meta { color: var(--muted); font-size: 0.85rem; }
+.srv-meta b { color: var(--text); font-weight: 700; }
+.btn-discord.srv-join { margin: 0 18px 18px; min-height: 42px; padding: 0 16px; font-size: 0.78rem; }
+.srv-notice { align-items: center; }
+@media (max-width: 1000px) { .srv-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .srv-list { grid-template-columns: minmax(0, 1fr); } }
+
+/* v3: equal gamepass cards, featured announcement, richer dialog */
+.gp-list { align-items: stretch; }
+.gp { display: flex; flex-direction: column; }
+.gp-body { flex: 1; align-content: start; }
+.gp-body h3 { min-height: 2.4em; display: flex; align-items: flex-end; }
+.gp-more summary { padding-bottom: 4px; }
+.gp-more summary .m-less { display: none; }
+.gp-more[open] summary { display: inline-flex; }
+.gp-more[open] summary .m-more, .gp-more[open] summary b { display: none; }
+.gp-more[open] summary .m-less { display: inline; }
+.gp-more[open] summary::after { content: "\2191"; }
+.gp-more:not([open]) summary::after { content: "\2193"; }
+
+.art-pill { position: absolute; z-index: 2; top: 18px; left: 18px; padding: 6px 14px; border: 1px solid var(--info-line); border-radius: 999px; background: rgba(5, 7, 13, 0.6); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: var(--accent-text); font: 600 0.72rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; }
+.by { display: inline-flex; align-items: center; gap: 10px; color: var(--muted); font-size: 0.88rem; }
+.by i { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid var(--line-strong); border-radius: 50%; background: var(--surface-2); color: var(--accent-text); font: 800 0.65rem var(--font-display); font-style: normal; }
+.article { grid-template-columns: minmax(0, 1fr); border-radius: 24px; }
+.article-art { min-height: 260px; box-shadow: inset 0 -90px 70px -50px var(--surface), inset 0 0 90px rgba(5, 7, 13, 0.6); }
+.article-body { align-content: start; gap: 14px; padding: clamp(22px, 4vw, 40px); }
+.article-title { font-size: clamp(1.7rem, 4vw, 2.6rem); line-height: 1.08; }
+.article-sum { max-width: 62ch; font-size: 1.02rem; }
+.article-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 20px; margin-top: 6px; padding-top: 18px; border-top: 1px solid var(--line); }
+.article:hover .article-art { filter: brightness(1.12); }
+.article-art { transition: filter 0.3s; }
+
+dialog { width: min(740px, calc(100% - 32px)); border-radius: 26px; }
+.dlg-head { position: relative; min-height: 230px; align-content: end; gap: 12px; padding: 32px 36px 28px; border-bottom: 1px solid var(--line); box-shadow: inset 0 -110px 80px -50px var(--surface); }
+.dlg-head .art-pill { top: 22px; left: 36px; }
+.dlg-head h2 { padding-right: 0; font-size: clamp(1.7rem, 5vw, 2.5rem); line-height: 1.05; }
+.dlg-body { gap: 18px; padding: 30px 36px 12px; }
+.dlg-lead { font-size: 1.15rem; line-height: 1.6; }
+.dlg-sub { margin: 14px 0 0; padding-top: 22px; border-top: 1px solid var(--line); }
+.checks li { align-items: center; padding: 15px 18px; border-radius: 14px; }
+.dlg-foot { position: sticky; bottom: 0; padding: 18px 36px 24px; background: linear-gradient(180deg, transparent, var(--surface) 35%); }
+@media (max-width: 560px) {
+  .dlg-head { min-height: 200px; padding: 28px 20px 22px; }
+  .dlg-head .art-pill { left: 20px; }
+  .dlg-body { padding: 24px 20px 8px; }
+  .dlg-foot { padding: 14px 20px 20px; }
+  .article-art { min-height: 180px; }
+}
+
+/* v4: announcement styled like a server card */
+.article { position: relative; border-radius: 18px; }
+.article:hover { transform: translateY(-3px); border-color: var(--accent-text); }
+.article-art { min-height: 0; height: 120px; box-shadow: none; }
+.article:hover .article-art { filter: none; }
+.article-av { position: absolute; top: 88px; left: 22px; z-index: 2; display: grid; place-items: center; width: 64px; height: 64px; border: 3px solid var(--surface); border-radius: 16px; background: var(--surface-2); color: var(--accent-text); font: 800 1.05rem var(--font-display); }
+.article-body { gap: 8px; padding: 48px 22px 22px; }
+.article-title { font-size: 1.15rem; line-height: 1.25; }
+.article-sum { font-size: 0.95rem; }
+.article .more { margin-top: 8px; padding: 0 20px; min-height: 42px; border-radius: 12px; font: 800 0.78rem var(--font-display); letter-spacing: 0.05em; text-transform: uppercase; }
+.dlg-head { min-height: 150px; padding: 28px 36px 24px; }
+.dlg-head h2 { font-size: clamp(1.4rem, 4.5vw, 2rem); }
+@media (max-width: 560px) { .dlg-head { min-height: 130px; padding: 24px 20px 20px; } }
+
 /* Narrow screens */
 .long { display: inline; }
 @media (max-width: 760px) {
@@ -897,7 +1065,9 @@ a.wiki-row:hover .chev { transform: translateX(4px); color: var(--text); }
   * { transition: none !important; }
 }
 </style>
-<!--BODY-->
+</head>
+<body>
+
 <header class="bar">
   <div class="wrap bar-in">
     <a class="brand" href="#home">
@@ -958,49 +1128,65 @@ a.wiki-row:hover .chev { transform: translateX(4px); color: var(--text); }
 
   <!-- News -->
   <div class="panel" id="tab-news" hidden>
-    <div class="page-head">
-      <h2 data-i18n="news_title">Announcements and updates</h2>
-      <p data-i18n="news_sub">Official bulletins about the website's public beta.</p>
-    </div>
+    <section class="hero hero-sm">
+      <div class="hero-copy">
+        
+        <h1>Eurotunnel <span data-i18n="nav_news">News</span></h1>
+        <p class="lede" data-i18n="news_sub">Official bulletins about the website's public beta.</p>
+      </div>
+    </section>
     <button class="article" type="button" data-open="beta">
       <span class="article-art" aria-hidden="true"></span>
+      <span class="article-av" aria-hidden="true">ET</span>
       <span class="article-body">
-        <span class="tags"><span class="chip chip-good" data-i18n="news_tag">Active beta</span><span class="article-meta" data-i18n="news_latest">Latest announcement</span></span>
         <span class="article-title" data-i18n="art_title">Website officially in beta testing</span>
         <span class="article-sum" data-i18n="art_sum">The Eurotunnel Wiki is open for beta testing. Explore the redesigned layout and report feedback on the community Discord.</span>
         <span class="more"><span data-i18n="art_more">Read full announcement →</span></span>
       </span>
     </button>
-    <div class="news-grid">
-      <aside class="news-cta">
-        <div class="news-cta-text">
-          <h3 data-i18n="cta_title">Never miss an update</h3>
-          <p data-i18n="cta_text">Join the community Discord to hear about new announcements and share your feedback.</p>
-        </div>
-        <a class="btn btn-primary" href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener" data-i18n="btn_discord">Join Discord</a>
-      </aside>
-    </div>
+    <section class="server" aria-label="Community Discord server">
+      <div class="server-head">
+        <span class="social-ico ico-discord"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/></svg></span>
+        <div><strong data-i18n="cta_title">Never miss an update</strong><small data-i18n="server_sub">Community Discord</small></div>
+      </div>
+      <p data-i18n="cta_text">Join the community Discord to hear about new announcements and share your feedback.</p>
+      <a class="btn-discord" href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener" data-i18n="btn_discord">Join Discord</a>
+    </section>
   </div>
 
   <!-- Wiki -->
   <div class="panel" id="tab-wiki" hidden>
-    <div class="page-head">
-      <h2 data-i18n="nav_wiki">Wiki</h2>
-      <p data-i18n="wiki_sub">Official roleplay documentation and procedures.</p>
+    <section class="hero hero-sm">
+      <div class="hero-copy">
+        
+        <h1>Eurotunnel <span data-i18n="nav_wiki">Wiki</span></h1>
+        <p class="lede" data-i18n="wiki_sub">Official roleplay documentation and procedures.</p>
+      </div>
+    </section>
+    <div class="wiki-grid">
+      <a class="wiki-card" href="#gamepasses">
+        <span class="wiki-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9a2 2 0 0 0 0 4v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3a2 2 0 0 1 0-4V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1z"/><path d="M14 6v12" stroke-dasharray="2 3"/></svg></span>
+        <strong data-i18n="wiki_gp">Gamepasses</strong>
+        <small data-i18n="wiki_gp_desc">Every gamepass, what it costs and what you get.</small>
+        <span class="wiki-go"><span data-i18n="wiki_open">Open page</span> <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>
+      </a>
+      <div class="wiki-card wiki-soon">
+        <span class="wiki-ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="6" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="18" cy="12" r="1.8"/></svg></span>
+        <strong data-i18n="soon">Coming soon</strong>
+        <small data-i18n="wiki_more">More wiki pages are on the way.</small>
+      </div>
     </div>
-    <ul class="wiki-list">
-      <li><a class="wiki-row" href="#gamepasses"><span class="wiki-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9a2 2 0 0 0 0 4v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3a2 2 0 0 1 0-4V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1z"/><path d="M14 6v12" stroke-dasharray="2 3"/></svg></span><span class="wiki-txt"><strong data-i18n="wiki_gp">Gamepasses</strong><small data-i18n="wiki_gp_desc">Every gamepass, what it costs and what you get.</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
-      <li><div class="wiki-row wiki-soon"><span class="wiki-ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="6" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="18" cy="12" r="1.8"/></svg></span><span class="wiki-txt"><strong data-i18n="soon">Coming soon</strong><small data-i18n="wiki_more">More wiki pages are on the way.</small></span></div></li>
-    </ul>
   </div>
 
   <!-- Gamepasses -->
   <div class="panel" id="tab-gamepasses" hidden>
-    <div class="page-head">
-      <a class="crumb" href="#wiki" data-i18n="gp_back">← Wiki</a>
-      <h2 data-i18n="wiki_gp">Gamepasses</h2>
-      <p data-i18n="wiki_gp_desc">Every gamepass, what it costs and what you get.</p>
-    </div>
+    <section class="hero hero-sm">
+      <div class="hero-copy">
+        <a class="crumb" href="#wiki" data-i18n="gp_back">← Wiki</a>
+        <h1><span data-i18n="wiki_gp">Gamepasses</span></h1>
+        <p class="lede" data-i18n="wiki_gp_desc">Every gamepass, what it costs and what you get.</p>
+      </div>
+    </section>
     <div class="gp-tools">
       <div class="gp-filters" role="group" aria-label="Filter"><button class="fchip" type="button" data-f="all" aria-pressed="true" data-i18n="gp_all">All</button><button class="fchip" type="button" data-f="law" aria-pressed="false" data-i18n="gp_law">Law enforcement</button><button class="fchip" type="button" data-f="criminal" aria-pressed="false" data-i18n="gp_crim">Criminal</button><button class="fchip" type="button" data-f="medical" aria-pressed="false" data-i18n="gp_med">Medical</button><button class="fchip" type="button" data-f="weapons" aria-pressed="false" data-i18n="gp_weap">Weapons</button><button class="fchip" type="button" data-f="vehicles" aria-pressed="false" data-i18n="gp_veh">Vehicles</button><button class="fchip" type="button" data-f="utility" aria-pressed="false" data-i18n="gp_util">Utility</button></div>
       <label class="lang"><span data-i18n="gp_sort">Sort by</span>
@@ -1016,94 +1202,95 @@ a.wiki-row:hover .chev { transform: translateX(4px); color: var(--text); }
     <p class="note" id="gp-count">10 gamepasses</p>
     <ul class="gp-list" id="gp-list">
         <li class="gp" data-name="crime boss" data-price="360" data-value="1.389" data-order="0" data-tags="criminal weapons">
-          <div class="gp-top">
-            <span class="gp-img" aria-hidden="true"><span>CB</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/4/4c/Crime_Boss.png/revision/latest/scale-to-width-down/160?cb=20260402130715" alt="" loading="lazy" onerror="this.remove()"></span>
-            <div class="gp-head"><h3>Crime Boss</h3><div class="gp-price"><strong>360 R$</strong><span>£3.70</span></div></div>
-            <div class="gp-badges"></div>
+          <div class="gp-art"><span class="gp-ini" aria-hidden="true">CB</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/4/4c/Crime_Boss.png/revision/latest/scale-to-width-down/160?cb=20260402130715" alt="Crime Boss" loading="lazy" onerror="this.remove()"><div class="gp-badges"></div></div>
+          <div class="gp-body">
+            <h3>Crime Boss</h3>
+            <div class="gp-price"><strong>360</strong><b>R$</b><span>£3.70</span></div>
+            
+            <ul class="gp-perks"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Increased smuggling limit: carry up to 10 smuggling items</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Able to carry 3 Molotovs</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Exclusive Crime Boss weapons</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Access to the Dominus, an exclusive Crime Boss smuggling item</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Ability to sell 2 firework boxes per in-game night</span></li></ul>
           </div>
-          
-          <details class="gp-det"><summary><span data-i18n="gp_included">What's included</span> <span class="gp-n">(5)</span></summary><ul><li>Increased smuggling limit: carry up to 10 smuggling items</li><li>Able to carry 3 Molotovs</li><li>Exclusive Crime Boss weapons</li><li>Access to the Dominus, an exclusive Crime Boss smuggling item</li><li>Ability to sell 2 firework boxes per in-game night</li></ul></details>
         </li>
         <li class="gp" data-name="advanced weaponry" data-price="450" data-value="2.222" data-order="1" data-tags="weapons criminal">
-          <div class="gp-top">
-            <span class="gp-img" aria-hidden="true"><span>AW</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/5/54/Advanced_Weaponry.png/revision/latest/scale-to-width-down/160?cb=20260402131026" alt="" loading="lazy" onerror="this.remove()"></span>
-            <div class="gp-head"><h3>Advanced Weaponry</h3><div class="gp-price"><strong>450 R$</strong><span>£4.63</span></div></div>
-            <div class="gp-badges"><span class="chip chip-warn gp-badge" data-i18n="gp_best">Best value</span></div>
+          <div class="gp-art"><span class="gp-ini" aria-hidden="true">AW</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/5/54/Advanced_Weaponry.png/revision/latest/scale-to-width-down/160?cb=20260402131026" alt="Advanced Weaponry" loading="lazy" onerror="this.remove()"><div class="gp-badges"><span class="gp-badge b-best" data-i18n="gp_best">Best value</span></div></div>
+          <div class="gp-body">
+            <h3>Advanced Weaponry</h3>
+            <div class="gp-price"><strong>450</strong><b>R$</b><span>£4.63</span></div>
+            
+            <ul class="gp-perks"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Luger</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>PKM</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>AA-12</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>AK-47</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Tommy Gun</span></li></ul><details class="gp-more"><summary><span class="m-more" data-i18n="gp_more">Show more</span><span class="m-less" data-i18n="gp_less">Show less</span> <b>+5</b></summary><ul class="gp-perks"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>AS Val</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>MP5</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>P90</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Weapons Blueprint (smuggling item)</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Weapon Crate (smuggling item)</span></li></ul></details>
           </div>
-          
-          <details class="gp-det"><summary><span data-i18n="gp_included">What's included</span> <span class="gp-n">(10)</span></summary><ul><li>Luger</li><li>PKM</li><li>AA-12</li><li>AK-47</li><li>Tommy Gun</li><li>AS Val</li><li>MP5</li><li>P90</li><li>Weapons Blueprint (smuggling item)</li><li>Weapon Crate (smuggling item)</li></ul></details>
         </li>
         <li class="gp" data-name="supercars" data-price="360" data-value="0.556" data-order="2" data-tags="vehicles">
-          <div class="gp-top">
-            <span class="gp-img" aria-hidden="true"><span>SC</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/3/35/Supercars.png/revision/latest/scale-to-width-down/160?cb=20260402131153" alt="" loading="lazy" onerror="this.remove()"></span>
-            <div class="gp-head"><h3>Supercars</h3><div class="gp-price"><strong>360 R$</strong><span>£3.70</span></div></div>
-            <div class="gp-badges"></div>
+          <div class="gp-art"><span class="gp-ini" aria-hidden="true">SC</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/3/35/Supercars.png/revision/latest/scale-to-width-down/160?cb=20260402131153" alt="Supercars" loading="lazy" onerror="this.remove()"><div class="gp-badges"></div></div>
+          <div class="gp-body">
+            <h3>Supercars</h3>
+            <div class="gp-price"><strong>360</strong><b>R$</b><span>£3.70</span></div>
+            
+            <ul class="gp-perks"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Access to purchase multiple supercars, some of the fastest and most stylish in the game</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Includes one free starter vehicle. Additional vehicles require in-game cash</span></li></ul>
           </div>
-          
-          <details class="gp-det"><summary><span data-i18n="gp_included">What's included</span> <span class="gp-n">(2)</span></summary><ul><li>Access to purchase multiple supercars, some of the fastest and most stylish in the game</li><li>Includes one free starter vehicle. Additional vehicles require in-game cash</li></ul></details>
         </li>
         <li class="gp" data-name="border supervisor" data-price="599" data-value="0.835" data-order="3" data-tags="law vehicles">
-          <div class="gp-top">
-            <span class="gp-img" aria-hidden="true"><span>BS</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/3/3e/Border_Supervisor_Pass.png/revision/latest/scale-to-width-down/160?cb=20260621200432" alt="" loading="lazy" onerror="this.remove()"></span>
-            <div class="gp-head"><h3>Border Supervisor</h3><div class="gp-price"><strong>599 R$</strong><span>£6.16</span></div></div>
-            <div class="gp-badges"></div>
+          <div class="gp-art"><span class="gp-ini" aria-hidden="true">BS</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/3/3e/Border_Supervisor_Pass.png/revision/latest/scale-to-width-down/160?cb=20260621200432" alt="Border Supervisor" loading="lazy" onerror="this.remove()"><div class="gp-badges"></div></div>
+          <div class="gp-body">
+            <h3>Border Supervisor</h3>
+            <div class="gp-price"><strong>599</strong><b>R$</b><span>£6.16</span></div>
+            <p class="gp-tag">Control the border and ensure operations run smoothly!</p>
+            <ul class="gp-perks"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Run the border</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Command officers</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Set the border status</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Access to trigger a lockdown</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Exclusive vehicles</span></li></ul>
           </div>
-          <p class="gp-tag">Control the border and ensure operations run smoothly!</p>
-          <details class="gp-det"><summary><span data-i18n="gp_included">What's included</span> <span class="gp-n">(5)</span></summary><ul><li>Run the border</li><li>Command officers</li><li>Set the border status</li><li>Access to trigger a lockdown</li><li>Exclusive vehicles</li></ul></details>
         </li>
         <li class="gp" data-name="police specialist" data-price="525" data-value="1.333" data-order="4" data-tags="law weapons vehicles">
-          <div class="gp-top">
-            <span class="gp-img" aria-hidden="true"><span>PS</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/2/29/Police_Specialist.png/revision/latest/scale-to-width-down/160?cb=20260621200546" alt="" loading="lazy" onerror="this.remove()"></span>
-            <div class="gp-head"><h3>Police Specialist</h3><div class="gp-price"><strong>525 R$</strong><span>£5.40</span></div></div>
-            <div class="gp-badges"></div>
+          <div class="gp-art"><span class="gp-ini" aria-hidden="true">PS</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/2/29/Police_Specialist.png/revision/latest/scale-to-width-down/160?cb=20260621200546" alt="Police Specialist" loading="lazy" onerror="this.remove()"><div class="gp-badges"></div></div>
+          <div class="gp-body">
+            <h3>Police Specialist</h3>
+            <div class="gp-price"><strong>525</strong><b>R$</b><span>£5.40</span></div>
+            <p class="gp-tag">Upgrade your police experience!</p>
+            <ul class="gp-perks"><li class="grp">CTSFO</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Access to CTSFO gear, including instant gun access</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>CTSFO Vest + Helmet (gives extra health)</span></li><li class="grp">Riot</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Riot Gear (helmet and special uniform)</span></li></ul><details class="gp-more"><summary><span class="m-more" data-i18n="gp_more">Show more</span><span class="m-less" data-i18n="gp_less">Show less</span> <b>+4</b></summary><ul class="gp-perks"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Riot Shield</span></li><li class="grp">Vehicles</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Multiple SUVs</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Fast vehicles</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Armed response cars</span></li></ul></details>
           </div>
-          <p class="gp-tag">Upgrade your police experience!</p>
-          <details class="gp-det"><summary><span data-i18n="gp_included">What's included</span> <span class="gp-n">(7)</span></summary><ul><li class="grp">CTSFO</li><li>Access to CTSFO gear, including instant gun access</li><li>CTSFO Vest + Helmet (gives extra health)</li><li class="grp">Riot</li><li>Riot Gear (helmet and special uniform)</li><li>Riot Shield</li><li class="grp">Vehicles</li><li>Multiple SUVs</li><li>Fast vehicles</li><li>Armed response cars</li></ul></details>
         </li>
         <li class="gp" data-name="military police" data-price="1199" data-value="0.334" data-order="5" data-tags="law weapons vehicles">
-          <div class="gp-top">
-            <span class="gp-img" aria-hidden="true"><span>MP</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/e/ea/Military_Police.png/revision/latest/scale-to-width-down/160?cb=20260621200626" alt="" loading="lazy" onerror="this.remove()"></span>
-            <div class="gp-head"><h3>Military Police</h3><div class="gp-price"><strong>1,199 R$</strong><span>£12.33</span></div></div>
-            <div class="gp-badges"></div>
+          <div class="gp-art"><span class="gp-ini" aria-hidden="true">MP</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/e/ea/Military_Police.png/revision/latest/scale-to-width-down/160?cb=20260621200626" alt="Military Police" loading="lazy" onerror="this.remove()"><div class="gp-badges"></div></div>
+          <div class="gp-body">
+            <h3>Military Police</h3>
+            <div class="gp-price"><strong>1,199</strong><b>R$</b><span>£12.33</span></div>
+            <p class="gp-tag">Gain access to the military police team, with up to 80+ hours of content.</p>
+            <ul class="gp-perks"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Unlocks a whole new team</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Lots of exclusive weapons</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Highly armoured uniform</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Many exclusive vehicles (including an armoured patrol vehicle)</span></li></ul>
           </div>
-          <p class="gp-tag">Gain access to the military police team, with up to 80+ hours of content.</p>
-          <details class="gp-det"><summary><span data-i18n="gp_included">What's included</span> <span class="gp-n">(4)</span></summary><ul><li>Unlocks a whole new team</li><li>Lots of exclusive weapons</li><li>Highly armoured uniform</li><li>Many exclusive vehicles (including an armoured patrol vehicle)</li></ul></details>
         </li>
         <li class="gp" data-name="hart" data-price="399" data-value="0.501" data-order="6" data-tags="medical vehicles">
-          <div class="gp-top">
-            <span class="gp-img" aria-hidden="true"><span>HT</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/b/bd/HART.png/revision/latest/scale-to-width-down/160?cb=20260621200656" alt="" loading="lazy" onerror="this.remove()"></span>
-            <div class="gp-head"><h3>HART</h3><div class="gp-price"><strong>399 R$</strong><span>£4.10</span></div></div>
-            <div class="gp-badges"></div>
+          <div class="gp-art"><span class="gp-ini" aria-hidden="true">HT</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/b/bd/HART.png/revision/latest/scale-to-width-down/160?cb=20260621200656" alt="HART" loading="lazy" onerror="this.remove()"><div class="gp-badges"></div></div>
+          <div class="gp-body">
+            <h3>HART</h3>
+            <div class="gp-price"><strong>399</strong><b>R$</b><span>£4.10</span></div>
+            <p class="gp-tag">Upgrade your NHS experience with specialist equipment designed to deal with any situation.</p>
+            <ul class="gp-perks"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Get access to the HART uniform, which gives protection against firearms</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>HART-exclusive vehicles</span></li></ul>
           </div>
-          <p class="gp-tag">Upgrade your NHS experience with specialist equipment designed to deal with any situation.</p>
-          <details class="gp-det"><summary><span data-i18n="gp_included">What's included</span> <span class="gp-n">(2)</span></summary><ul><li>Get access to the HART uniform, which gives protection against firearms</li><li>HART-exclusive vehicles</li></ul></details>
         </li>
-        <li class="gp" data-name="gun license" data-price="0" data-value="-1.000" data-order="7" data-tags="utility weapons">
-          <div class="gp-top">
-            <span class="gp-img" aria-hidden="true"><span>GL</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/a/ae/Gun_License.png/revision/latest/scale-to-width-down/160?cb=20260621200726" alt="" loading="lazy" onerror="this.remove()"></span>
-            <div class="gp-head"><h3>Gun License</h3><div class="gp-price free"><strong>99 R$</strong><span>£1.02</span></div></div>
-            <div class="gp-badges"><span class="chip chip-good gp-badge" data-i18n="gp_free">Free in-game</span></div>
+        <li class="gp" data-name="gun license" data-price="99" data-value="1.010" data-order="7" data-tags="utility weapons">
+          <div class="gp-art"><span class="gp-ini" aria-hidden="true">GL</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/a/ae/Gun_License.png/revision/latest/scale-to-width-down/160?cb=20260621200726" alt="Gun License" loading="lazy" onerror="this.remove()"><div class="gp-badges"></div></div>
+          <div class="gp-body">
+            <h3>Gun License</h3>
+            <div class="gp-price"><strong>99</strong><b>R$</b><span>£1.02</span></div>
+            <p class="gp-tag" data-i18n="gp_gun_tag">Gives you free guns.</p>
+            <ul class="gp-perks"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span data-i18n="gp_gun_perk">Free guns</span></li></ul>
+            
           </div>
-          <p class="gp-tag">The gun license cost was removed. It is now free in-game.</p>
-          
         </li>
         <li class="gp" data-name="national investigations agency" data-price="399" data-value="0.752" data-order="8" data-tags="law weapons">
-          <div class="gp-top">
-            <span class="gp-img" aria-hidden="true"><span>NI</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/0/04/National_Investigations_Agency.png/revision/latest/scale-to-width-down/160?cb=20260621200814" alt="" loading="lazy" onerror="this.remove()"></span>
-            <div class="gp-head"><h3>National Investigations Agency</h3><div class="gp-price"><strong>399 R$</strong><span>£4.10</span></div></div>
-            <div class="gp-badges"></div>
+          <div class="gp-art"><span class="gp-ini" aria-hidden="true">NI</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/0/04/National_Investigations_Agency.png/revision/latest/scale-to-width-down/160?cb=20260621200814" alt="National Investigations Agency" loading="lazy" onerror="this.remove()"><div class="gp-badges"></div></div>
+          <div class="gp-body">
+            <h3>National Investigations Agency</h3>
+            <div class="gp-price"><strong>399</strong><b>R$</b><span>£4.10</span></div>
+            <p class="gp-tag">Become a NIA Agent and keep the border protected!</p>
+            <ul class="gp-perks"><li class="grp">Unlock access to exclusive gear</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Specialist uniforms</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>NIA blacked-out liveries</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Instant and exclusive firearm</span></li></ul>
           </div>
-          <p class="gp-tag">Become a NIA Agent and keep the border protected!</p>
-          <details class="gp-det"><summary><span data-i18n="gp_included">What's included</span> <span class="gp-n">(3)</span></summary><ul><li class="grp">Unlock access to exclusive gear</li><li>Specialist uniforms</li><li>NIA blacked-out liveries</li><li>Instant and exclusive firearm</li></ul></details>
         </li>
         <li class="gp" data-name="bypass team limits" data-price="399" data-value="0.251" data-order="9" data-tags="utility">
-          <div class="gp-top">
-            <span class="gp-img" aria-hidden="true"><span>BT</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/0/0c/Bypass_Team_Limits.png/revision/latest/scale-to-width-down/160?cb=20260621200851" alt="" loading="lazy" onerror="this.remove()"></span>
-            <div class="gp-head"><h3>Bypass Team Limits</h3><div class="gp-price"><strong>399 R$</strong><span>£4.10</span></div></div>
-            <div class="gp-badges"></div>
+          <div class="gp-art"><span class="gp-ini" aria-hidden="true">BT</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/0/0c/Bypass_Team_Limits.png/revision/latest/scale-to-width-down/160?cb=20260621200851" alt="Bypass Team Limits" loading="lazy" onerror="this.remove()"><div class="gp-badges"></div></div>
+          <div class="gp-body">
+            <h3>Bypass Team Limits</h3>
+            <div class="gp-price"><strong>399</strong><b>R$</b><span>£4.10</span></div>
+            <p class="gp-tag">Join any team without being blocked by the team limit.</p>
+            
           </div>
-          <p class="gp-tag">Join any team without being blocked by the team limit.</p>
-          
         </li>
     </ul>
     <p class="srv-none" id="gp-none" hidden data-i18n="gp_none">No gamepasses match this filter.</p>
@@ -1112,21 +1299,18 @@ a.wiki-row:hover .chev { transform: translateX(4px); color: var(--text); }
 
   <!-- Servers -->
   <div class="panel" id="tab-servers" hidden>
-    <div class="page-head">
-      <h2 data-i18n="srv_title">Community servers</h2>
-      <p data-i18n="srv_sub">Eurotunnel community Discord servers you can join.</p>
-    </div>
-    <div class="srv-stats">
-      <div><span class="srv-stat-num">15</span><span class="srv-stat-lbl" data-i18n="st_servers">Servers listed</span></div>
-      <div><span class="srv-stat-num">997+</span><span class="srv-stat-lbl" data-i18n="st_members">Total members</span></div>
-      <div><span class="srv-stat-num">200+</span><span class="srv-stat-lbl" data-i18n="st_largest">Largest server</span></div>
-    </div>
+    <section class="hero hero-sm">
+      <div class="hero-copy">
+        
+        <h1>Community <span data-i18n="srv_word">Servers</span></h1>
+        <p class="lede" data-i18n="srv_sub">Eurotunnel community Discord servers you can join.</p>
+      </div>
+    </section>
     <aside class="srv-notice">
       <div class="srv-notice-text">
-        <h3 data-i18n="srv_note_title">Get listed or removed</h3>
-        <p data-i18n="srv_note_add">Want your server listed? Open a ticket in the Eurotunnel Wiki Discord.</p>
-        <p data-i18n="srv_note_remove">Don't want your server listed anymore? Open a ticket in the Eurotunnel Wiki Discord.</p>
-        <p class="srv-note-small" data-i18n="srv_note_inv">Some invite links may be out of date. If one doesn't work, let us know in a ticket.</p>
+        <h3 data-i18n="srv_submit_title">Submit your server</h3>
+        <p data-i18n="srv_submit">To submit your server, open a ticket in the Eurotunnel Wiki Discord and include a banner and an icon.</p>
+        <p class="srv-note-small" data-i18n="srv_note_remove">Don't want your server listed anymore? Open a ticket in the Eurotunnel Wiki Discord.</p>
       </div>
       <a class="btn btn-primary" href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener" data-i18n="srv_ticket">Open a ticket</a>
     </aside>
@@ -1134,140 +1318,141 @@ a.wiki-row:hover .chev { transform: translateX(4px); color: var(--text); }
       <label class="srv-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="srv-q" type="search" autocomplete="off" placeholder="Search servers" data-i18n-ph="srv_search" aria-label="Search servers" data-i18n-aria="srv_search"></label>
       <span class="note" id="srv-count">15 servers</span>
     </div>
+    <!-- To add a banner or icon, put  --banner: url('...');  and/or  --icon: url('...');  in a server's style="" attribute. -->
     <ul class="srv-list">
-        <li class="srv" data-name="1st military police brigade military police presence at eurotunnel events.">
-          <span class="srv-av" style="--h:250" aria-hidden="true">1M</span>
+        <li class="srv" data-name="1st military police brigade" style="--h:250">
+          <span class="srv-banner" aria-hidden="true"></span>
+          <span class="srv-av" aria-hidden="true">1M</span>
           <div class="srv-main">
-            <div class="srv-name"><strong>1st Military Police Brigade</strong></div>
-            <p class="srv-desc" data-i18n="d_mp">Military police presence at Eurotunnel events.</p>
+            <strong>1st Military Police Brigade</strong>
+            <span class="srv-meta"><b>200+</b> <span data-i18n="srv_members">members</span></span>
           </div>
-          <div class="srv-stat"><span class="srv-num">200+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
           <a class="btn-discord srv-join" href="https://discord.gg/mkrhEhh4" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
         </li>
-        <li class="srv" data-name="et | british transport police a community for eurotunnel events.">
-          <span class="srv-av" style="--h:210" aria-hidden="true">BT</span>
+        <li class="srv" data-name="et | british transport police" style="--h:210">
+          <span class="srv-banner" aria-hidden="true"></span>
+          <span class="srv-av" aria-hidden="true">BT</span>
           <div class="srv-main">
-            <div class="srv-name"><strong>ET | British Transport Police</strong></div>
-            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <strong>ET | British Transport Police</strong>
+            <span class="srv-meta"><b>120+</b> <span data-i18n="srv_members">members</span></span>
           </div>
-          <div class="srv-stat"><span class="srv-num">120+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
           <a class="btn-discord srv-join" href="https://discord.gg/KGEd6GtWGE" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
         </li>
-        <li class="srv" data-name="motorway police et a community for eurotunnel events.">
-          <span class="srv-av" style="--h:265" aria-hidden="true">MP</span>
+        <li class="srv" data-name="motorway police et" style="--h:265">
+          <span class="srv-banner" aria-hidden="true"></span>
+          <span class="srv-av" aria-hidden="true">MP</span>
           <div class="srv-main">
-            <div class="srv-name"><strong>Motorway Police ET</strong></div>
-            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <strong>Motorway Police ET</strong>
+            <span class="srv-meta"><b>93+</b> <span data-i18n="srv_members">members</span></span>
           </div>
-          <div class="srv-stat"><span class="srv-num">93+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
           <a class="btn-discord srv-join" href="https://discord.gg/Fqa6D8WnAT" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
         </li>
-        <li class="srv" data-name="mafia community a community for eurotunnel events.">
-          <span class="srv-av" style="--h:350" aria-hidden="true">MA</span>
+        <li class="srv" data-name="mafia community" style="--h:350">
+          <span class="srv-banner" aria-hidden="true"></span>
+          <span class="srv-av" aria-hidden="true">MA</span>
           <div class="srv-main">
-            <div class="srv-name"><strong>MAFIA Community</strong></div>
-            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <strong>MAFIA Community</strong>
+            <span class="srv-meta"><b>90+</b> <span data-i18n="srv_members">members</span></span>
           </div>
-          <div class="srv-stat"><span class="srv-num">90+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
           <a class="btn-discord srv-join" href="https://discord.gg/8jbsMp8k" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
         </li>
-        <li class="srv" data-name="eurotunnel racing championship racing events and championship coverage.">
-          <span class="srv-av" style="--h:140" aria-hidden="true">RC</span>
+        <li class="srv" data-name="eurotunnel racing championship racing events and championship coverage." style="--h:140">
+          <span class="srv-banner" aria-hidden="true"></span>
+          <span class="srv-av" aria-hidden="true">RC</span>
           <div class="srv-main">
-            <div class="srv-name"><strong>Eurotunnel Racing Championship</strong></div>
-            <p class="srv-desc" data-i18n="d_race">Racing events and championship coverage.</p>
+            <strong>Eurotunnel Racing Championship</strong>
+            <span class="srv-meta"><b>80+</b> <span data-i18n="srv_members">members</span></span>
           </div>
-          <div class="srv-stat"><span class="srv-num">80+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
           <a class="btn-discord srv-join" href="https://discord.gg/stwmBekYYv" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
         </li>
-        <li class="srv" data-name="et border policing unit a community for eurotunnel events.">
-          <span class="srv-av" style="--h:200" aria-hidden="true">BP</span>
+        <li class="srv" data-name="et border policing unit" style="--h:200">
+          <span class="srv-banner" aria-hidden="true"></span>
+          <span class="srv-av" aria-hidden="true">BP</span>
           <div class="srv-main">
-            <div class="srv-name"><strong>ET Border Policing Unit</strong></div>
-            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <strong>ET Border Policing Unit</strong>
+            <span class="srv-meta"><b>76+</b> <span data-i18n="srv_members">members</span></span>
           </div>
-          <div class="srv-stat"><span class="srv-num">76+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
           <a class="btn-discord srv-join" href="https://discord.gg/yQYp28GZmG" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
         </li>
-        <li class="srv" data-name="eurotunnel operations operational coordination for eurotunnel events.">
-          <span class="srv-av" style="--h:225" aria-hidden="true">OP</span>
+        <li class="srv" data-name="eurotunnel operations operational coordination for eurotunnel events." style="--h:225">
+          <span class="srv-banner" aria-hidden="true"></span>
+          <span class="srv-av" aria-hidden="true">OP</span>
           <div class="srv-main">
-            <div class="srv-name"><strong>EuroTunnel Operations</strong></div>
-            <p class="srv-desc" data-i18n="d_ops">Operational coordination for Eurotunnel events.</p>
+            <strong>EuroTunnel Operations</strong>
+            <span class="srv-meta"><b>70+</b> <span data-i18n="srv_members">members</span></span>
           </div>
-          <div class="srv-stat"><span class="srv-num">70+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
           <a class="btn-discord srv-join" href="https://discord.gg/EvEwB5rF" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
         </li>
-        <li class="srv" data-name="et | national health service medical &amp; health operations at eurotunnel events.">
-          <span class="srv-av" style="--h:165" aria-hidden="true">NH</span>
+        <li class="srv" data-name="et | national health service medical &amp; health operations at eurotunnel events." style="--h:165">
+          <span class="srv-banner" aria-hidden="true"></span>
+          <span class="srv-av" aria-hidden="true">NH</span>
           <div class="srv-main">
-            <div class="srv-name"><strong>ET | National Health Service</strong></div>
-            <p class="srv-desc" data-i18n="d_nhs">Medical &amp; health operations at Eurotunnel events.</p>
+            <strong>ET | National Health Service</strong>
+            <span class="srv-meta"><b>50+</b> <span data-i18n="srv_members">members</span></span>
           </div>
-          <div class="srv-stat"><span class="srv-num">50+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
           <a class="btn-discord srv-join" href="https://discord.gg/ca7CcA3sRu" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
         </li>
-        <li class="srv" data-name="red rose mafia a community for eurotunnel events.">
-          <span class="srv-av" style="--h:345" aria-hidden="true">RR</span>
+        <li class="srv" data-name="red rose mafia" style="--h:345">
+          <span class="srv-banner" aria-hidden="true"></span>
+          <span class="srv-av" aria-hidden="true">RR</span>
           <div class="srv-main">
-            <div class="srv-name"><strong>Red Rose Mafia</strong></div>
-            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <strong>Red Rose Mafia</strong>
+            <span class="srv-meta"><b>50+</b> <span data-i18n="srv_members">members</span></span>
           </div>
-          <div class="srv-stat"><span class="srv-num">50+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
           <a class="btn-discord srv-join" href="https://discord.gg/S3A86d2j" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
         </li>
-        <li class="srv" data-name="eurotunnel photography capturing moments from eurotunnel events.">
-          <span class="srv-av" style="--h:38" aria-hidden="true">PH</span>
+        <li class="srv" data-name="eurotunnel photography capturing moments from eurotunnel events." style="--h:38">
+          <span class="srv-banner" aria-hidden="true"></span>
+          <span class="srv-av" aria-hidden="true">PH</span>
           <div class="srv-main">
-            <div class="srv-name"><strong>EuroTunnel Photography</strong></div>
-            <p class="srv-desc" data-i18n="d_photo">Capturing moments from Eurotunnel events.</p>
+            <strong>EuroTunnel Photography</strong>
+            <span class="srv-meta"><b>40+</b> <span data-i18n="srv_members">members</span></span>
           </div>
-          <div class="srv-stat"><span class="srv-num">40+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
           <a class="btn-discord srv-join" href="https://discord.gg/mtnSG5RQ" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
         </li>
-        <li class="srv" data-name="oda 3rd sfg group a community for eurotunnel events.">
-          <span class="srv-av" style="--h:280" aria-hidden="true">3G</span>
+        <li class="srv" data-name="oda 3rd sfg group" style="--h:280">
+          <span class="srv-banner" aria-hidden="true"></span>
+          <span class="srv-av" aria-hidden="true">3G</span>
           <div class="srv-main">
-            <div class="srv-name"><strong>ODA 3rd SFG Group</strong></div>
-            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <strong>ODA 3rd SFG Group</strong>
+            <span class="srv-meta"><b>33+</b> <span data-i18n="srv_members">members</span></span>
           </div>
-          <div class="srv-stat"><span class="srv-num">33+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
           <a class="btn-discord srv-join" href="https://discord.gg/M9K7tm3xyn" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
         </li>
-        <li class="srv" data-name="the network a community for eurotunnel events.">
-          <span class="srv-av" style="--h:190" aria-hidden="true">TN</span>
+        <li class="srv" data-name="the network" style="--h:190">
+          <span class="srv-banner" aria-hidden="true"></span>
+          <span class="srv-av" aria-hidden="true">TN</span>
           <div class="srv-main">
-            <div class="srv-name"><strong>The Network</strong></div>
-            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <strong>The Network</strong>
+            <span class="srv-meta"><b>30+</b> <span data-i18n="srv_members">members</span></span>
           </div>
-          <div class="srv-stat"><span class="srv-num">30+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
           <a class="btn-discord srv-join" href="https://discord.gg/FH9W8hP2" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
         </li>
-        <li class="srv" data-name="scnn a community for eurotunnel events.">
-          <span class="srv-av" style="--h:300" aria-hidden="true">SC</span>
+        <li class="srv" data-name="scnn" style="--h:300">
+          <span class="srv-banner" aria-hidden="true"></span>
+          <span class="srv-av" aria-hidden="true">SC</span>
           <div class="srv-main">
-            <div class="srv-name"><strong>SCNN</strong></div>
-            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <strong>SCNN</strong>
+            <span class="srv-meta"><b>30+</b> <span data-i18n="srv_members">members</span></span>
           </div>
-          <div class="srv-stat"><span class="srv-num">30+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
           <a class="btn-discord srv-join" href="https://discord.com/invite/KzySGx8Tbp" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
         </li>
-        <li class="srv" data-name="eurotunnel supervisor a community for eurotunnel events.">
-          <span class="srv-av" style="--h:220" aria-hidden="true">SV</span>
+        <li class="srv" data-name="eurotunnel supervisor" style="--h:220">
+          <span class="srv-banner" aria-hidden="true"></span>
+          <span class="srv-av" aria-hidden="true">SV</span>
           <div class="srv-main">
-            <div class="srv-name"><strong>Eurotunnel Supervisor</strong></div>
-            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <strong>Eurotunnel Supervisor</strong>
+            <span class="srv-meta"><b>25+</b> <span data-i18n="srv_members">members</span></span>
           </div>
-          <div class="srv-stat"><span class="srv-num">25+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
           <a class="btn-discord srv-join" href="https://discord.gg/85cVfja33" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
         </li>
-        <li class="srv" data-name="territorial support group a community for eurotunnel events.">
-          <span class="srv-av" style="--h:25" aria-hidden="true">TS</span>
+        <li class="srv" data-name="territorial support group" style="--h:25">
+          <span class="srv-banner" aria-hidden="true"></span>
+          <span class="srv-av" aria-hidden="true">TS</span>
           <div class="srv-main">
-            <div class="srv-name"><strong>Territorial Support Group</strong></div>
-            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <strong>Territorial Support Group</strong>
+            <span class="srv-meta"><b>10+</b> <span data-i18n="srv_members">members</span></span>
           </div>
-          <div class="srv-stat"><span class="srv-num">10+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
           <a class="btn-discord srv-join" href="https://discord.gg/8jbsMp8k" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
         </li>
     </ul>
@@ -1315,7 +1500,6 @@ a.wiki-row:hover .chev { transform: translateX(4px); color: var(--text); }
   <div class="dlg-in">
     <div class="dlg-head">
       <h2 id="modal-title" data-i18n="art_title">Website officially in beta testing</h2>
-      <span class="article-meta" data-i18n="dlg_pub">Published by Eurotunnel Community Staff</span>
     </div>
     <div class="dlg-body">
       <p class="dlg-lead" data-i18n-html="dlg_p1">We are excited to announce that the new <strong>Eurotunnel Wiki</strong> web platform is officially live in <strong>beta testing</strong>.</p>
@@ -1430,6 +1614,14 @@ a.wiki-row:hover .chev { transform: translateX(4px); color: var(--text); }
     gp_count: ["gamepasses", "个通行证", "गेमपास", "pases", "passes"],
     gp_none: ["No gamepasses match this filter.", "没有符合筛选条件的通行证。", "इस फ़िल्टर से कोई गेमपास मेल नहीं खाता।", "Ningún pase coincide con este filtro.", "Aucun passe ne correspond à ce filtre."],
     gp_note: ["Prices are in Robux (R$) with approximate GBP. Best value ranks passes by features per R$.", "价格以 Robux (R$) 计，并附英镑参考价。“最超值”按每 R$ 的功能数量排序。", "कीमतें Robux (R$) में हैं और साथ में अनुमानित GBP दिया गया है। \"सर्वोत्तम मूल्य\" प्रति R$ सुविधाओं के आधार पर क्रमबद्ध है।", "Los precios están en Robux (R$) con GBP aproximado. «Mejor valor» ordena los pases por funciones por R$.", "Les prix sont en Robux (R$) avec un équivalent approximatif en GBP. « Meilleur rapport » classe les passes par nombre d'avantages par R$."],
+    wiki_open: ["Open page", "打开页面", "पृष्ठ खोलें", "Abrir página", "Ouvrir la page"],
+    gp_more: ["Show more", "显示更多", "और दिखाएँ", "Ver más", "Voir plus"],
+    srv_word: ["Servers", "服务器", "सर्वर", "Servidores", "Serveurs"],
+    srv_submit_title: ["Submit your server", "提交您的服务器", "अपना सर्वर सबमिट करें", "Envía tu servidor", "Soumettez votre serveur"],
+    srv_submit: ["To submit your server, open a ticket in the Eurotunnel Wiki Discord and include a banner and an icon.", "要提交您的服务器，请在 Eurotunnel Wiki Discord 中创建工单，并附上横幅图和图标。", "अपना सर्वर सबमिट करने के लिए Eurotunnel Wiki Discord में टिकट खोलें और एक बैनर व एक आइकन साथ में दें।", "Para enviar tu servidor, abre un ticket en el Discord de Eurotunnel Wiki e incluye un banner y un icono.", "Pour soumettre votre serveur, ouvrez un ticket sur le Discord d'Eurotunnel Wiki et joignez une bannière et une icône."],
+    gp_gun_tag: ["Gives you free guns.", "让您免费获得枪支。", "आपको मुफ़्त बंदूकें देता है।", "Te da armas gratis.", "Vous donne des armes gratuites."],
+    gp_gun_perk: ["Free guns", "免费枪支", "मुफ़्त बंदूकें", "Armas gratis", "Armes gratuites"],
+    gp_less: ["Show less", "收起", "कम दिखाएँ", "Ver menos", "Voir moins"],
     srv_title: ["Community servers", "社区服务器", "समुदाय सर्वर", "Servidores de la comunidad", "Serveurs communautaires"],
     srv_sub: ["Eurotunnel community Discord servers you can join.", "您可以加入的 Eurotunnel 社区 Discord 服务器。", "Eurotunnel के कम्युनिटी Discord सर्वर, जिनसे आप जुड़ सकते हैं।", "Servidores de Discord de la comunidad Eurotunnel a los que puedes unirte.", "Serveurs Discord de la communauté Eurotunnel que vous pouvez rejoindre."],
     srv_search: ["Search servers", "搜索服务器", "सर्वर खोजें", "Buscar servidores", "Rechercher un serveur"],
@@ -1685,4 +1877,5 @@ a.wiki-row:hover .chev { transform: translateX(4px); color: var(--text); }
 })();
 </script>
 
-</body></html>
+</body>
+</html>
