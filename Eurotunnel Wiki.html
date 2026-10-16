@@ -1,0 +1,1688 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Eurotunnel Wiki</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Montserrat:wght@800;900&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap">
+<style>
+/* Layout: a signage bar over one hero with a rail-tunnel perspective, then flat departure-board rows instead of a grid of identical cards. */
+:root {
+  --bg: #05070d;
+  --surface: #0a0f19;
+  --surface-2: #0f1626;
+  --header-bg: #070b13;
+  --line: #1b2640;
+  --line-strong: #2b3c60;
+  --text: #e9eef8;
+  --text-soft: #c4cde0;
+  --muted: #97a3bb;
+  --accent: #2563eb;
+  --accent-hover: #2f6df2;
+  --accent-text: #82b3ff;
+  --accent-glow: rgba(59, 130, 246, 0.45);
+  --good: #4ade80;
+  --good-bg: rgba(74, 222, 128, 0.1);
+  --good-line: rgba(74, 222, 128, 0.35);
+  --warn: #fbbf24;
+  --warn-bg: rgba(251, 191, 36, 0.1);
+  --warn-line: rgba(251, 191, 36, 0.35);
+  --info-bg: rgba(130, 179, 255, 0.1);
+  --info-line: rgba(130, 179, 255, 0.35);
+  /* Optional photo for the news card, for example: --news-photo: url('your-image.jpg') center / cover; */
+  --news-photo: linear-gradient(transparent, transparent);
+  --font-display: 'Montserrat', 'Noto Sans SC', 'Noto Sans Devanagari', 'Arial Black', 'Helvetica Neue', sans-serif;
+  --font-body: 'Inter', 'Noto Sans SC', 'Noto Sans Devanagari', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  background-image: linear-gradient(rgba(5, 7, 13, 0.7), rgba(5, 7, 13, 0.88)), url('https://static.wikia.nocookie.net/rblxeurotunnel/images/0/08/Site-background-dark/revision/latest?cb=20260625112929');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--text);
+  font: 400 1rem/1.6 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  background: var(--header-bg);
+}
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+a { color: var(--accent-text); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 3px; }
+
+.wrap {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Header */
+.bar {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 5;
+  background: rgba(7, 11, 19, 0.9);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.bar-in {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px 32px;
+  min-height: 64px;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+  font: 800 1.1rem/1 var(--font-display);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.brand svg { width: 26px; height: 26px; color: var(--accent-text); flex: none; }
+.tabs { display: flex; align-self: stretch; gap: 4px; }
+.tab {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  margin-bottom: -1px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.tab:hover { color: #fff; }
+.tab[aria-current="page"] { color: #fff; border-bottom-color: var(--accent-text); }
+.bar-actions { display: flex; align-items: center; gap: 10px; }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--info-line);
+  border-radius: 999px;
+  background: var(--info-bg);
+  color: var(--accent-text);
+  font: 500 0.72rem var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.pill:hover { border-color: var(--accent-text); background: rgba(130, 179, 255, 0.18); }
+
+.dot { position: relative; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--accent-text); }
+.dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: inherit;
+  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes ping { 75%, 100% { transform: scale(2.6); opacity: 0; } }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 22px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font: 600 0.92rem var(--font-body);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+.btn-sm { min-height: 38px; padding: 0 16px; font-size: 0.85rem; }
+.btn-primary { background: var(--accent); color: #fff; box-shadow: 0 8px 28px -10px var(--accent-glow); }
+.btn-primary:hover { background: var(--accent-hover); box-shadow: 0 10px 32px -8px var(--accent-glow); }
+.btn-ghost { background: transparent; color: var(--text); border-color: var(--line-strong); }
+.btn-ghost:hover { border-color: var(--accent-text); background: var(--info-bg); }
+
+/* Chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  width: max-content;
+  padding: 4px 11px;
+  border: 1px solid var(--info-line);
+  border-radius: 999px;
+  background: var(--info-bg);
+  color: var(--accent-text);
+  font: 500 0.7rem/1.4 var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.chip-good { color: var(--good); background: var(--good-bg); border-color: var(--good-line); }
+.chip-warn { color: var(--warn); background: var(--warn-bg); border-color: var(--warn-line); }
+
+/* Layout */
+main { padding-block: 32px 72px; }
+.panel { display: grid; gap: 32px; }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--accent-text);
+  font: 500 0.75rem var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 540px;
+  text-align: center;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: linear-gradient(180deg, #0c1322 0%, #080c15 100%);
+}
+.hero-art { position: absolute; inset: 0; z-index: 0; }
+.hero-art svg { display: block; width: 100%; height: 100%; }
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 22px;
+  justify-items: center;
+  max-width: 800px;
+  padding: clamp(40px, 8vw, 96px) clamp(16px, 5vw, 48px);
+}
+.hero .eyebrow {
+  padding: 6px 14px;
+  border: 1px solid var(--info-line);
+  border-radius: 999px;
+  background: rgba(10, 15, 25, 0.7);
+}
+.hero h1 {
+  margin: 0;
+  font: 900 clamp(2.3rem, 8vw, 5.5rem)/1 var(--font-display);
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+.hero h1 span { display: block; color: var(--accent-text); }
+.lede { margin: 0 auto; max-width: 46ch; color: var(--text-soft); font-size: 1.0625rem; }
+.cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 6px; }
+.cta .btn {
+  min-height: 52px;
+  padding: 0 28px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.cta .btn-ghost { background: rgba(8, 11, 18, 0.92); border-color: var(--line); }
+
+
+/* Social cards and server card */
+.socials { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.social {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.15s;
+}
+.social:hover { border-color: var(--accent-text); }
+.social-ico { display: grid; place-items: center; flex: none; width: 48px; height: 48px; border-radius: 12px; background: #2b2d31; color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08); }
+.social-ico svg { width: 24px; height: 24px; }
+.social-ico .stroke { fill: none; }
+.ico-discord { background: #5865f2; color: #fff; }
+.ico-tiktok { background: #fe2c55; color: #fff; }
+.social strong { display: block; font: 800 0.95rem/1.2 var(--font-display); text-transform: uppercase; }
+.social small { display: block; color: var(--muted); font-size: 0.8rem; }
+.social .chev { margin-left: auto; width: 18px; height: 18px; color: var(--muted); flex: none; }
+
+.server {
+  display: grid;
+  gap: 16px;
+  width: min(400px, 100%);
+  margin-inline: auto;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+}
+.server-head { display: flex; align-items: center; gap: 14px; }
+.server-head strong { display: block; font: 800 0.95rem/1.2 var(--font-display); text-transform: uppercase; }
+.server-head small { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 0.8rem; }
+.server-head small::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--good); }
+.server p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+.btn-discord {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  border-radius: 12px;
+  background: #5865f2;
+  color: #fff;
+  font: 800 0.85rem var(--font-display);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 10px 30px -10px rgba(88, 101, 242, 0.7);
+  transition: background 0.15s;
+}
+.btn-discord:hover { background: #6d79f5; }
+@media (max-width: 760px) {
+  .socials { grid-template-columns: minmax(0, 1fr); }
+  .hero { min-height: 480px; }
+}
+
+/* Section headings */
+.sec-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 16px;
+  margin-bottom: 14px;
+}
+.sec-head h2 {
+  margin: 0;
+  font: 700 1.9rem/1 var(--font-display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.note {
+  margin: 0;
+  color: var(--muted);
+  font: 500 0.75rem var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.page-head { padding-bottom: 16px; border-bottom: 1px solid var(--line); display: grid; gap: 8px; }
+.page-head h2 {
+  margin: 0;
+  font: 800 clamp(1.8rem, 5vw, 2.6rem)/1.05 var(--font-display);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.page-head p { margin: 0; color: var(--muted); }
+
+/* News */
+.article {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.article:hover { border-color: var(--accent-text); }
+.article-art, .dlg-head {
+  background:
+    radial-gradient(circle at 78% 50%, rgba(130, 179, 255, 0.5), transparent 6%),
+    repeating-radial-gradient(circle at 78% 50%, transparent 0 22px, rgba(130, 179, 255, 0.2) 22px 23px),
+    linear-gradient(135deg, #0c1a3d, #070b13);
+}
+.article-art { position: relative; min-height: 280px; }
+.article-body { display: grid; gap: 12px; align-content: center; min-width: 0; padding: clamp(20px, 4vw, 36px); }
+.article-title {
+  color: #fff;
+  font: 800 clamp(1.3rem, 3vw, 1.8rem)/1.15 var(--font-display);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.article-sum { color: var(--muted); }
+.more { color: var(--accent-text); font-size: 0.9rem; font-weight: 600; }
+.article:hover .more { text-decoration: underline; }
+
+/* Wiki */
+.soon {
+  display: grid;
+  place-items: center;
+  min-height: 460px;
+  padding: 24px 16px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(10, 15, 25, 0.55);
+}
+.soon h2 {
+  margin: 0;
+  text-align: center;
+  font: 900 clamp(2.4rem, 9vw, 6rem)/1 var(--font-display);
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+/* Footer */
+.foot { border-top: 1px solid var(--line); background: rgba(5, 7, 13, 0.6); }
+.foot-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  padding-block: 48px 40px;
+}
+.foot-brand { display: grid; gap: 16px; align-content: start; }
+.foot-brand p { margin: 0; max-width: 34ch; color: var(--muted); font-size: 0.9rem; }
+.foot h4 {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font: 500 0.72rem var(--font-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.foot-col { display: grid; gap: 12px; align-content: start; }
+.foot-col > a, .foot-col > button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-soft);
+  font: inherit;
+  font-size: 0.92rem;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+.foot-col > a:hover, .foot-col > button:hover { color: #fff; text-decoration: underline; }
+.foot-soc { display: flex; gap: 12px; }
+.foot-soc a {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface-2);
+  color: var(--text-soft);
+}
+.foot-soc a:hover { border-color: var(--accent-text); color: #fff; }
+.foot-soc svg { width: 18px; height: 18px; }
+.foot-base { border-top: 1px solid var(--line); color: var(--muted); font-size: 0.8rem; }
+.foot-base .wrap { padding-block: 16px; }
+@media (max-width: 860px) { .foot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .foot-brand { grid-column: 1 / -1; } }
+
+/* Announcement dialog */
+dialog {
+  width: min(640px, calc(100% - 32px));
+  max-height: calc(100% - 32px);
+  padding: 0;
+  overflow: auto;
+  border: 1px solid var(--line-strong);
+  border-radius: 20px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.8);
+}
+dialog::backdrop { background: rgba(2, 4, 9, 0.78); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+.dlg-head { position: relative; display: grid; gap: 12px; padding: 28px 28px 22px; border-bottom: 1px solid var(--line); }
+.dlg-head h2 {
+  margin: 0;
+  padding-right: 48px;
+  font: 800 clamp(1.4rem, 4.5vw, 1.9rem)/1.1 var(--font-display);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.dlg-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: rgba(5, 7, 13, 0.6);
+  color: var(--text);
+  cursor: pointer;
+}
+.dlg-close:hover { border-color: var(--accent-text); background: var(--surface-2); }
+.dlg-close svg { width: 18px; height: 18px; }
+.dlg-body { display: grid; gap: 14px; padding: 24px 28px; color: var(--text-soft); }
+.dlg-body p { margin: 0; }
+.dlg-body ul { display: grid; gap: 8px; margin: 0; padding-left: 1.2rem; }
+.dlg-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 28px 24px;
+  border-top: 1px solid var(--line);
+}
+
+/* News layout */
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.article-art::after {
+  content: "";
+  position: absolute;
+  left: 78%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 50%;
+  background: var(--accent-text);
+  animation: beacon 2.4s ease-out infinite;
+}
+.news-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 16px; align-items: start; }
+.updates { overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.updates-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--surface-2);
+  font: 800 0.85rem var(--font-display);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.upd-list { margin: 0; padding: 0; list-style: none; }
+.upd {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 12px;
+  align-items: center;
+  padding: 16px 20px;
+  border-top: 1px solid var(--line);
+  transition: background 0.15s;
+}
+.upd:hover { background: var(--surface-2); }
+.upd-area { font-weight: 600; }
+.upd-text { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: 0.9rem; }
+.news-cta {
+  display: grid;
+  gap: 14px;
+  padding: 24px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 16px;
+  background: rgba(10, 15, 25, 0.75);
+}
+.news-cta h3 { margin: 0; font: 800 1.05rem/1.2 var(--font-display); text-transform: uppercase; }
+.news-cta p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+
+/* Language picker */
+.foot-base .foot-base-in { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding-block: 14px; }
+.lang { display: inline-flex; align-items: center; gap: 10px; color: var(--muted); }
+.lang svg { width: 18px; height: 18px; flex: none; }
+.lang select {
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: 38px;
+  padding: 0 34px 0 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--surface-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%2397a3bb' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 4.5l4 4 4-4'/%3E%3C/svg%3E") no-repeat right 12px center / 12px;
+  color: var(--text);
+  font: 500 0.85rem var(--font-body);
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.lang select:hover { border-color: var(--accent-text); }
+html[lang="zh"] *, html[lang="hi"] * { letter-spacing: normal !important; }
+
+/* Motion */
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes beacon { 0% { box-shadow: 0 0 0 0 rgba(130, 179, 255, 0.55); } 100% { box-shadow: 0 0 0 70px rgba(130, 179, 255, 0); } }
+@keyframes glow { 0%, 100% { text-shadow: 0 0 0 rgba(130, 179, 255, 0); } 50% { text-shadow: 0 0 28px rgba(130, 179, 255, 0.45); } }
+@keyframes pop { from { opacity: 0; transform: translateY(16px) scale(0.97); } to { opacity: 1; transform: none; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+.panel.enter > * { animation: rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.panel.enter > :nth-child(2) { animation-delay: 0.08s; }
+.panel.enter > :nth-child(3) { animation-delay: 0.16s; }
+.panel.enter > :nth-child(4) { animation-delay: 0.24s; }
+.panel.enter .hero-copy > * { animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.panel.enter .hero-copy > :nth-child(1) { animation-delay: 0.12s; }
+.panel.enter .hero-copy > :nth-child(2) { animation-delay: 0.22s; }
+.panel.enter .hero-copy > :nth-child(3) { animation-delay: 0.32s; }
+.hero h1 span { animation: glow 4s ease-in-out infinite; }
+.social, .article, .btn, .btn-discord { transition: transform 0.2s, border-color 0.15s, box-shadow 0.2s, background 0.15s; }
+.social:hover { transform: translateY(-3px); box-shadow: 0 16px 32px -20px rgba(59, 130, 246, 0.8); }
+.social .chev { transition: transform 0.2s; }
+.social:hover .chev { transform: translateX(4px); color: var(--text); }
+.article:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -26px rgba(59, 130, 246, 0.8); }
+.btn:hover, .btn-discord:hover { transform: translateY(-1px); }
+.btn-primary { position: relative; overflow: hidden; }
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.28) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.6s;
+}
+.btn-primary:hover::after { transform: translateX(120%); }
+dialog[open] { animation: pop 0.28s cubic-bezier(0.2, 0.8, 0.2, 1); }
+dialog[open]::backdrop { animation: fade 0.28s; }
+@media (max-width: 860px) { .news-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Servers */
+.srv-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 16px; }
+.srv-search { position: relative; flex: 1 1 260px; max-width: 420px; }
+.srv-search svg { position: absolute; left: 14px; top: 50%; width: 18px; height: 18px; margin-top: -9px; color: var(--muted); pointer-events: none; }
+.srv-search input {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 16px 0 44px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  font: 400 0.95rem var(--font-body);
+  transition: border-color 0.15s;
+}
+.srv-search input:hover { border-color: var(--accent-text); }
+.srv-search input:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2px; }
+.srv-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.srv {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  transition: border-color 0.15s, transform 0.2s, box-shadow 0.2s;
+}
+.srv:hover { border-color: var(--accent-text); transform: translateY(-2px); box-shadow: 0 16px 32px -22px rgba(59, 130, 246, 0.8); }
+.srv-av {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid hsl(var(--h) 40% 34%);
+  border-radius: 12px;
+  background: hsl(var(--h) 40% 22%);
+  color: hsl(var(--h) 85% 84%);
+  font: 800 0.95rem var(--font-display);
+}
+.srv-main { display: grid; gap: 6px; min-width: 0; }
+.srv-name { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.srv-name strong { font: 800 0.92rem/1.2 var(--font-display); text-transform: uppercase; overflow-wrap: anywhere; }
+.srv-desc { margin: 0; color: var(--muted); font-size: 0.85rem; }
+.btn-discord.srv-join { display: inline-flex; width: max-content; min-height: 36px; margin-top: 4px; padding: 0 16px; font-size: 0.78rem; }
+.srv-stat { display: grid; justify-items: end; gap: 2px; text-align: right; }
+.srv-num { font: 800 1.15rem/1 var(--font-display); }
+.srv-lbl { color: var(--muted); font-size: 0.72rem; }
+.srv-bar { width: 60px; height: 4px; margin-top: 6px; overflow: hidden; border-radius: 2px; background: var(--surface-2); }
+.srv-bar i { display: block; height: 100%; border-radius: 2px; background: #5865f2; transform-origin: left; animation: grow 0.8s 0.25s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+@keyframes grow { from { transform: scaleX(0); } }
+.srv-none { margin: 0; padding: 32px 16px; text-align: center; color: var(--muted); border: 1px dashed var(--line-strong); border-radius: 14px; }
+@media (max-width: 900px) { .srv-list { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 480px) {
+  .srv { grid-template-columns: auto minmax(0, 1fr); }
+  .srv-stat { grid-column: 2; display: flex; flex-wrap: wrap; align-items: baseline; justify-items: start; gap: 4px 8px; text-align: left; }
+  .srv-bar { margin-top: 0; align-self: center; }
+}
+
+/* Servers: easier to scan */
+.srv-list { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+.srv { grid-template-columns: auto minmax(0, 1fr) auto auto; gap: 18px; padding: 14px 20px; }
+.srv-av { width: 52px; height: 52px; font-size: 1rem; }
+.srv-main { gap: 4px; }
+.srv-name strong { font-size: 1rem; }
+.srv-desc { font-size: 0.92rem; }
+.srv-stat { min-width: 84px; }
+.srv-num { font-size: 1.2rem; }
+.srv-lbl { font-size: 0.78rem; }
+.btn-discord.srv-join { min-height: 42px; margin-top: 0; padding: 0 20px; font-size: 0.8rem; }
+@media (max-width: 640px) {
+  .srv { grid-template-columns: auto minmax(0, 1fr); gap: 12px 14px; padding: 14px 16px; }
+  .srv-stat { grid-column: 2; min-width: 0; }
+  .btn-discord.srv-join { grid-column: 1 / -1; width: 100%; justify-content: center; }
+}
+
+/* Cleaner news and servers */
+.article { box-shadow: none; }
+.article:hover { transform: none; box-shadow: none; }
+.article-art { min-height: 240px; }
+.updates-head { background: transparent; border-bottom: 1px solid var(--line); color: var(--muted); font: 500 0.72rem var(--font-mono); letter-spacing: 0.14em; }
+.upd { border-top: 0; border-bottom: 1px solid var(--line); }
+.upd:last-child { border-bottom: 0; }
+.upd:hover { background: transparent; }
+.news-cta { border-style: solid; border-color: var(--line); background: var(--surface); }
+
+.srv-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.srv-stats > div { display: grid; gap: 2px; padding: 18px 22px; border-left: 1px solid var(--line); }
+.srv-stats > div:first-child { border-left: 0; }
+.srv-stat-num { font: 800 clamp(1.5rem, 4vw, 2rem)/1.1 var(--font-display); }
+.srv-stat-lbl { color: var(--muted); font-size: 0.82rem; }
+.srv-notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+}
+.srv-notice-text { display: grid; gap: 6px; flex: 1 1 380px; min-width: 0; }
+.srv-notice h3 { margin: 0 0 2px; font: 800 0.95rem/1.2 var(--font-display); text-transform: uppercase; }
+.srv-notice p { margin: 0; color: var(--text-soft); font-size: 0.92rem; }
+.srv-notice .srv-note-small { color: var(--muted); font-size: 0.85rem; }
+.srv-list { gap: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.srv { border: 0; border-top: 1px solid var(--line); border-radius: 0; background: transparent; }
+.srv:first-child { border-top: 0; }
+.srv:hover { transform: none; box-shadow: none; background: var(--surface-2); }
+.srv-av { border-color: var(--line-strong); background: var(--surface-2); color: var(--accent-text); }
+.srv:hover .srv-av { background: var(--bg); }
+.btn-discord.srv-join { background: transparent; border: 1px solid var(--line-strong); color: var(--text); box-shadow: none; }
+.btn-discord.srv-join:hover { background: #5865f2; border-color: #5865f2; }
+@media (max-width: 480px) { .srv-stats > div { padding: 14px 12px; } .srv-stat-lbl { font-size: 0.74rem; } }
+
+/* Beacon: round pulse */
+.article-art::before { content: ""; position: absolute; left: 78%; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: var(--accent-text); }
+.article-art::after { background: rgba(130, 179, 255, 0.45); animation: beacon2 2.4s ease-out infinite; }
+@keyframes beacon2 { from { transform: scale(1); opacity: 0.7; } to { transform: scale(8); opacity: 0; } }
+
+/* News: same clean style as servers */
+.article-art {
+  min-height: 260px;
+  background:
+    var(--news-photo),
+    radial-gradient(circle at 50% 50%, rgba(160, 200, 255, 0.55) 0, rgba(59, 130, 246, 0.28) 7%, transparent 40%),
+    repeating-radial-gradient(circle at 50% 50%, transparent 0 28px, rgba(130, 179, 255, 0.15) 28px 29px),
+    radial-gradient(ellipse at 50% 130%, rgba(37, 99, 235, 0.4), transparent 60%),
+    linear-gradient(160deg, #0e2152, #070b13 75%);
+  box-shadow: inset 0 0 90px rgba(5, 7, 13, 0.85);
+}
+.article-art::before, .article-art::after { left: 50%; }
+.news-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.upd { grid-template-columns: 190px minmax(0, 1fr) auto; gap: 8px 20px; padding: 18px 22px; }
+.upd-area { grid-column: 1; grid-row: 1; }
+.upd-text { grid-column: 2; grid-row: 1; font-size: 0.92rem; }
+.upd .chip { grid-column: 3; grid-row: 1; justify-self: end; }
+.news-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; padding: 20px 22px; }
+.news-cta-text { display: grid; gap: 4px; flex: 1 1 380px; min-width: 0; }
+.news-cta h3 { font-size: 0.95rem; }
+@media (max-width: 640px) {
+  .upd { grid-template-columns: minmax(0, 1fr) auto; }
+  .upd-text { grid-column: 1 / -1; grid-row: 2; }
+  .article-art { min-height: 180px; }
+}
+
+/* Announcement polish */
+.article { border-radius: 18px; }
+.article-art { min-height: 300px; }
+.article-body { gap: 14px; }
+.article-title { font-size: clamp(1.5rem, 3.2vw, 2.1rem); }
+.article-meta { color: var(--muted); font: 500 0.72rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; }
+.tags { align-items: center; gap: 8px 12px; }
+.more {
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  padding: 10px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--text);
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: background 0.2s, border-color 0.2s;
+}
+.article:hover .more { background: var(--accent); border-color: var(--accent); text-decoration: none; }
+.news-cta {
+  border-color: rgba(130, 179, 255, 0.28);
+  background: linear-gradient(120deg, rgba(37, 99, 235, 0.2), rgba(88, 101, 242, 0.12) 55%, rgba(10, 15, 25, 0.7));
+}
+dialog { width: min(680px, calc(100% - 32px)); border-radius: 22px; }
+.dlg-head { gap: 14px; padding: 34px 32px 26px; box-shadow: inset 0 -60px 60px -40px rgba(5, 7, 13, 0.9); }
+.dlg-body { gap: 16px; padding: 28px 32px 8px; }
+.dlg-lead { color: var(--text); font-size: 1.08rem; line-height: 1.65; }
+.dlg-sub { margin: 10px 0 0; color: var(--accent-text); font: 800 0.78rem var(--font-display); letter-spacing: 0.1em; text-transform: uppercase; }
+.dlg-body .checks { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.checks li { display: flex; align-items: flex-start; gap: 12px; padding: 13px 15px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2); }
+.checks svg { flex: none; width: 20px; height: 20px; margin-top: 2px; color: var(--good); }
+.dlg-foot { justify-content: flex-end; gap: 10px; padding: 20px 32px 26px; border-top: 0; }
+@media (max-width: 520px) {
+  .dlg-head { padding: 28px 20px 22px; }
+  .dlg-body { padding: 22px 20px 4px; }
+  .dlg-foot { padding: 16px 20px 22px; }
+  .dlg-foot .btn { flex: 1; }
+}
+
+/* Wiki and gamepasses */
+.crumb { display: inline-flex; width: max-content; color: var(--muted); font-size: 0.9rem; text-decoration: none; transition: color 0.15s; }
+.crumb:hover { color: #fff; }
+.wiki-list { margin: 0; padding: 0; overflow: hidden; list-style: none; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.wiki-list > li { border-top: 1px solid var(--line); }
+.wiki-list > li:first-child { border-top: 0; }
+.wiki-row { display: flex; align-items: center; gap: 16px; padding: 18px 22px; color: var(--text); text-decoration: none; transition: background 0.15s; }
+a.wiki-row:hover { background: var(--surface-2); }
+.wiki-row .chev { margin-left: auto; width: 18px; height: 18px; color: var(--muted); flex: none; transition: transform 0.2s; }
+a.wiki-row:hover .chev { transform: translateX(4px); color: var(--text); }
+.wiki-ico { display: grid; place-items: center; flex: none; width: 48px; height: 48px; border: 1px solid var(--line-strong); border-radius: 12px; background: var(--surface-2); color: var(--accent-text); }
+.wiki-ico svg { width: 24px; height: 24px; }
+.wiki-txt strong { display: block; font: 800 1rem/1.2 var(--font-display); text-transform: uppercase; }
+.wiki-txt small { display: block; margin-top: 2px; color: var(--muted); font-size: 0.88rem; }
+.wiki-soon { color: var(--muted); }
+.wiki-soon .wiki-ico { color: var(--muted); }
+
+.gp-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 20px; }
+.gp-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.fchip {
+  min-height: 38px;
+  padding: 0 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-soft);
+  font: 500 0.85rem var(--font-body);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.fchip:hover { border-color: var(--accent-text); color: #fff; }
+.fchip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.gp-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: start; margin: 0; padding: 0; list-style: none; }
+.gp { display: grid; gap: 12px; align-content: start; min-width: 0; padding: 20px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); transition: border-color 0.15s; }
+.gp:hover { border-color: var(--line-strong); }
+.gp-top { display: flex; align-items: center; gap: 14px; }
+.gp-img {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background: var(--surface-2);
+  color: var(--accent-text);
+  font: 800 1rem var(--font-display);
+}
+.gp-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.gp-head { min-width: 0; flex: 1; }
+.gp-head h3 { margin: 0; font: 800 1rem/1.2 var(--font-display); text-transform: uppercase; overflow-wrap: anywhere; }
+.gp-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; margin-top: 4px; }
+.gp-price strong { font: 800 1.2rem/1.1 var(--font-display); }
+.gp-price span { color: var(--muted); font-size: 0.88rem; }
+.gp-price.free strong { color: var(--muted); text-decoration: line-through; }
+.gp-badges { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; align-self: flex-start; }
+.gp-badges:empty { display: none; }
+.gp-tag { margin: 0; color: var(--text-soft); font-size: 0.92rem; }
+.gp-det { padding-top: 10px; border-top: 1px solid var(--line); }
+.gp-det summary { display: flex; align-items: center; gap: 6px; color: var(--accent-text); font-size: 0.88rem; font-weight: 600; cursor: pointer; list-style: none; }
+.gp-det summary::-webkit-details-marker { display: none; }
+.gp-det summary::after { content: "+"; margin-left: auto; color: var(--muted); font-size: 1.1rem; }
+.gp-det[open] summary::after { content: "\2212"; }
+.gp-n { color: var(--muted); font-weight: 400; }
+.gp-det ul { display: grid; gap: 6px; margin: 12px 0 0; padding-left: 1.1rem; color: var(--text-soft); font-size: 0.9rem; }
+.gp-det .grp { margin: 6px 0 0 -1.1rem; color: var(--muted); font: 500 0.72rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; list-style: none; }
+.gp-note { margin: 0; color: var(--muted); font-size: 0.85rem; }
+@media (max-width: 860px) { .gp-list { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 480px) { .gp-top { flex-wrap: wrap; } .gp-badges { flex-direction: row; align-items: flex-start; flex-basis: 100%; } }
+
+/* Narrow screens */
+.long { display: inline; }
+@media (max-width: 760px) {
+  .bar-in {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "brand actions" "tabs tabs";
+    min-height: 0;
+    padding-block: 10px;
+    row-gap: 10px;
+  }
+  .brand { grid-area: brand; }
+  .bar-actions { grid-area: actions; }
+  .tabs {
+    grid-area: tabs;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding: 4px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface-2);
+  }
+  .tab { justify-content: center; min-height: 40px; margin: 0; padding: 0 4px; border-bottom: 0; border-radius: 8px; font-size: 0.8rem; }
+  .tab[aria-current="page"] { background: var(--accent); }
+
+  .article { grid-template-columns: minmax(0, 1fr); }
+  .article-art { min-height: 140px; }
+}
+@media (max-width: 559px) {
+  .pill { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .panel.enter > *, .hero-copy > *, dialog[open], dialog[open]::backdrop, .hero h1 span, .article-art::after, .srv-bar i { animation: none !important; }
+  .dot::after { animation: none; display: none; }
+  * { transition: none !important; }
+}
+</style>
+<!--BODY-->
+<header class="bar">
+  <div class="wrap bar-in">
+    <a class="brand" href="#home">
+      Eurotunnel Wiki
+    </a>
+    <nav class="tabs" aria-label="Main">
+      <a class="tab" href="#home" data-tab="home" aria-current="page" data-i18n="nav_home">Home</a>
+      <a class="tab" href="#news" data-tab="news" data-i18n="nav_news">News</a>
+      <a class="tab" href="#wiki" data-tab="wiki" data-i18n="nav_wiki">Wiki</a>
+      <a class="tab" href="#servers" data-tab="servers" data-i18n="nav_servers">Servers</a>
+    </nav>
+    <div class="bar-actions">
+      <a class="btn btn-primary btn-sm" href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener" data-i18n="btn_discord">Join Discord</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Home -->
+  <div class="panel" id="tab-home">
+    <section class="hero" aria-labelledby="home-title">
+      <div class="hero-copy">
+        <h1 id="home-title">Eurotunnel <span data-i18n="hero_hub">Wiki Hub</span></h1>
+        <p class="lede" data-i18n="hero_lede">Your definitive community guide to cross-border tunnels, operational standards, roleplay guidelines and vehicle fleets.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#wiki"><span data-i18n="cta_wiki">Explore wiki</span> <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-ghost" href="#news" data-i18n="cta_news">Read news</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Replace the two href="#" values below with your Roblox and TikTok links. -->
+    <section class="socials" aria-label="Community links">
+      <a class="social" href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener">
+        <span class="social-ico ico-discord"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/></svg></span>
+        <span><strong>Discord</strong><small data-i18n="social_sub">Join our community</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+      <a class="social" href="#">
+        <span class="social-ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.926 23.998 0 18.892 5.075.002 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453 1.414-5.273Z"/></svg></span>
+        <span><strong>Roblox</strong><small data-i18n="social_sub">Join our community</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+      <a class="social" href="#">
+        <span class="social-ico ico-tiktok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></span>
+        <span><strong>TikTok</strong><small data-i18n="social_sub">Join our community</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+    </section>
+
+    <section class="server" aria-label="Community Discord server">
+      <div class="server-head">
+        <span class="social-ico ico-discord"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/></svg></span>
+        <div><strong data-i18n="server_title">Eurotunnel Community</strong><small data-i18n="server_sub">Community Discord</small></div>
+      </div>
+      <p data-i18n="server_text">Chat with other members, send beta feedback and get the latest updates.</p>
+      <a class="btn-discord" href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener" data-i18n="server_btn">Join server</a>
+    </section>
+  </div>
+
+  <!-- News -->
+  <div class="panel" id="tab-news" hidden>
+    <div class="page-head">
+      <h2 data-i18n="news_title">Announcements and updates</h2>
+      <p data-i18n="news_sub">Official bulletins about the website's public beta.</p>
+    </div>
+    <button class="article" type="button" data-open="beta">
+      <span class="article-art" aria-hidden="true"></span>
+      <span class="article-body">
+        <span class="tags"><span class="chip chip-good" data-i18n="news_tag">Active beta</span><span class="article-meta" data-i18n="news_latest">Latest announcement</span></span>
+        <span class="article-title" data-i18n="art_title">Website officially in beta testing</span>
+        <span class="article-sum" data-i18n="art_sum">The Eurotunnel Wiki is open for beta testing. Explore the redesigned layout and report feedback on the community Discord.</span>
+        <span class="more"><span data-i18n="art_more">Read full announcement →</span></span>
+      </span>
+    </button>
+    <div class="news-grid">
+      <aside class="news-cta">
+        <div class="news-cta-text">
+          <h3 data-i18n="cta_title">Never miss an update</h3>
+          <p data-i18n="cta_text">Join the community Discord to hear about new announcements and share your feedback.</p>
+        </div>
+        <a class="btn btn-primary" href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener" data-i18n="btn_discord">Join Discord</a>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Wiki -->
+  <div class="panel" id="tab-wiki" hidden>
+    <div class="page-head">
+      <h2 data-i18n="nav_wiki">Wiki</h2>
+      <p data-i18n="wiki_sub">Official roleplay documentation and procedures.</p>
+    </div>
+    <ul class="wiki-list">
+      <li><a class="wiki-row" href="#gamepasses"><span class="wiki-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9a2 2 0 0 0 0 4v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3a2 2 0 0 1 0-4V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1z"/><path d="M14 6v12" stroke-dasharray="2 3"/></svg></span><span class="wiki-txt"><strong data-i18n="wiki_gp">Gamepasses</strong><small data-i18n="wiki_gp_desc">Every gamepass, what it costs and what you get.</small></span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></li>
+      <li><div class="wiki-row wiki-soon"><span class="wiki-ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="6" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="18" cy="12" r="1.8"/></svg></span><span class="wiki-txt"><strong data-i18n="soon">Coming soon</strong><small data-i18n="wiki_more">More wiki pages are on the way.</small></span></div></li>
+    </ul>
+  </div>
+
+  <!-- Gamepasses -->
+  <div class="panel" id="tab-gamepasses" hidden>
+    <div class="page-head">
+      <a class="crumb" href="#wiki" data-i18n="gp_back">← Wiki</a>
+      <h2 data-i18n="wiki_gp">Gamepasses</h2>
+      <p data-i18n="wiki_gp_desc">Every gamepass, what it costs and what you get.</p>
+    </div>
+    <div class="gp-tools">
+      <div class="gp-filters" role="group" aria-label="Filter"><button class="fchip" type="button" data-f="all" aria-pressed="true" data-i18n="gp_all">All</button><button class="fchip" type="button" data-f="law" aria-pressed="false" data-i18n="gp_law">Law enforcement</button><button class="fchip" type="button" data-f="criminal" aria-pressed="false" data-i18n="gp_crim">Criminal</button><button class="fchip" type="button" data-f="medical" aria-pressed="false" data-i18n="gp_med">Medical</button><button class="fchip" type="button" data-f="weapons" aria-pressed="false" data-i18n="gp_weap">Weapons</button><button class="fchip" type="button" data-f="vehicles" aria-pressed="false" data-i18n="gp_veh">Vehicles</button><button class="fchip" type="button" data-f="utility" aria-pressed="false" data-i18n="gp_util">Utility</button></div>
+      <label class="lang"><span data-i18n="gp_sort">Sort by</span>
+        <select id="gp-sort">
+          <option value="default" data-i18n="gp_s_def">Default</option>
+          <option value="lo" data-i18n="gp_s_lo">Price: low to high</option>
+          <option value="hi" data-i18n="gp_s_hi">Price: high to low</option>
+          <option value="val" data-i18n="gp_s_val">Best value</option>
+          <option value="az" data-i18n="gp_s_az">Name A–Z</option>
+        </select>
+      </label>
+    </div>
+    <p class="note" id="gp-count">10 gamepasses</p>
+    <ul class="gp-list" id="gp-list">
+        <li class="gp" data-name="crime boss" data-price="360" data-value="1.389" data-order="0" data-tags="criminal weapons">
+          <div class="gp-top">
+            <span class="gp-img" aria-hidden="true"><span>CB</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/4/4c/Crime_Boss.png/revision/latest/scale-to-width-down/160?cb=20260402130715" alt="" loading="lazy" onerror="this.remove()"></span>
+            <div class="gp-head"><h3>Crime Boss</h3><div class="gp-price"><strong>360 R$</strong><span>£3.70</span></div></div>
+            <div class="gp-badges"></div>
+          </div>
+          
+          <details class="gp-det"><summary><span data-i18n="gp_included">What's included</span> <span class="gp-n">(5)</span></summary><ul><li>Increased smuggling limit: carry up to 10 smuggling items</li><li>Able to carry 3 Molotovs</li><li>Exclusive Crime Boss weapons</li><li>Access to the Dominus, an exclusive Crime Boss smuggling item</li><li>Ability to sell 2 firework boxes per in-game night</li></ul></details>
+        </li>
+        <li class="gp" data-name="advanced weaponry" data-price="450" data-value="2.222" data-order="1" data-tags="weapons criminal">
+          <div class="gp-top">
+            <span class="gp-img" aria-hidden="true"><span>AW</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/5/54/Advanced_Weaponry.png/revision/latest/scale-to-width-down/160?cb=20260402131026" alt="" loading="lazy" onerror="this.remove()"></span>
+            <div class="gp-head"><h3>Advanced Weaponry</h3><div class="gp-price"><strong>450 R$</strong><span>£4.63</span></div></div>
+            <div class="gp-badges"><span class="chip chip-warn gp-badge" data-i18n="gp_best">Best value</span></div>
+          </div>
+          
+          <details class="gp-det"><summary><span data-i18n="gp_included">What's included</span> <span class="gp-n">(10)</span></summary><ul><li>Luger</li><li>PKM</li><li>AA-12</li><li>AK-47</li><li>Tommy Gun</li><li>AS Val</li><li>MP5</li><li>P90</li><li>Weapons Blueprint (smuggling item)</li><li>Weapon Crate (smuggling item)</li></ul></details>
+        </li>
+        <li class="gp" data-name="supercars" data-price="360" data-value="0.556" data-order="2" data-tags="vehicles">
+          <div class="gp-top">
+            <span class="gp-img" aria-hidden="true"><span>SC</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/3/35/Supercars.png/revision/latest/scale-to-width-down/160?cb=20260402131153" alt="" loading="lazy" onerror="this.remove()"></span>
+            <div class="gp-head"><h3>Supercars</h3><div class="gp-price"><strong>360 R$</strong><span>£3.70</span></div></div>
+            <div class="gp-badges"></div>
+          </div>
+          
+          <details class="gp-det"><summary><span data-i18n="gp_included">What's included</span> <span class="gp-n">(2)</span></summary><ul><li>Access to purchase multiple supercars, some of the fastest and most stylish in the game</li><li>Includes one free starter vehicle. Additional vehicles require in-game cash</li></ul></details>
+        </li>
+        <li class="gp" data-name="border supervisor" data-price="599" data-value="0.835" data-order="3" data-tags="law vehicles">
+          <div class="gp-top">
+            <span class="gp-img" aria-hidden="true"><span>BS</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/3/3e/Border_Supervisor_Pass.png/revision/latest/scale-to-width-down/160?cb=20260621200432" alt="" loading="lazy" onerror="this.remove()"></span>
+            <div class="gp-head"><h3>Border Supervisor</h3><div class="gp-price"><strong>599 R$</strong><span>£6.16</span></div></div>
+            <div class="gp-badges"></div>
+          </div>
+          <p class="gp-tag">Control the border and ensure operations run smoothly!</p>
+          <details class="gp-det"><summary><span data-i18n="gp_included">What's included</span> <span class="gp-n">(5)</span></summary><ul><li>Run the border</li><li>Command officers</li><li>Set the border status</li><li>Access to trigger a lockdown</li><li>Exclusive vehicles</li></ul></details>
+        </li>
+        <li class="gp" data-name="police specialist" data-price="525" data-value="1.333" data-order="4" data-tags="law weapons vehicles">
+          <div class="gp-top">
+            <span class="gp-img" aria-hidden="true"><span>PS</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/2/29/Police_Specialist.png/revision/latest/scale-to-width-down/160?cb=20260621200546" alt="" loading="lazy" onerror="this.remove()"></span>
+            <div class="gp-head"><h3>Police Specialist</h3><div class="gp-price"><strong>525 R$</strong><span>£5.40</span></div></div>
+            <div class="gp-badges"></div>
+          </div>
+          <p class="gp-tag">Upgrade your police experience!</p>
+          <details class="gp-det"><summary><span data-i18n="gp_included">What's included</span> <span class="gp-n">(7)</span></summary><ul><li class="grp">CTSFO</li><li>Access to CTSFO gear, including instant gun access</li><li>CTSFO Vest + Helmet (gives extra health)</li><li class="grp">Riot</li><li>Riot Gear (helmet and special uniform)</li><li>Riot Shield</li><li class="grp">Vehicles</li><li>Multiple SUVs</li><li>Fast vehicles</li><li>Armed response cars</li></ul></details>
+        </li>
+        <li class="gp" data-name="military police" data-price="1199" data-value="0.334" data-order="5" data-tags="law weapons vehicles">
+          <div class="gp-top">
+            <span class="gp-img" aria-hidden="true"><span>MP</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/e/ea/Military_Police.png/revision/latest/scale-to-width-down/160?cb=20260621200626" alt="" loading="lazy" onerror="this.remove()"></span>
+            <div class="gp-head"><h3>Military Police</h3><div class="gp-price"><strong>1,199 R$</strong><span>£12.33</span></div></div>
+            <div class="gp-badges"></div>
+          </div>
+          <p class="gp-tag">Gain access to the military police team, with up to 80+ hours of content.</p>
+          <details class="gp-det"><summary><span data-i18n="gp_included">What's included</span> <span class="gp-n">(4)</span></summary><ul><li>Unlocks a whole new team</li><li>Lots of exclusive weapons</li><li>Highly armoured uniform</li><li>Many exclusive vehicles (including an armoured patrol vehicle)</li></ul></details>
+        </li>
+        <li class="gp" data-name="hart" data-price="399" data-value="0.501" data-order="6" data-tags="medical vehicles">
+          <div class="gp-top">
+            <span class="gp-img" aria-hidden="true"><span>HT</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/b/bd/HART.png/revision/latest/scale-to-width-down/160?cb=20260621200656" alt="" loading="lazy" onerror="this.remove()"></span>
+            <div class="gp-head"><h3>HART</h3><div class="gp-price"><strong>399 R$</strong><span>£4.10</span></div></div>
+            <div class="gp-badges"></div>
+          </div>
+          <p class="gp-tag">Upgrade your NHS experience with specialist equipment designed to deal with any situation.</p>
+          <details class="gp-det"><summary><span data-i18n="gp_included">What's included</span> <span class="gp-n">(2)</span></summary><ul><li>Get access to the HART uniform, which gives protection against firearms</li><li>HART-exclusive vehicles</li></ul></details>
+        </li>
+        <li class="gp" data-name="gun license" data-price="0" data-value="-1.000" data-order="7" data-tags="utility weapons">
+          <div class="gp-top">
+            <span class="gp-img" aria-hidden="true"><span>GL</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/a/ae/Gun_License.png/revision/latest/scale-to-width-down/160?cb=20260621200726" alt="" loading="lazy" onerror="this.remove()"></span>
+            <div class="gp-head"><h3>Gun License</h3><div class="gp-price free"><strong>99 R$</strong><span>£1.02</span></div></div>
+            <div class="gp-badges"><span class="chip chip-good gp-badge" data-i18n="gp_free">Free in-game</span></div>
+          </div>
+          <p class="gp-tag">The gun license cost was removed. It is now free in-game.</p>
+          
+        </li>
+        <li class="gp" data-name="national investigations agency" data-price="399" data-value="0.752" data-order="8" data-tags="law weapons">
+          <div class="gp-top">
+            <span class="gp-img" aria-hidden="true"><span>NI</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/0/04/National_Investigations_Agency.png/revision/latest/scale-to-width-down/160?cb=20260621200814" alt="" loading="lazy" onerror="this.remove()"></span>
+            <div class="gp-head"><h3>National Investigations Agency</h3><div class="gp-price"><strong>399 R$</strong><span>£4.10</span></div></div>
+            <div class="gp-badges"></div>
+          </div>
+          <p class="gp-tag">Become a NIA Agent and keep the border protected!</p>
+          <details class="gp-det"><summary><span data-i18n="gp_included">What's included</span> <span class="gp-n">(3)</span></summary><ul><li class="grp">Unlock access to exclusive gear</li><li>Specialist uniforms</li><li>NIA blacked-out liveries</li><li>Instant and exclusive firearm</li></ul></details>
+        </li>
+        <li class="gp" data-name="bypass team limits" data-price="399" data-value="0.251" data-order="9" data-tags="utility">
+          <div class="gp-top">
+            <span class="gp-img" aria-hidden="true"><span>BT</span><img src="https://static.wikia.nocookie.net/rblxeurotunnel/images/0/0c/Bypass_Team_Limits.png/revision/latest/scale-to-width-down/160?cb=20260621200851" alt="" loading="lazy" onerror="this.remove()"></span>
+            <div class="gp-head"><h3>Bypass Team Limits</h3><div class="gp-price"><strong>399 R$</strong><span>£4.10</span></div></div>
+            <div class="gp-badges"></div>
+          </div>
+          <p class="gp-tag">Join any team without being blocked by the team limit.</p>
+          
+        </li>
+    </ul>
+    <p class="srv-none" id="gp-none" hidden data-i18n="gp_none">No gamepasses match this filter.</p>
+    <p class="gp-note" data-i18n="gp_note">Prices are in Robux (R$) with approximate GBP. Best value ranks passes by features per R$.</p>
+  </div>
+
+  <!-- Servers -->
+  <div class="panel" id="tab-servers" hidden>
+    <div class="page-head">
+      <h2 data-i18n="srv_title">Community servers</h2>
+      <p data-i18n="srv_sub">Eurotunnel community Discord servers you can join.</p>
+    </div>
+    <div class="srv-stats">
+      <div><span class="srv-stat-num">15</span><span class="srv-stat-lbl" data-i18n="st_servers">Servers listed</span></div>
+      <div><span class="srv-stat-num">997+</span><span class="srv-stat-lbl" data-i18n="st_members">Total members</span></div>
+      <div><span class="srv-stat-num">200+</span><span class="srv-stat-lbl" data-i18n="st_largest">Largest server</span></div>
+    </div>
+    <aside class="srv-notice">
+      <div class="srv-notice-text">
+        <h3 data-i18n="srv_note_title">Get listed or removed</h3>
+        <p data-i18n="srv_note_add">Want your server listed? Open a ticket in the Eurotunnel Wiki Discord.</p>
+        <p data-i18n="srv_note_remove">Don't want your server listed anymore? Open a ticket in the Eurotunnel Wiki Discord.</p>
+        <p class="srv-note-small" data-i18n="srv_note_inv">Some invite links may be out of date. If one doesn't work, let us know in a ticket.</p>
+      </div>
+      <a class="btn btn-primary" href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener" data-i18n="srv_ticket">Open a ticket</a>
+    </aside>
+    <div class="srv-tools">
+      <label class="srv-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="srv-q" type="search" autocomplete="off" placeholder="Search servers" data-i18n-ph="srv_search" aria-label="Search servers" data-i18n-aria="srv_search"></label>
+      <span class="note" id="srv-count">15 servers</span>
+    </div>
+    <ul class="srv-list">
+        <li class="srv" data-name="1st military police brigade military police presence at eurotunnel events.">
+          <span class="srv-av" style="--h:250" aria-hidden="true">1M</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>1st Military Police Brigade</strong></div>
+            <p class="srv-desc" data-i18n="d_mp">Military police presence at Eurotunnel events.</p>
+          </div>
+          <div class="srv-stat"><span class="srv-num">200+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
+          <a class="btn-discord srv-join" href="https://discord.gg/mkrhEhh4" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+        </li>
+        <li class="srv" data-name="et | british transport police a community for eurotunnel events.">
+          <span class="srv-av" style="--h:210" aria-hidden="true">BT</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>ET | British Transport Police</strong></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+          </div>
+          <div class="srv-stat"><span class="srv-num">120+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
+          <a class="btn-discord srv-join" href="https://discord.gg/KGEd6GtWGE" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+        </li>
+        <li class="srv" data-name="motorway police et a community for eurotunnel events.">
+          <span class="srv-av" style="--h:265" aria-hidden="true">MP</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>Motorway Police ET</strong></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+          </div>
+          <div class="srv-stat"><span class="srv-num">93+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
+          <a class="btn-discord srv-join" href="https://discord.gg/Fqa6D8WnAT" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+        </li>
+        <li class="srv" data-name="mafia community a community for eurotunnel events.">
+          <span class="srv-av" style="--h:350" aria-hidden="true">MA</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>MAFIA Community</strong></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+          </div>
+          <div class="srv-stat"><span class="srv-num">90+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
+          <a class="btn-discord srv-join" href="https://discord.gg/8jbsMp8k" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+        </li>
+        <li class="srv" data-name="eurotunnel racing championship racing events and championship coverage.">
+          <span class="srv-av" style="--h:140" aria-hidden="true">RC</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>Eurotunnel Racing Championship</strong></div>
+            <p class="srv-desc" data-i18n="d_race">Racing events and championship coverage.</p>
+          </div>
+          <div class="srv-stat"><span class="srv-num">80+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
+          <a class="btn-discord srv-join" href="https://discord.gg/stwmBekYYv" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+        </li>
+        <li class="srv" data-name="et border policing unit a community for eurotunnel events.">
+          <span class="srv-av" style="--h:200" aria-hidden="true">BP</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>ET Border Policing Unit</strong></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+          </div>
+          <div class="srv-stat"><span class="srv-num">76+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
+          <a class="btn-discord srv-join" href="https://discord.gg/yQYp28GZmG" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+        </li>
+        <li class="srv" data-name="eurotunnel operations operational coordination for eurotunnel events.">
+          <span class="srv-av" style="--h:225" aria-hidden="true">OP</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>EuroTunnel Operations</strong></div>
+            <p class="srv-desc" data-i18n="d_ops">Operational coordination for Eurotunnel events.</p>
+          </div>
+          <div class="srv-stat"><span class="srv-num">70+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
+          <a class="btn-discord srv-join" href="https://discord.gg/EvEwB5rF" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+        </li>
+        <li class="srv" data-name="et | national health service medical &amp; health operations at eurotunnel events.">
+          <span class="srv-av" style="--h:165" aria-hidden="true">NH</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>ET | National Health Service</strong></div>
+            <p class="srv-desc" data-i18n="d_nhs">Medical &amp; health operations at Eurotunnel events.</p>
+          </div>
+          <div class="srv-stat"><span class="srv-num">50+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
+          <a class="btn-discord srv-join" href="https://discord.gg/ca7CcA3sRu" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+        </li>
+        <li class="srv" data-name="red rose mafia a community for eurotunnel events.">
+          <span class="srv-av" style="--h:345" aria-hidden="true">RR</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>Red Rose Mafia</strong></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+          </div>
+          <div class="srv-stat"><span class="srv-num">50+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
+          <a class="btn-discord srv-join" href="https://discord.gg/S3A86d2j" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+        </li>
+        <li class="srv" data-name="eurotunnel photography capturing moments from eurotunnel events.">
+          <span class="srv-av" style="--h:38" aria-hidden="true">PH</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>EuroTunnel Photography</strong></div>
+            <p class="srv-desc" data-i18n="d_photo">Capturing moments from Eurotunnel events.</p>
+          </div>
+          <div class="srv-stat"><span class="srv-num">40+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
+          <a class="btn-discord srv-join" href="https://discord.gg/mtnSG5RQ" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+        </li>
+        <li class="srv" data-name="oda 3rd sfg group a community for eurotunnel events.">
+          <span class="srv-av" style="--h:280" aria-hidden="true">3G</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>ODA 3rd SFG Group</strong></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+          </div>
+          <div class="srv-stat"><span class="srv-num">33+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
+          <a class="btn-discord srv-join" href="https://discord.gg/M9K7tm3xyn" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+        </li>
+        <li class="srv" data-name="the network a community for eurotunnel events.">
+          <span class="srv-av" style="--h:190" aria-hidden="true">TN</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>The Network</strong></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+          </div>
+          <div class="srv-stat"><span class="srv-num">30+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
+          <a class="btn-discord srv-join" href="https://discord.gg/FH9W8hP2" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+        </li>
+        <li class="srv" data-name="scnn a community for eurotunnel events.">
+          <span class="srv-av" style="--h:300" aria-hidden="true">SC</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>SCNN</strong></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+          </div>
+          <div class="srv-stat"><span class="srv-num">30+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
+          <a class="btn-discord srv-join" href="https://discord.com/invite/KzySGx8Tbp" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+        </li>
+        <li class="srv" data-name="eurotunnel supervisor a community for eurotunnel events.">
+          <span class="srv-av" style="--h:220" aria-hidden="true">SV</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>Eurotunnel Supervisor</strong></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+          </div>
+          <div class="srv-stat"><span class="srv-num">25+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
+          <a class="btn-discord srv-join" href="https://discord.gg/85cVfja33" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+        </li>
+        <li class="srv" data-name="territorial support group a community for eurotunnel events.">
+          <span class="srv-av" style="--h:25" aria-hidden="true">TS</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>Territorial Support Group</strong></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+          </div>
+          <div class="srv-stat"><span class="srv-num">10+</span><span class="srv-lbl" data-i18n="srv_members">members</span></div>
+          <a class="btn-discord srv-join" href="https://discord.gg/8jbsMp8k" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+        </li>
+    </ul>
+    <p class="srv-none" id="srv-none" hidden data-i18n="srv_none">No servers match your search.</p>
+  </div>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="#home">
+          Eurotunnel Wiki
+      </a>
+      <p data-i18n="foot_desc">Your community guide to cross-border tunnels, operational standards, roleplay guidelines and vehicle fleets.</p>
+    </div>
+    <nav class="foot-col" aria-label="Navigate">
+      <h4 data-i18n="foot_nav">Navigate</h4>
+      <a href="#home" data-i18n="nav_home">Home</a>
+      <a href="#news" data-i18n="nav_news">News</a>
+      <a href="#wiki" data-i18n="nav_wiki">Wiki</a>
+      <a href="#servers" data-i18n="nav_servers">Servers</a>
+    </nav>
+    <div class="foot-col">
+      <h4 data-i18n="foot_comm">Community</h4>
+      <a href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener" data-i18n="btn_discord">Join Discord</a>
+      <button type="button" data-open="beta" data-i18n="foot_beta">Beta announcement</button>
+    </div>
+    <div class="foot-col">
+      <h4 data-i18n="foot_connect">Connect</h4>
+      <div class="foot-soc">
+        <a href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener" aria-label="Discord"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/></svg></a>
+        <a href="#" aria-label="Roblox"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.926 23.998 0 18.892 5.075.002 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453 1.414-5.273Z"/></svg></a>
+        <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-base"><div class="wrap foot-base-in">
+    <span data-i18n="foot_base">Eurotunnel Wiki · Community beta</span>
+    <label class="lang"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18"/></svg><select id="lang" data-i18n-aria="lang_label" aria-label="Language"><option value="en">English</option><option value="zh">中文</option><option value="hi">हिन्दी</option><option value="es">Español</option><option value="fr">Français</option></select></label>
+  </div></div>
+</footer>
+
+<dialog id="news-modal" aria-labelledby="modal-title">
+  <div class="dlg-in">
+    <div class="dlg-head">
+      <h2 id="modal-title" data-i18n="art_title">Website officially in beta testing</h2>
+      <span class="article-meta" data-i18n="dlg_pub">Published by Eurotunnel Community Staff</span>
+    </div>
+    <div class="dlg-body">
+      <p class="dlg-lead" data-i18n-html="dlg_p1">We are excited to announce that the new <strong>Eurotunnel Wiki</strong> web platform is officially live in <strong>beta testing</strong>.</p>
+      <p data-i18n="dlg_p2">Our team has overhauled the site architecture for fast loading, a deep electric-blue matte theme and streamlined layouts built for border roleplay members.</p>
+      <h3 class="dlg-sub" data-i18n="dlg_h">What to expect during beta</h3>
+      <ul class="checks">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg><span data-i18n="dlg_l1">Wiki sections are being populated and are marked as coming soon.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg><span data-i18n="upd1_text">Interface and style refinements are rolling out continuously.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg><span data-i18n-html="dlg_l3">Join the <a href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener">Discord server</a> to send feedback or report bugs.</span></li>
+      </ul>
+    </div>
+    <div class="dlg-foot">
+      <button class="btn btn-ghost btn-sm" type="button" data-close data-i18n="dlg_close">Close</button>
+      <a class="btn btn-primary btn-sm" href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener" data-i18n="btn_discord">Join Discord</a>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(function () {
+  var TABS = ['home', 'news', 'wiki', 'servers', 'gamepasses'];
+  var current = null;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var dlg = document.getElementById('news-modal');
+
+  function show(tab) {
+    if (TABS.indexOf(tab) < 0) tab = 'home';
+    if (tab === current) return;
+    var first = current === null;
+    current = tab;
+    TABS.forEach(function (t) {
+      var panel = document.getElementById('tab-' + t);
+      if (panel) panel.hidden = t !== tab;
+    });
+    document.querySelectorAll('.tab').forEach(function (a) {
+      if (a.getAttribute('data-tab') === (tab === 'gamepasses' ? 'wiki' : tab)) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+    var shown = document.getElementById('tab-' + tab);
+    if (shown && !reduce) { shown.classList.remove('enter'); void shown.offsetWidth; shown.classList.add('enter'); }
+    if (!first) window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  }
+
+  function route() {
+    var h = '';
+    try { h = location.hash.replace('#', ''); } catch (e) {}
+    show(TABS.indexOf(h) >= 0 ? h : 'home');
+  }
+
+  function openBeta() {
+    if (typeof dlg.showModal === 'function') { if (!dlg.open) dlg.showModal(); }
+    else dlg.setAttribute('open', '');
+  }
+  function closeBeta() {
+    if (typeof dlg.close === 'function') dlg.close();
+    else dlg.removeAttribute('open');
+  }
+
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('[data-open="beta"]')) { openBeta(); return; }
+    if (e.target.closest('[data-close]') || e.target === dlg) { closeBeta(); return; }
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var t = a.getAttribute('href').slice(1);
+    if (!t) { e.preventDefault(); return; }
+    if (TABS.indexOf(t) < 0) return;
+    e.preventDefault();
+    show(t);
+    try { if (location.hash !== '#' + t) location.hash = t; } catch (err) {}
+  });
+  window.addEventListener('hashchange', route);
+  route();
+
+  /* Languages: English, Mandarin Chinese, Hindi, Spanish, French */
+  var LANGS = ['en', 'zh', 'hi', 'es', 'fr'];
+  var DL = '<a href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener">';
+  var T = {
+    nav_home: ["Home", "首页", "होम", "Inicio", "Accueil"],
+    nav_news: ["News", "新闻", "समाचार", "Noticias", "Actualités"],
+    nav_wiki: ["Wiki", "维基", "विकी", "Wiki", "Wiki"],
+    nav_servers: ["Servers", "服务器", "सर्वर", "Servidores", "Serveurs"],
+    st_servers: ["Servers listed", "已收录服务器", "सूचीबद्ध सर्वर", "Servidores listados", "Serveurs listés"],
+    st_members: ["Total members", "总成员数", "कुल सदस्य", "Miembros en total", "Membres au total"],
+    st_largest: ["Largest server", "最大服务器", "सबसे बड़ा सर्वर", "Servidor más grande", "Plus grand serveur"],
+    srv_note_title: ["Get listed or removed", "申请收录或移除", "सूची में जुड़ें या हटवाएँ", "Alta o baja en la lista", "Être listé ou retiré"],
+    srv_note_add: ["Want your server listed? Open a ticket in the Eurotunnel Wiki Discord.", "想让您的服务器被收录？请在 Eurotunnel Wiki Discord 中创建工单。", "अपना सर्वर सूची में जुड़वाना चाहते हैं? Eurotunnel Wiki Discord में टिकट खोलें।", "¿Quieres que tu servidor aparezca en la lista? Abre un ticket en el Discord de Eurotunnel Wiki.", "Vous souhaitez que votre serveur soit listé ? Ouvrez un ticket sur le Discord d'Eurotunnel Wiki."],
+    srv_note_remove: ["Don't want your server listed anymore? Open a ticket in the Eurotunnel Wiki Discord.", "不想再让您的服务器被收录？请在 Eurotunnel Wiki Discord 中创建工单。", "अब अपना सर्वर सूची में नहीं रखना चाहते? Eurotunnel Wiki Discord में टिकट खोलें।", "¿Ya no quieres que tu servidor aparezca en la lista? Abre un ticket en el Discord de Eurotunnel Wiki.", "Vous ne souhaitez plus que votre serveur soit listé ? Ouvrez un ticket sur le Discord d'Eurotunnel Wiki."],
+    srv_note_inv: ["Some invite links may be out of date. If one doesn't work, let us know in a ticket.", "部分邀请链接可能已失效。如果链接无法使用，请通过工单告诉我们。", "कुछ आमंत्रण लिंक पुराने हो सकते हैं। यदि कोई लिंक काम न करे, तो टिकट में हमें बताएँ।", "Algunos enlaces de invitación pueden estar desactualizados. Si alguno no funciona, avísanos con un ticket.", "Certains liens d'invitation peuvent être périmés. Si l'un d'eux ne fonctionne pas, signalez-le-nous via un ticket."],
+    srv_ticket: ["Open a ticket", "创建工单", "टिकट खोलें", "Abrir un ticket", "Ouvrir un ticket"],
+    news_latest: ["Latest announcement", "最新公告", "नवीनतम घोषणा", "Último anuncio", "Dernière annonce"],
+    wiki_sub: ["Official roleplay documentation and procedures.", "官方角色扮演文档与流程。", "आधिकारिक रोलप्ले दस्तावेज़ और प्रक्रियाएँ।", "Documentación y procedimientos oficiales de rol.", "Documentation et procédures officielles de jeu de rôle."],
+    wiki_gp: ["Gamepasses", "游戏通行证", "गेमपास", "Pases de juego", "Passes de jeu"],
+    wiki_gp_desc: ["Every gamepass, what it costs and what you get.", "所有游戏通行证、价格及包含的内容。", "हर गेमपास, उसकी कीमत और उसमें क्या मिलता है।", "Todos los pases de juego, su precio y lo que incluyen.", "Tous les passes de jeu, leur prix et ce qu'ils offrent."],
+    wiki_more: ["More wiki pages are on the way.", "更多维基页面即将推出。", "और विकी पृष्ठ जल्द आ रहे हैं।", "Pronto habrá más páginas en la wiki.", "D'autres pages du wiki arrivent bientôt."],
+    gp_back: ["← Wiki", "← 维基", "← विकी", "← Wiki", "← Wiki"],
+    gp_all: ["All", "全部", "सभी", "Todos", "Tous"],
+    gp_law: ["Law enforcement", "执法", "कानून प्रवर्तन", "Fuerzas del orden", "Forces de l'ordre"],
+    gp_crim: ["Criminal", "犯罪", "आपराधिक", "Criminal", "Criminel"],
+    gp_med: ["Medical", "医疗", "चिकित्सा", "Médico", "Médical"],
+    gp_weap: ["Weapons", "武器", "हथियार", "Armas", "Armes"],
+    gp_veh: ["Vehicles", "载具", "वाहन", "Vehículos", "Véhicules"],
+    gp_util: ["Utility", "实用", "उपयोगिता", "Utilidad", "Utilitaire"],
+    gp_sort: ["Sort by", "排序", "क्रमबद्ध करें", "Ordenar por", "Trier par"],
+    gp_s_def: ["Default", "默认", "डिफ़ॉल्ट", "Predeterminado", "Par défaut"],
+    gp_s_lo: ["Price: low to high", "价格：从低到高", "कीमत: कम से अधिक", "Precio: de menor a mayor", "Prix : croissant"],
+    gp_s_hi: ["Price: high to low", "价格：从高到低", "कीमत: अधिक से कम", "Precio: de mayor a menor", "Prix : décroissant"],
+    gp_s_val: ["Best value", "最超值", "सर्वोत्तम मूल्य", "Mejor valor", "Meilleur rapport qualité-prix"],
+    gp_s_az: ["Name A–Z", "名称 A–Z", "नाम A–Z", "Nombre A–Z", "Nom A–Z"],
+    gp_included: ["What's included", "包含内容", "इसमें क्या शामिल है", "Qué incluye", "Ce qui est inclus"],
+    gp_best: ["Best value", "最超值", "सर्वोत्तम मूल्य", "Mejor valor", "Meilleur rapport"],
+    gp_free: ["Free in-game", "游戏内免费", "गेम में मुफ़्त", "Gratis en el juego", "Gratuit en jeu"],
+    gp_count: ["gamepasses", "个通行证", "गेमपास", "pases", "passes"],
+    gp_none: ["No gamepasses match this filter.", "没有符合筛选条件的通行证。", "इस फ़िल्टर से कोई गेमपास मेल नहीं खाता।", "Ningún pase coincide con este filtro.", "Aucun passe ne correspond à ce filtre."],
+    gp_note: ["Prices are in Robux (R$) with approximate GBP. Best value ranks passes by features per R$.", "价格以 Robux (R$) 计，并附英镑参考价。“最超值”按每 R$ 的功能数量排序。", "कीमतें Robux (R$) में हैं और साथ में अनुमानित GBP दिया गया है। \"सर्वोत्तम मूल्य\" प्रति R$ सुविधाओं के आधार पर क्रमबद्ध है।", "Los precios están en Robux (R$) con GBP aproximado. «Mejor valor» ordena los pases por funciones por R$.", "Les prix sont en Robux (R$) avec un équivalent approximatif en GBP. « Meilleur rapport » classe les passes par nombre d'avantages par R$."],
+    srv_title: ["Community servers", "社区服务器", "समुदाय सर्वर", "Servidores de la comunidad", "Serveurs communautaires"],
+    srv_sub: ["Eurotunnel community Discord servers you can join.", "您可以加入的 Eurotunnel 社区 Discord 服务器。", "Eurotunnel के कम्युनिटी Discord सर्वर, जिनसे आप जुड़ सकते हैं।", "Servidores de Discord de la comunidad Eurotunnel a los que puedes unirte.", "Serveurs Discord de la communauté Eurotunnel que vous pouvez rejoindre."],
+    srv_search: ["Search servers", "搜索服务器", "सर्वर खोजें", "Buscar servidores", "Rechercher un serveur"],
+    srv_count_label: ["servers", "个服务器", "सर्वर", "servidores", "serveurs"],
+    srv_join: ["Join server →", "加入服务器 →", "सर्वर से जुड़ें →", "Unirse al servidor →", "Rejoindre le serveur →"],
+    srv_members: ["members", "成员", "सदस्य", "miembros", "membres"],
+    srv_none: ["No servers match your search.", "没有匹配的服务器。", "आपकी खोज से कोई सर्वर मेल नहीं खाता।", "Ningún servidor coincide con tu búsqueda.", "Aucun serveur ne correspond à votre recherche."],
+    d_mp: ["Military police presence at Eurotunnel events.", "在 Eurotunnel 活动中的军警力量。", "Eurotunnel कार्यक्रमों में सैन्य पुलिस की उपस्थिति।", "Presencia de la policía militar en los eventos de Eurotunnel.", "Présence de la police militaire lors des événements Eurotunnel."],
+    d_gen: ["A community for Eurotunnel events.", "Eurotunnel 活动社区。", "Eurotunnel कार्यक्रमों के लिए एक समुदाय।", "Una comunidad para los eventos de Eurotunnel.", "Une communauté pour les événements Eurotunnel."],
+    d_race: ["Racing events and championship coverage.", "赛事活动与锦标赛报道。", "रेसिंग इवेंट और चैंपियनशिप कवरेज।", "Eventos de carreras y cobertura del campeonato.", "Événements de course et couverture du championnat."],
+    d_ops: ["Operational coordination for Eurotunnel events.", "Eurotunnel 活动的运营协调。", "Eurotunnel कार्यक्रमों के लिए संचालन समन्वय।", "Coordinación operativa de los eventos de Eurotunnel.", "Coordination opérationnelle des événements Eurotunnel."],
+    d_nhs: ["Medical & health operations at Eurotunnel events.", "Eurotunnel 活动中的医疗与健康运营。", "Eurotunnel कार्यक्रमों में चिकित्सा और स्वास्थ्य संचालन।", "Operaciones médicas y de salud en los eventos de Eurotunnel.", "Opérations médicales et de santé lors des événements Eurotunnel."],
+    d_photo: ["Capturing moments from Eurotunnel events.", "记录 Eurotunnel 活动中的精彩瞬间。", "Eurotunnel कार्यक्रमों के यादगार पलों को कैद करना।", "Capturando momentos de los eventos de Eurotunnel.", "Immortaliser les moments des événements Eurotunnel."],
+    btn_discord: ["Join Discord", "加入 Discord", "Discord से जुड़ें", "Unirse a Discord", "Rejoindre Discord"],
+    hero_hub: ["Wiki Hub", "维基中心", "विकी हब", "Centro Wiki", "Portail Wiki"],
+    hero_lede: [
+      "Your definitive community guide to cross-border tunnels, operational standards, roleplay guidelines and vehicle fleets.",
+      "您关于跨境隧道、运营标准、角色扮演规则和车辆车队的权威社区指南。",
+      "सीमा-पार सुरंगों, संचालन मानकों, रोलप्ले दिशानिर्देशों और वाहन बेड़ों के लिए आपकी भरोसेमंद सामुदायिक गाइड।",
+      "Tu guía comunitaria definitiva sobre túneles transfronterizos, normas operativas, directrices de rol y flotas de vehículos.",
+      "Votre guide communautaire de référence sur les tunnels transfrontaliers, les normes opérationnelles, les règles de jeu de rôle et les flottes de véhicules."
+    ],
+    cta_wiki: ["Explore wiki", "探索维基", "विकी देखें", "Explorar wiki", "Explorer le wiki"],
+    cta_news: ["Read news", "阅读新闻", "समाचार पढ़ें", "Leer noticias", "Lire les actualités"],
+    social_sub: ["Join our community", "加入我们的社区", "हमारे समुदाय से जुड़ें", "Únete a nuestra comunidad", "Rejoignez notre communauté"],
+    server_title: ["Eurotunnel Community", "Eurotunnel 社区", "Eurotunnel समुदाय", "Comunidad Eurotunnel", "Communauté Eurotunnel"],
+    server_sub: ["Community Discord", "社区 Discord", "समुदाय Discord", "Discord de la comunidad", "Discord communautaire"],
+    server_text: [
+      "Chat with other members, send beta feedback and get the latest updates.",
+      "与其他成员交流，提交测试反馈，获取最新动态。",
+      "अन्य सदस्यों से चैट करें, बीटा फीडबैक भेजें और ताज़ा अपडेट पाएँ।",
+      "Charla con otros miembros, envía tus comentarios de la beta y recibe las últimas novedades.",
+      "Discutez avec les autres membres, envoyez vos retours sur la bêta et recevez les dernières nouveautés."
+    ],
+    server_btn: ["Join server", "加入服务器", "सर्वर से जुड़ें", "Unirse al servidor", "Rejoindre le serveur"],
+    news_title: ["Announcements and updates", "公告与更新", "घोषणाएँ और अपडेट", "Anuncios y novedades", "Annonces et mises à jour"],
+    news_sub: [
+      "Official bulletins about the website's public beta.",
+      "有关网站公开测试的官方公告。",
+      "वेबसाइट के सार्वजनिक बीटा के बारे में आधिकारिक सूचनाएँ।",
+      "Comunicados oficiales sobre la beta pública del sitio web.",
+      "Communiqués officiels sur la bêta publique du site."
+    ],
+    news_featured: ["Featured", "置顶", "विशेष", "Destacado", "À la une"],
+    news_tag: ["Active beta", "测试进行中", "बीटा जारी", "Beta activa", "Bêta en cours"],
+    art_title: [
+      "Website officially in beta testing",
+      "网站正式进入测试阶段",
+      "वेबसाइट आधिकारिक रूप से बीटा परीक्षण में",
+      "El sitio web ya está oficialmente en beta",
+      "Le site est officiellement en bêta"
+    ],
+    art_sum: [
+      "The Eurotunnel Wiki is open for beta testing. Explore the redesigned layout and report feedback on the community Discord.",
+      "Eurotunnel Wiki 现已开放测试。体验全新设计的布局，并在社区 Discord 反馈意见。",
+      "Eurotunnel Wiki अब बीटा परीक्षण के लिए खुला है। नया डिज़ाइन देखें और कम्युनिटी Discord पर फीडबैक दें।",
+      "Eurotunnel Wiki está abierto para pruebas beta. Explora el nuevo diseño y comparte tus comentarios en el Discord de la comunidad.",
+      "Eurotunnel Wiki est ouvert aux tests bêta. Découvrez la nouvelle mise en page et partagez vos retours sur le Discord de la communauté."
+    ],
+    art_more: ["Read full announcement →", "阅读完整公告 →", "पूरी घोषणा पढ़ें →", "Leer el anuncio completo →", "Lire l'annonce complète →"],
+    upd_title: ["Beta updates", "测试动态", "बीटा अपडेट", "Novedades de la beta", "Nouveautés de la bêta"],
+    upd1_area: ["Website layout", "网站布局", "वेबसाइट लेआउट", "Diseño del sitio", "Mise en page du site"],
+    upd1_chip: ["Live", "已上线", "लाइव", "Activo", "En ligne"],
+    upd1_text: [
+      "Interface and style refinements are rolling out continuously.",
+      "界面和样式的优化正在持续推出。",
+      "इंटरफ़ेस और स्टाइल में सुधार लगातार जारी हैं।",
+      "Los ajustes de interfaz y estilo se publican de forma continua.",
+      "Les améliorations de l'interface et du style sont déployées en continu."
+    ],
+    upd2_area: ["Wiki sections", "维基板块", "विकी अनुभाग", "Secciones de la wiki", "Sections du wiki"],
+    upd2_chip: ["In progress", "进行中", "जारी", "En curso", "En cours"],
+    upd2_text: [
+      "Pages for border operations, tunnel transit and fleet regulations are being written.",
+      "边境运营、隧道通行和车队规定的页面正在撰写中。",
+      "सीमा संचालन, सुरंग पारगमन और बेड़े के नियमों के पृष्ठ लिखे जा रहे हैं।",
+      "Se están redactando las páginas de operaciones fronterizas, tránsito por el túnel y normativa de flotas.",
+      "Les pages sur les opérations frontalières, le transit dans le tunnel et la réglementation des flottes sont en cours de rédaction."
+    ],
+    upd3_area: ["Feedback", "反馈", "फीडबैक", "Comentarios", "Retours"],
+    upd3_chip: ["Open", "开放", "खुला", "Abierto", "Ouvert"],
+    upd3_text: [
+      "Report bugs and share ideas on the community Discord.",
+      "在社区 Discord 报告问题并分享想法。",
+      "कम्युनिटी Discord पर बग रिपोर्ट करें और विचार साझा करें।",
+      "Informa de errores y comparte ideas en el Discord de la comunidad.",
+      "Signalez des bugs et partagez vos idées sur le Discord de la communauté."
+    ],
+    cta_title: ["Never miss an update", "不错过任何更新", "कोई अपडेट न चूकें", "No te pierdas ninguna novedad", "Ne manquez aucune mise à jour"],
+    cta_text: [
+      "Join the community Discord to hear about new announcements and share your feedback.",
+      "加入社区 Discord，了解最新公告并分享您的反馈。",
+      "नई घोषणाओं के बारे में जानने और अपना फीडबैक साझा करने के लिए कम्युनिटी Discord से जुड़ें।",
+      "Únete al Discord de la comunidad para enterarte de los nuevos anuncios y compartir tus comentarios.",
+      "Rejoignez le Discord de la communauté pour suivre les nouvelles annonces et partager vos retours."
+    ],
+    soon: ["Coming soon", "即将推出", "जल्द आ रहा है", "Próximamente", "Bientôt disponible"],
+    foot_desc: [
+      "Your community guide to cross-border tunnels, operational standards, roleplay guidelines and vehicle fleets.",
+      "您的跨境隧道、运营标准、角色扮演规则和车辆车队社区指南。",
+      "सीमा-पार सुरंगों, संचालन मानकों, रोलप्ले दिशानिर्देशों और वाहन बेड़ों के लिए आपकी सामुदायिक गाइड।",
+      "Tu guía comunitaria sobre túneles transfronterizos, normas operativas, directrices de rol y flotas de vehículos.",
+      "Votre guide communautaire sur les tunnels transfrontaliers, les normes opérationnelles, les règles de jeu de rôle et les flottes de véhicules."
+    ],
+    foot_nav: ["Navigate", "导航", "नेविगेट", "Navegar", "Naviguer"],
+    foot_comm: ["Community", "社区", "समुदाय", "Comunidad", "Communauté"],
+    foot_connect: ["Connect", "关注我们", "जुड़ें", "Conecta", "Suivez-nous"],
+    foot_beta: ["Beta announcement", "测试公告", "बीटा घोषणा", "Anuncio de la beta", "Annonce de la bêta"],
+    foot_base: ["Eurotunnel Wiki · Community beta", "Eurotunnel Wiki · 社区测试版", "Eurotunnel Wiki · समुदाय बीटा", "Eurotunnel Wiki · beta comunitaria", "Eurotunnel Wiki · bêta communautaire"],
+    lang_label: ["Language", "语言", "भाषा", "Idioma", "Langue"],
+    dlg_x: ["Close announcement", "关闭公告", "घोषणा बंद करें", "Cerrar anuncio", "Fermer l'annonce"],
+    dlg_tag: ["Beta testing", "测试中", "बीटा परीक्षण", "Pruebas beta", "Test bêta"],
+    dlg_p1: [
+      "We are excited to announce that the new <strong>Eurotunnel Wiki</strong> web platform is officially live in <strong>beta testing</strong>.",
+      "我们很高兴地宣布，全新的 <strong>Eurotunnel Wiki</strong> 网站平台已正式进入<strong>测试阶段</strong>。",
+      "हमें यह घोषणा करते हुए खुशी है कि नया <strong>Eurotunnel Wiki</strong> वेब प्लेटफ़ॉर्म आधिकारिक रूप से <strong>बीटा परीक्षण</strong> में लाइव हो गया है।",
+      "Nos complace anunciar que la nueva plataforma web de <strong>Eurotunnel Wiki</strong> ya está oficialmente en <strong>pruebas beta</strong>.",
+      "Nous avons le plaisir d'annoncer que la nouvelle plateforme web <strong>Eurotunnel Wiki</strong> est officiellement en <strong>test bêta</strong>."
+    ],
+    dlg_p2: [
+      "Our team has overhauled the site architecture for fast loading, a deep electric-blue matte theme and streamlined layouts built for border roleplay members.",
+      "我们的团队重构了网站架构，实现快速加载，采用深邃的电光蓝哑光主题，并为边境角色扮演成员打造了更简洁的布局。",
+      "हमारी टीम ने तेज़ लोडिंग, गहरे इलेक्ट्रिक-ब्लू मैट थीम और सीमा रोलप्ले सदस्यों के लिए सरल लेआउट के साथ साइट की संरचना को नया रूप दिया है।",
+      "Nuestro equipo ha renovado la arquitectura del sitio para una carga rápida, con un tema mate azul eléctrico intenso y diseños más claros pensados para los miembros del rol fronterizo.",
+      "Notre équipe a refondu l'architecture du site pour un chargement rapide, avec un thème mat bleu électrique profond et des mises en page épurées pensées pour les membres du jeu de rôle frontalier."
+    ],
+    dlg_h: ["What to expect during beta", "测试期间的预期", "बीटा के दौरान क्या उम्मीद करें", "Qué esperar durante la beta", "À quoi s'attendre pendant la bêta"],
+    dlg_l1: [
+      "Wiki sections are being populated and are marked as coming soon.",
+      "维基板块正在充实中，并标记为即将推出。",
+      "विकी अनुभाग भरे जा रहे हैं और \"जल्द आ रहा है\" के रूप में चिह्नित हैं।",
+      "Las secciones de la wiki se están completando y aparecen como próximamente.",
+      "Les sections du wiki sont en cours de remplissage et sont marquées « bientôt disponible »."
+    ],
+    dlg_l3: [
+      "Join the " + DL + "Discord server</a> to send feedback or report bugs.",
+      "加入 " + DL + "Discord 服务器</a>，发送反馈或报告问题。",
+      "फीडबैक भेजने या बग रिपोर्ट करने के लिए " + DL + "Discord सर्वर</a> से जुड़ें।",
+      "Únete al " + DL + "servidor de Discord</a> para enviar comentarios o informar de errores.",
+      "Rejoignez le " + DL + "serveur Discord</a> pour envoyer vos retours ou signaler des bugs."
+    ],
+    dlg_pub: [
+      "Published by Eurotunnel Community Staff",
+      "由 Eurotunnel 社区团队发布",
+      "Eurotunnel समुदाय स्टाफ़ द्वारा प्रकाशित",
+      "Publicado por el equipo de la comunidad Eurotunnel",
+      "Publié par l'équipe de la communauté Eurotunnel"
+    ],
+    dlg_close: ["Close", "关闭", "बंद करें", "Cerrar", "Fermer"]
+  };
+
+  var curLang = 0;
+  var gpCount = null;
+  function updateCount() {
+    var el = document.getElementById('srv-count');
+    if (!el) return;
+    var n = 0;
+    document.querySelectorAll('.srv').forEach(function (li) { if (!li.hidden) n++; });
+    el.textContent = n + ' ' + T.srv_count_label[curLang];
+    var none = document.getElementById('srv-none');
+    if (none) none.hidden = n !== 0;
+  }
+
+  function applyLang(code, save) {
+    var i = LANGS.indexOf(code);
+    if (i < 0) { i = 0; code = 'en'; }
+    document.documentElement.setAttribute('lang', code);
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var v = T[el.getAttribute('data-i18n')];
+      if (v) el.textContent = v[i];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+      var v = T[el.getAttribute('data-i18n-html')];
+      if (v) el.innerHTML = v[i];
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
+      var v = T[el.getAttribute('data-i18n-aria')];
+      if (v) el.setAttribute('aria-label', v[i]);
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function (el) {
+      var v = T[el.getAttribute('data-i18n-ph')];
+      if (v) el.setAttribute('placeholder', v[i]);
+    });
+    curLang = i;
+    updateCount();
+    if (gpCount) gpCount();
+    var sel = document.getElementById('lang');
+    if (sel) sel.value = code;
+    if (save) { try { localStorage.setItem('eurotunnel-lang', code); } catch (e) {} }
+  }
+
+  var start = 'en';
+  try {
+    var saved = localStorage.getItem('eurotunnel-lang');
+    if (saved) start = saved;
+    else {
+      var nav = (navigator.language || 'en').slice(0, 2).toLowerCase();
+      if (LANGS.indexOf(nav) >= 0) start = nav;
+    }
+  } catch (e) {}
+  applyLang(start, false);
+  var gpList = document.getElementById('gp-list');
+  if (gpList) {
+    var gpCards = [].slice.call(gpList.children);
+    var gpFilter = 'all', gpSort = 'default', gpShown = gpCards.length;
+    var gpNum = function (el, k) { return parseFloat(el.getAttribute('data-' + k)); };
+    gpCount = function () {
+      var c = document.getElementById('gp-count');
+      if (c) c.textContent = gpShown + ' ' + T.gp_count[curLang];
+      var none = document.getElementById('gp-none');
+      if (none) none.hidden = gpShown !== 0;
+    };
+    var gpUpdate = function () {
+      var arr = gpCards.slice();
+      arr.sort(function (a, b) {
+        var d = 0;
+        if (gpSort === 'lo') d = gpNum(a, 'price') - gpNum(b, 'price');
+        else if (gpSort === 'hi') d = gpNum(b, 'price') - gpNum(a, 'price');
+        else if (gpSort === 'val') d = gpNum(b, 'value') - gpNum(a, 'value');
+        else if (gpSort === 'az') d = a.getAttribute('data-name').localeCompare(b.getAttribute('data-name'));
+        return d || gpNum(a, 'order') - gpNum(b, 'order');
+      });
+      gpShown = 0;
+      arr.forEach(function (c) {
+        gpList.appendChild(c);
+        var ok = gpFilter === 'all' || (' ' + c.getAttribute('data-tags') + ' ').indexOf(' ' + gpFilter + ' ') >= 0;
+        c.hidden = !ok;
+        if (ok) gpShown++;
+      });
+      gpCount();
+    };
+    document.querySelectorAll('.fchip').forEach(function (b) {
+      b.addEventListener('click', function () {
+        gpFilter = b.getAttribute('data-f');
+        document.querySelectorAll('.fchip').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        gpUpdate();
+      });
+    });
+    var gpSel = document.getElementById('gp-sort');
+    if (gpSel) gpSel.addEventListener('change', function () { gpSort = gpSel.value; gpUpdate(); });
+    gpUpdate();
+  }
+  var q = document.getElementById('srv-q');
+  if (q) q.addEventListener('input', function () {
+    var term = q.value.trim().toLowerCase();
+    document.querySelectorAll('.srv').forEach(function (li) {
+      li.hidden = term !== '' && li.getAttribute('data-name').indexOf(term) < 0;
+    });
+    updateCount();
+  });
+  var langSel = document.getElementById('lang');
+  if (langSel) langSel.addEventListener('change', function () { applyLang(langSel.value, true); });
+})();
+</script>
+
+</body></html>
