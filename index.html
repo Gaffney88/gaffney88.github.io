@@ -32,6 +32,8 @@
   --warn-line: rgba(251, 191, 36, 0.35);
   --info-bg: rgba(130, 179, 255, 0.1);
   --info-line: rgba(130, 179, 255, 0.35);
+  /* Optional photo for the news card, for example: --news-photo: url('your-image.jpg') center / cover; */
+  --news-photo: linear-gradient(transparent, transparent);
   --font-display: 'Montserrat', 'Noto Sans SC', 'Noto Sans Devanagari', 'Arial Black', 'Helvetica Neue', sans-serif;
   --font-body: 'Inter', 'Noto Sans SC', 'Noto Sans Devanagari', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -44,7 +46,7 @@
 body {
   margin: 0;
   background-color: var(--bg);
-  background-image: linear-gradient(rgba(5, 7, 13, 0.86), rgba(5, 7, 13, 0.95)), url('https://static.wikia.nocookie.net/rblxeurotunnel/images/0/08/Site-background-dark/revision/latest?cb=20260625112929');
+  background-image: linear-gradient(rgba(5, 7, 13, 0.7), rgba(5, 7, 13, 0.88)), url('https://static.wikia.nocookie.net/rblxeurotunnel/images/0/08/Site-background-dark/revision/latest?cb=20260625112929');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -680,6 +682,117 @@ dialog[open]::backdrop { animation: fade 0.28s; }
   .btn-discord.srv-join { grid-column: 1 / -1; width: 100%; justify-content: center; }
 }
 
+/* Cleaner news and servers */
+.article { box-shadow: none; }
+.article:hover { transform: none; box-shadow: none; }
+.article-art { min-height: 240px; }
+.updates-head { background: transparent; border-bottom: 1px solid var(--line); color: var(--muted); font: 500 0.72rem var(--font-mono); letter-spacing: 0.14em; }
+.upd { border-top: 0; border-bottom: 1px solid var(--line); }
+.upd:last-child { border-bottom: 0; }
+.upd:hover { background: transparent; }
+.news-cta { border-style: solid; border-color: var(--line); background: var(--surface); }
+
+.srv-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.srv-stats > div { display: grid; gap: 2px; padding: 18px 22px; border-left: 1px solid var(--line); }
+.srv-stats > div:first-child { border-left: 0; }
+.srv-stat-num { font: 800 clamp(1.5rem, 4vw, 2rem)/1.1 var(--font-display); }
+.srv-stat-lbl { color: var(--muted); font-size: 0.82rem; }
+.srv-notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+}
+.srv-notice-text { display: grid; gap: 6px; flex: 1 1 380px; min-width: 0; }
+.srv-notice h3 { margin: 0 0 2px; font: 800 0.95rem/1.2 var(--font-display); text-transform: uppercase; }
+.srv-notice p { margin: 0; color: var(--text-soft); font-size: 0.92rem; }
+.srv-notice .srv-note-small { color: var(--muted); font-size: 0.85rem; }
+.srv-list { gap: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.srv { border: 0; border-top: 1px solid var(--line); border-radius: 0; background: transparent; }
+.srv:first-child { border-top: 0; }
+.srv:hover { transform: none; box-shadow: none; background: var(--surface-2); }
+.srv-av { border-color: var(--line-strong); background: var(--surface-2); color: var(--accent-text); }
+.srv:hover .srv-av { background: var(--bg); }
+.btn-discord.srv-join { background: transparent; border: 1px solid var(--line-strong); color: var(--text); box-shadow: none; }
+.btn-discord.srv-join:hover { background: #5865f2; border-color: #5865f2; }
+@media (max-width: 480px) { .srv-stats > div { padding: 14px 12px; } .srv-stat-lbl { font-size: 0.74rem; } }
+
+/* Beacon: round pulse */
+.article-art::before { content: ""; position: absolute; left: 78%; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: var(--accent-text); }
+.article-art::after { background: rgba(130, 179, 255, 0.45); animation: beacon2 2.4s ease-out infinite; }
+@keyframes beacon2 { from { transform: scale(1); opacity: 0.7; } to { transform: scale(8); opacity: 0; } }
+
+/* News: same clean style as servers */
+.article-art {
+  min-height: 260px;
+  background:
+    var(--news-photo),
+    radial-gradient(circle at 50% 50%, rgba(160, 200, 255, 0.55) 0, rgba(59, 130, 246, 0.28) 7%, transparent 40%),
+    repeating-radial-gradient(circle at 50% 50%, transparent 0 28px, rgba(130, 179, 255, 0.15) 28px 29px),
+    radial-gradient(ellipse at 50% 130%, rgba(37, 99, 235, 0.4), transparent 60%),
+    linear-gradient(160deg, #0e2152, #070b13 75%);
+  box-shadow: inset 0 0 90px rgba(5, 7, 13, 0.85);
+}
+.article-art::before, .article-art::after { left: 50%; }
+.news-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.upd { grid-template-columns: 190px minmax(0, 1fr) auto; gap: 8px 20px; padding: 18px 22px; }
+.upd-area { grid-column: 1; grid-row: 1; }
+.upd-text { grid-column: 2; grid-row: 1; font-size: 0.92rem; }
+.upd .chip { grid-column: 3; grid-row: 1; justify-self: end; }
+.news-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; padding: 20px 22px; }
+.news-cta-text { display: grid; gap: 4px; flex: 1 1 380px; min-width: 0; }
+.news-cta h3 { font-size: 0.95rem; }
+@media (max-width: 640px) {
+  .upd { grid-template-columns: minmax(0, 1fr) auto; }
+  .upd-text { grid-column: 1 / -1; grid-row: 2; }
+  .article-art { min-height: 180px; }
+}
+
+/* Announcement polish */
+.article { border-radius: 18px; }
+.article-art { min-height: 300px; }
+.article-body { gap: 14px; }
+.article-title { font-size: clamp(1.5rem, 3.2vw, 2.1rem); }
+.article-meta { color: var(--muted); font: 500 0.72rem var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; }
+.tags { align-items: center; gap: 8px 12px; }
+.more {
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  padding: 10px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--text);
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: background 0.2s, border-color 0.2s;
+}
+.article:hover .more { background: var(--accent); border-color: var(--accent); text-decoration: none; }
+.news-cta {
+  border-color: rgba(130, 179, 255, 0.28);
+  background: linear-gradient(120deg, rgba(37, 99, 235, 0.2), rgba(88, 101, 242, 0.12) 55%, rgba(10, 15, 25, 0.7));
+}
+dialog { width: min(680px, calc(100% - 32px)); border-radius: 22px; }
+.dlg-head { gap: 14px; padding: 34px 32px 26px; box-shadow: inset 0 -60px 60px -40px rgba(5, 7, 13, 0.9); }
+.dlg-body { gap: 16px; padding: 28px 32px 8px; }
+.dlg-lead { color: var(--text); font-size: 1.08rem; line-height: 1.65; }
+.dlg-sub { margin: 10px 0 0; color: var(--accent-text); font: 800 0.78rem var(--font-display); letter-spacing: 0.1em; text-transform: uppercase; }
+.dlg-body .checks { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.checks li { display: flex; align-items: flex-start; gap: 12px; padding: 13px 15px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2); }
+.checks svg { flex: none; width: 20px; height: 20px; margin-top: 2px; color: var(--good); }
+.dlg-foot { justify-content: flex-end; gap: 10px; padding: 20px 32px 26px; border-top: 0; }
+@media (max-width: 520px) {
+  .dlg-head { padding: 28px 20px 22px; }
+  .dlg-body { padding: 22px 20px 4px; }
+  .dlg-foot { padding: 16px 20px 22px; }
+  .dlg-foot .btn { flex: 1; }
+}
+
 /* Narrow screens */
 .long { display: inline; }
 @media (max-width: 760px) {
@@ -786,25 +899,19 @@ dialog[open]::backdrop { animation: fade 0.28s; }
     <button class="article" type="button" data-open="beta">
       <span class="article-art" aria-hidden="true"></span>
       <span class="article-body">
-        <span class="tags"><span class="chip" data-i18n="news_featured">Featured</span><span class="chip chip-good" data-i18n="news_tag">Active beta</span></span>
+        <span class="tags"><span class="chip chip-good" data-i18n="news_tag">Active beta</span><span class="article-meta" data-i18n="news_latest">Latest announcement</span></span>
         <span class="article-title" data-i18n="art_title">Website officially in beta testing</span>
         <span class="article-sum" data-i18n="art_sum">The Eurotunnel Wiki is open for beta testing. Explore the redesigned layout and report feedback on the community Discord.</span>
-        <span class="more" data-i18n="art_more">Read full announcement →</span>
+        <span class="more"><span data-i18n="art_more">Read full announcement →</span></span>
       </span>
     </button>
     <div class="news-grid">
-      <section class="updates" aria-labelledby="upd-title">
-        <div class="updates-head"><span id="upd-title" data-i18n="upd_title">Beta updates</span><i class="dot"></i></div>
-        <ul class="upd-list">
-          <li class="upd"><span class="upd-area" data-i18n="upd1_area">Website layout</span><span class="chip chip-good" data-i18n="upd1_chip">Live</span><p class="upd-text" data-i18n="upd1_text">Interface and style refinements are rolling out continuously.</p></li>
-          <li class="upd"><span class="upd-area" data-i18n="upd2_area">Wiki sections</span><span class="chip chip-warn" data-i18n="upd2_chip">In progress</span><p class="upd-text" data-i18n="upd2_text">Pages for border operations, tunnel transit and fleet regulations are being written.</p></li>
-          <li class="upd"><span class="upd-area" data-i18n="upd3_area">Feedback</span><span class="chip" data-i18n="upd3_chip">Open</span><p class="upd-text" data-i18n="upd3_text">Report bugs and share ideas on the community Discord.</p></li>
-        </ul>
-      </section>
       <aside class="news-cta">
-        <h3 data-i18n="cta_title">Never miss an update</h3>
-        <p data-i18n="cta_text">Join the community Discord to hear about new announcements and share your feedback.</p>
-        <a class="btn-discord" href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener" data-i18n="btn_discord">Join Discord</a>
+        <div class="news-cta-text">
+          <h3 data-i18n="cta_title">Never miss an update</h3>
+          <p data-i18n="cta_text">Join the community Discord to hear about new announcements and share your feedback.</p>
+        </div>
+        <a class="btn btn-primary" href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener" data-i18n="btn_discord">Join Discord</a>
       </aside>
     </div>
   </div>
@@ -820,6 +927,20 @@ dialog[open]::backdrop { animation: fade 0.28s; }
       <h2 data-i18n="srv_title">Community servers</h2>
       <p data-i18n="srv_sub">Eurotunnel community Discord servers you can join.</p>
     </div>
+    <div class="srv-stats">
+      <div><span class="srv-stat-num">15</span><span class="srv-stat-lbl" data-i18n="st_servers">Servers listed</span></div>
+      <div><span class="srv-stat-num">997+</span><span class="srv-stat-lbl" data-i18n="st_members">Total members</span></div>
+      <div><span class="srv-stat-num">200+</span><span class="srv-stat-lbl" data-i18n="st_largest">Largest server</span></div>
+    </div>
+    <aside class="srv-notice">
+      <div class="srv-notice-text">
+        <h3 data-i18n="srv_note_title">Get listed or removed</h3>
+        <p data-i18n="srv_note_add">Want your server listed? Open a ticket in the Eurotunnel Wiki Discord.</p>
+        <p data-i18n="srv_note_remove">Don't want your server listed anymore? Open a ticket in the Eurotunnel Wiki Discord.</p>
+        <p class="srv-note-small" data-i18n="srv_note_inv">Some invite links may be out of date. If one doesn't work, let us know in a ticket.</p>
+      </div>
+      <a class="btn btn-primary" href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener" data-i18n="srv_ticket">Open a ticket</a>
+    </aside>
     <div class="srv-tools">
       <label class="srv-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="srv-q" type="search" autocomplete="off" placeholder="Search servers" data-i18n-ph="srv_search" aria-label="Search servers" data-i18n-aria="srv_search"></label>
       <span class="note" id="srv-count">15 servers</span>
@@ -1004,25 +1125,22 @@ dialog[open]::backdrop { animation: fade 0.28s; }
 <dialog id="news-modal" aria-labelledby="modal-title">
   <div class="dlg-in">
     <div class="dlg-head">
-      <button class="dlg-close" type="button" data-close aria-label="Close announcement" data-i18n-aria="dlg_x">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-      </button>
-      <span class="chip chip-good" data-i18n="dlg_tag">Beta testing</span>
       <h2 id="modal-title" data-i18n="art_title">Website officially in beta testing</h2>
+      <span class="article-meta" data-i18n="dlg_pub">Published by Eurotunnel Community Staff</span>
     </div>
     <div class="dlg-body">
-      <p data-i18n-html="dlg_p1">We are excited to announce that the new <strong>Eurotunnel Wiki</strong> web platform is officially live in <strong>beta testing</strong>.</p>
+      <p class="dlg-lead" data-i18n-html="dlg_p1">We are excited to announce that the new <strong>Eurotunnel Wiki</strong> web platform is officially live in <strong>beta testing</strong>.</p>
       <p data-i18n="dlg_p2">Our team has overhauled the site architecture for fast loading, a deep electric-blue matte theme and streamlined layouts built for border roleplay members.</p>
-      <p><strong data-i18n="dlg_h">What to expect during beta</strong></p>
-      <ul>
-        <li data-i18n="dlg_l1">Wiki sections are being populated and are marked as coming soon.</li>
-        <li data-i18n="upd1_text">Interface and style refinements are rolling out continuously.</li>
-        <li data-i18n-html="dlg_l3">Join the <a href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener">Discord server</a> to send feedback or report bugs.</li>
+      <h3 class="dlg-sub" data-i18n="dlg_h">What to expect during beta</h3>
+      <ul class="checks">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg><span data-i18n="dlg_l1">Wiki sections are being populated and are marked as coming soon.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg><span data-i18n="upd1_text">Interface and style refinements are rolling out continuously.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg><span data-i18n-html="dlg_l3">Join the <a href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener">Discord server</a> to send feedback or report bugs.</span></li>
       </ul>
     </div>
     <div class="dlg-foot">
-      <span class="note" data-i18n="dlg_pub">Published by Eurotunnel Community Staff</span>
       <button class="btn btn-ghost btn-sm" type="button" data-close data-i18n="dlg_close">Close</button>
+      <a class="btn btn-primary btn-sm" href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener" data-i18n="btn_discord">Join Discord</a>
     </div>
   </div>
 </dialog>
@@ -1090,6 +1208,15 @@ dialog[open]::backdrop { animation: fade 0.28s; }
     nav_news: ["News", "新闻", "समाचार", "Noticias", "Actualités"],
     nav_wiki: ["Wiki", "维基", "विकी", "Wiki", "Wiki"],
     nav_servers: ["Servers", "服务器", "सर्वर", "Servidores", "Serveurs"],
+    st_servers: ["Servers listed", "已收录服务器", "सूचीबद्ध सर्वर", "Servidores listados", "Serveurs listés"],
+    st_members: ["Total members", "总成员数", "कुल सदस्य", "Miembros en total", "Membres au total"],
+    st_largest: ["Largest server", "最大服务器", "सबसे बड़ा सर्वर", "Servidor más grande", "Plus grand serveur"],
+    srv_note_title: ["Get listed or removed", "申请收录或移除", "सूची में जुड़ें या हटवाएँ", "Alta o baja en la lista", "Être listé ou retiré"],
+    srv_note_add: ["Want your server listed? Open a ticket in the Eurotunnel Wiki Discord.", "想让您的服务器被收录？请在 Eurotunnel Wiki Discord 中创建工单。", "अपना सर्वर सूची में जुड़वाना चाहते हैं? Eurotunnel Wiki Discord में टिकट खोलें।", "¿Quieres que tu servidor aparezca en la lista? Abre un ticket en el Discord de Eurotunnel Wiki.", "Vous souhaitez que votre serveur soit listé ? Ouvrez un ticket sur le Discord d'Eurotunnel Wiki."],
+    srv_note_remove: ["Don't want your server listed anymore? Open a ticket in the Eurotunnel Wiki Discord.", "不想再让您的服务器被收录？请在 Eurotunnel Wiki Discord 中创建工单。", "अब अपना सर्वर सूची में नहीं रखना चाहते? Eurotunnel Wiki Discord में टिकट खोलें।", "¿Ya no quieres que tu servidor aparezca en la lista? Abre un ticket en el Discord de Eurotunnel Wiki.", "Vous ne souhaitez plus que votre serveur soit listé ? Ouvrez un ticket sur le Discord d'Eurotunnel Wiki."],
+    srv_note_inv: ["Some invite links may be out of date. If one doesn't work, let us know in a ticket.", "部分邀请链接可能已失效。如果链接无法使用，请通过工单告诉我们。", "कुछ आमंत्रण लिंक पुराने हो सकते हैं। यदि कोई लिंक काम न करे, तो टिकट में हमें बताएँ।", "Algunos enlaces de invitación pueden estar desactualizados. Si alguno no funciona, avísanos con un ticket.", "Certains liens d'invitation peuvent être périmés. Si l'un d'eux ne fonctionne pas, signalez-le-nous via un ticket."],
+    srv_ticket: ["Open a ticket", "创建工单", "टिकट खोलें", "Abrir un ticket", "Ouvrir un ticket"],
+    news_latest: ["Latest announcement", "最新公告", "नवीनतम घोषणा", "Último anuncio", "Dernière annonce"],
     srv_title: ["Community servers", "社区服务器", "समुदाय सर्वर", "Servidores de la comunidad", "Serveurs communautaires"],
     srv_sub: ["Eurotunnel community Discord servers you can join.", "您可以加入的 Eurotunnel 社区 Discord 服务器。", "Eurotunnel के कम्युनिटी Discord सर्वर, जिनसे आप जुड़ सकते हैं।", "Servidores de Discord de la comunidad Eurotunnel a los que puedes unirte.", "Serveurs Discord de la communauté Eurotunnel que vous pouvez rejoindre."],
     srv_search: ["Search servers", "搜索服务器", "सर्वर खोजें", "Buscar servidores", "Rechercher un serveur"],
