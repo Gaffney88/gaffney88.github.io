@@ -603,6 +603,66 @@ dialog[open] { animation: pop 0.28s cubic-bezier(0.2, 0.8, 0.2, 1); }
 dialog[open]::backdrop { animation: fade 0.28s; }
 @media (max-width: 860px) { .news-grid { grid-template-columns: minmax(0, 1fr); } }
 
+/* Servers */
+.srv-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 16px; }
+.srv-search { position: relative; flex: 1 1 260px; max-width: 420px; }
+.srv-search svg { position: absolute; left: 14px; top: 50%; width: 18px; height: 18px; margin-top: -9px; color: var(--muted); pointer-events: none; }
+.srv-search input {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 16px 0 44px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  font: 400 0.95rem var(--font-body);
+  transition: border-color 0.15s;
+}
+.srv-search input:hover { border-color: var(--accent-text); }
+.srv-search input:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2px; }
+.srv-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.srv {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  transition: border-color 0.15s, transform 0.2s, box-shadow 0.2s;
+}
+.srv:hover { border-color: var(--accent-text); transform: translateY(-2px); box-shadow: 0 16px 32px -22px rgba(59, 130, 246, 0.8); }
+.srv-av {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid hsl(var(--h) 40% 34%);
+  border-radius: 12px;
+  background: hsl(var(--h) 40% 22%);
+  color: hsl(var(--h) 85% 84%);
+  font: 800 0.95rem var(--font-display);
+}
+.srv-main { display: grid; gap: 6px; min-width: 0; }
+.srv-name { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.srv-name strong { font: 800 0.92rem/1.2 var(--font-display); text-transform: uppercase; overflow-wrap: anywhere; }
+.srv-desc { margin: 0; color: var(--muted); font-size: 0.85rem; }
+.btn-discord.srv-join { display: inline-flex; width: max-content; min-height: 36px; margin-top: 4px; padding: 0 16px; font-size: 0.78rem; }
+.srv-stat { display: grid; justify-items: end; gap: 2px; text-align: right; }
+.srv-num { font: 800 1.15rem/1 var(--font-display); }
+.srv-lbl { color: var(--muted); font-size: 0.72rem; }
+.srv-bar { width: 60px; height: 4px; margin-top: 6px; overflow: hidden; border-radius: 2px; background: var(--surface-2); }
+.srv-bar i { display: block; height: 100%; border-radius: 2px; background: #5865f2; transform-origin: left; animation: grow 0.8s 0.25s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+@keyframes grow { from { transform: scaleX(0); } }
+.srv-none { margin: 0; padding: 32px 16px; text-align: center; color: var(--muted); border: 1px dashed var(--line-strong); border-radius: 14px; }
+@media (max-width: 900px) { .srv-list { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 480px) {
+  .srv { grid-template-columns: auto minmax(0, 1fr); }
+  .srv-stat { grid-column: 2; display: flex; flex-wrap: wrap; align-items: baseline; justify-items: start; gap: 4px 8px; text-align: left; }
+  .srv-bar { margin-top: 0; align-self: center; }
+}
+
 /* Narrow screens */
 .long { display: inline; }
 @media (max-width: 760px) {
@@ -618,13 +678,13 @@ dialog[open]::backdrop { animation: fade 0.28s; }
   .tabs {
     grid-area: tabs;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     padding: 4px;
     border: 1px solid var(--line);
     border-radius: 12px;
     background: var(--surface-2);
   }
-  .tab { justify-content: center; min-height: 40px; margin: 0; padding: 0 8px; border-bottom: 0; border-radius: 8px; }
+  .tab { justify-content: center; min-height: 40px; margin: 0; padding: 0 4px; border-bottom: 0; border-radius: 8px; font-size: 0.8rem; }
   .tab[aria-current="page"] { background: var(--accent); }
 
   .article { grid-template-columns: minmax(0, 1fr); }
@@ -634,7 +694,7 @@ dialog[open]::backdrop { animation: fade 0.28s; }
   .pill { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .panel.enter > *, .hero-copy > *, dialog[open], dialog[open]::backdrop, .hero h1 span, .article-art::after { animation: none !important; }
+  .panel.enter > *, .hero-copy > *, dialog[open], dialog[open]::backdrop, .hero h1 span, .article-art::after, .srv-bar i { animation: none !important; }
   .dot::after { animation: none; display: none; }
   * { transition: none !important; }
 }
@@ -651,6 +711,7 @@ dialog[open]::backdrop { animation: fade 0.28s; }
       <a class="tab" href="#home" data-tab="home" aria-current="page" data-i18n="nav_home">Home</a>
       <a class="tab" href="#news" data-tab="news" data-i18n="nav_news">News</a>
       <a class="tab" href="#wiki" data-tab="wiki" data-i18n="nav_wiki">Wiki</a>
+      <a class="tab" href="#servers" data-tab="servers" data-i18n="nav_servers">Servers</a>
     </nav>
     <div class="bar-actions">
       <a class="btn btn-primary btn-sm" href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener" data-i18n="btn_discord">Join Discord</a>
@@ -736,6 +797,156 @@ dialog[open]::backdrop { animation: fade 0.28s; }
     <section class="soon" aria-label="Wiki"><h2 data-i18n="soon">Coming soon</h2></section>
   </div>
 
+  <!-- Servers -->
+  <div class="panel" id="tab-servers" hidden>
+    <div class="page-head">
+      <h2 data-i18n="srv_title">Community servers</h2>
+      <p data-i18n="srv_sub">Official Eurotunnel units and community Discord servers you can join.</p>
+    </div>
+    <div class="srv-tools">
+      <label class="srv-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="srv-q" type="search" autocomplete="off" placeholder="Search servers" data-i18n-ph="srv_search" aria-label="Search servers" data-i18n-aria="srv_search"></label>
+      <span class="note" id="srv-count">15 servers</span>
+    </div>
+    <ul class="srv-list">
+        <li class="srv" data-name="1st military police brigade military police presence at eurotunnel events.">
+          <span class="srv-av" style="--h:250" aria-hidden="true">1M</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>1st Military Police Brigade</strong><span class="chip" data-i18n="srv_unit">Official unit</span></div>
+            <p class="srv-desc" data-i18n="d_mp">Military police presence at Eurotunnel events.</p>
+            <a class="btn-discord srv-join" href="https://discord.gg/mkrhEhh4" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+          </div>
+          <div class="srv-stat"><span class="srv-num">200+</span><span class="srv-lbl" data-i18n="srv_members">members</span><span class="srv-bar"><i style="width:100%"></i></span></div>
+        </li>
+        <li class="srv" data-name="et | british transport police a community for eurotunnel events.">
+          <span class="srv-av" style="--h:210" aria-hidden="true">BT</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>ET | British Transport Police</strong><span class="chip" data-i18n="srv_unit">Official unit</span></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <a class="btn-discord srv-join" href="https://discord.gg/KGEd6GtWGE" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+          </div>
+          <div class="srv-stat"><span class="srv-num">120+</span><span class="srv-lbl" data-i18n="srv_members">members</span><span class="srv-bar"><i style="width:60%"></i></span></div>
+        </li>
+        <li class="srv" data-name="motorway police et a community for eurotunnel events.">
+          <span class="srv-av" style="--h:265" aria-hidden="true">MP</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>Motorway Police ET</strong><span class="chip" data-i18n="srv_unit">Official unit</span></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <a class="btn-discord srv-join" href="https://discord.gg/Fqa6D8WnAT" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+          </div>
+          <div class="srv-stat"><span class="srv-num">93+</span><span class="srv-lbl" data-i18n="srv_members">members</span><span class="srv-bar"><i style="width:46%"></i></span></div>
+        </li>
+        <li class="srv" data-name="mafia community a community for eurotunnel events.">
+          <span class="srv-av" style="--h:350" aria-hidden="true">MA</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>MAFIA Community</strong><span class="chip" data-i18n="srv_unit">Official unit</span></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <a class="btn-discord srv-join" href="https://discord.gg/8jbsMp8k" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+          </div>
+          <div class="srv-stat"><span class="srv-num">90+</span><span class="srv-lbl" data-i18n="srv_members">members</span><span class="srv-bar"><i style="width:45%"></i></span></div>
+        </li>
+        <li class="srv" data-name="eurotunnel racing championship racing events and championship coverage.">
+          <span class="srv-av" style="--h:140" aria-hidden="true">RC</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>Eurotunnel Racing Championship</strong><span class="chip" data-i18n="srv_unit">Official unit</span></div>
+            <p class="srv-desc" data-i18n="d_race">Racing events and championship coverage.</p>
+            <a class="btn-discord srv-join" href="https://discord.gg/stwmBekYYv" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+          </div>
+          <div class="srv-stat"><span class="srv-num">80+</span><span class="srv-lbl" data-i18n="srv_members">members</span><span class="srv-bar"><i style="width:40%"></i></span></div>
+        </li>
+        <li class="srv" data-name="et border policing unit a community for eurotunnel events.">
+          <span class="srv-av" style="--h:200" aria-hidden="true">BP</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>ET Border Policing Unit</strong><span class="chip" data-i18n="srv_unit">Official unit</span></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <a class="btn-discord srv-join" href="https://discord.gg/yQYp28GZmG" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+          </div>
+          <div class="srv-stat"><span class="srv-num">76+</span><span class="srv-lbl" data-i18n="srv_members">members</span><span class="srv-bar"><i style="width:38%"></i></span></div>
+        </li>
+        <li class="srv" data-name="eurotunnel operations operational coordination for eurotunnel events.">
+          <span class="srv-av" style="--h:225" aria-hidden="true">OP</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>EuroTunnel Operations</strong><span class="chip" data-i18n="srv_unit">Official unit</span></div>
+            <p class="srv-desc" data-i18n="d_ops">Operational coordination for Eurotunnel events.</p>
+            <a class="btn-discord srv-join" href="https://discord.gg/EvEwB5rF" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+          </div>
+          <div class="srv-stat"><span class="srv-num">70+</span><span class="srv-lbl" data-i18n="srv_members">members</span><span class="srv-bar"><i style="width:35%"></i></span></div>
+        </li>
+        <li class="srv" data-name="et | national health service medical &amp; health operations at eurotunnel events.">
+          <span class="srv-av" style="--h:165" aria-hidden="true">NH</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>ET | National Health Service</strong><span class="chip" data-i18n="srv_unit">Official unit</span></div>
+            <p class="srv-desc" data-i18n="d_nhs">Medical &amp; health operations at Eurotunnel events.</p>
+            <a class="btn-discord srv-join" href="https://discord.gg/ca7CcA3sRu" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+          </div>
+          <div class="srv-stat"><span class="srv-num">50+</span><span class="srv-lbl" data-i18n="srv_members">members</span><span class="srv-bar"><i style="width:25%"></i></span></div>
+        </li>
+        <li class="srv" data-name="red rose mafia a community for eurotunnel events.">
+          <span class="srv-av" style="--h:345" aria-hidden="true">RR</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>Red Rose Mafia</strong><span class="chip" data-i18n="srv_unit">Official unit</span></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <a class="btn-discord srv-join" href="https://discord.gg/S3A86d2j" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+          </div>
+          <div class="srv-stat"><span class="srv-num">50+</span><span class="srv-lbl" data-i18n="srv_members">members</span><span class="srv-bar"><i style="width:25%"></i></span></div>
+        </li>
+        <li class="srv" data-name="eurotunnel photography capturing moments from eurotunnel events.">
+          <span class="srv-av" style="--h:38" aria-hidden="true">PH</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>EuroTunnel Photography</strong><span class="chip" data-i18n="srv_unit">Official unit</span></div>
+            <p class="srv-desc" data-i18n="d_photo">Capturing moments from Eurotunnel events.</p>
+            <a class="btn-discord srv-join" href="https://discord.gg/mtnSG5RQ" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+          </div>
+          <div class="srv-stat"><span class="srv-num">40+</span><span class="srv-lbl" data-i18n="srv_members">members</span><span class="srv-bar"><i style="width:20%"></i></span></div>
+        </li>
+        <li class="srv" data-name="oda 3rd sfg group a community for eurotunnel events.">
+          <span class="srv-av" style="--h:280" aria-hidden="true">3G</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>ODA 3rd SFG Group</strong><span class="chip" data-i18n="srv_unit">Official unit</span></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <a class="btn-discord srv-join" href="https://discord.gg/M9K7tm3xyn" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+          </div>
+          <div class="srv-stat"><span class="srv-num">33+</span><span class="srv-lbl" data-i18n="srv_members">members</span><span class="srv-bar"><i style="width:16%"></i></span></div>
+        </li>
+        <li class="srv" data-name="the network a community for eurotunnel events.">
+          <span class="srv-av" style="--h:190" aria-hidden="true">TN</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>The Network</strong><span class="chip" data-i18n="srv_unit">Official unit</span></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <a class="btn-discord srv-join" href="https://discord.gg/FH9W8hP2" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+          </div>
+          <div class="srv-stat"><span class="srv-num">30+</span><span class="srv-lbl" data-i18n="srv_members">members</span><span class="srv-bar"><i style="width:15%"></i></span></div>
+        </li>
+        <li class="srv" data-name="scnn a community for eurotunnel events.">
+          <span class="srv-av" style="--h:300" aria-hidden="true">SC</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>SCNN</strong><span class="chip" data-i18n="srv_unit">Official unit</span></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <a class="btn-discord srv-join" href="https://discord.com/invite/KzySGx8Tbp" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+          </div>
+          <div class="srv-stat"><span class="srv-num">30+</span><span class="srv-lbl" data-i18n="srv_members">members</span><span class="srv-bar"><i style="width:15%"></i></span></div>
+        </li>
+        <li class="srv" data-name="eurotunnel supervisor a community for eurotunnel events.">
+          <span class="srv-av" style="--h:220" aria-hidden="true">SV</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>Eurotunnel Supervisor</strong><span class="chip" data-i18n="srv_unit">Official unit</span></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <a class="btn-discord srv-join" href="https://discord.gg/85cVfja33" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+          </div>
+          <div class="srv-stat"><span class="srv-num">25+</span><span class="srv-lbl" data-i18n="srv_members">members</span><span class="srv-bar"><i style="width:12%"></i></span></div>
+        </li>
+        <li class="srv" data-name="territorial support group a community for eurotunnel events.">
+          <span class="srv-av" style="--h:25" aria-hidden="true">TS</span>
+          <div class="srv-main">
+            <div class="srv-name"><strong>Territorial Support Group</strong><span class="chip" data-i18n="srv_unit">Official unit</span></div>
+            <p class="srv-desc" data-i18n="d_gen">A community for Eurotunnel events.</p>
+            <a class="btn-discord srv-join" href="https://discord.gg/8jbsMp8k" target="_blank" rel="noopener" data-i18n="srv_join">Join server →</a>
+          </div>
+          <div class="srv-stat"><span class="srv-num">10+</span><span class="srv-lbl" data-i18n="srv_members">members</span><span class="srv-bar"><i style="width:5%"></i></span></div>
+        </li>
+    </ul>
+    <p class="srv-none" id="srv-none" hidden data-i18n="srv_none">No servers match your search.</p>
+  </div>
+
 </main>
 
 <footer class="foot">
@@ -751,6 +962,7 @@ dialog[open]::backdrop { animation: fade 0.28s; }
       <a href="#home" data-i18n="nav_home">Home</a>
       <a href="#news" data-i18n="nav_news">News</a>
       <a href="#wiki" data-i18n="nav_wiki">Wiki</a>
+      <a href="#servers" data-i18n="nav_servers">Servers</a>
     </nav>
     <div class="foot-col">
       <h4 data-i18n="foot_comm">Community</h4>
@@ -800,7 +1012,7 @@ dialog[open]::backdrop { animation: fade 0.28s; }
 
 <script>
 (function () {
-  var TABS = ['home', 'news', 'wiki'];
+  var TABS = ['home', 'news', 'wiki', 'servers'];
   var current = null;
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var dlg = document.getElementById('news-modal');
@@ -860,6 +1072,21 @@ dialog[open]::backdrop { animation: fade 0.28s; }
     nav_home: ["Home", "首页", "होम", "Inicio", "Accueil"],
     nav_news: ["News", "新闻", "समाचार", "Noticias", "Actualités"],
     nav_wiki: ["Wiki", "维基", "विकी", "Wiki", "Wiki"],
+    nav_servers: ["Servers", "服务器", "सर्वर", "Servidores", "Serveurs"],
+    srv_title: ["Community servers", "社区服务器", "समुदाय सर्वर", "Servidores de la comunidad", "Serveurs communautaires"],
+    srv_sub: ["Official Eurotunnel units and community Discord servers you can join.", "您可以加入的 Eurotunnel 官方单位和社区 Discord 服务器。", "आप जिन आधिकारिक Eurotunnel इकाइयों और कम्युनिटी Discord सर्वरों से जुड़ सकते हैं।", "Unidades oficiales de Eurotunnel y servidores de Discord de la comunidad a los que puedes unirte.", "Unités officielles Eurotunnel et serveurs Discord communautaires que vous pouvez rejoindre."],
+    srv_search: ["Search servers", "搜索服务器", "सर्वर खोजें", "Buscar servidores", "Rechercher un serveur"],
+    srv_count_label: ["servers", "个服务器", "सर्वर", "servidores", "serveurs"],
+    srv_unit: ["Official unit", "官方单位", "आधिकारिक इकाई", "Unidad oficial", "Unité officielle"],
+    srv_join: ["Join server →", "加入服务器 →", "सर्वर से जुड़ें →", "Unirse al servidor →", "Rejoindre le serveur →"],
+    srv_members: ["members", "成员", "सदस्य", "miembros", "membres"],
+    srv_none: ["No servers match your search.", "没有匹配的服务器。", "आपकी खोज से कोई सर्वर मेल नहीं खाता।", "Ningún servidor coincide con tu búsqueda.", "Aucun serveur ne correspond à votre recherche."],
+    d_mp: ["Military police presence at Eurotunnel events.", "在 Eurotunnel 活动中的军警力量。", "Eurotunnel कार्यक्रमों में सैन्य पुलिस की उपस्थिति।", "Presencia de la policía militar en los eventos de Eurotunnel.", "Présence de la police militaire lors des événements Eurotunnel."],
+    d_gen: ["A community for Eurotunnel events.", "Eurotunnel 活动社区。", "Eurotunnel कार्यक्रमों के लिए एक समुदाय।", "Una comunidad para los eventos de Eurotunnel.", "Une communauté pour les événements Eurotunnel."],
+    d_race: ["Racing events and championship coverage.", "赛事活动与锦标赛报道。", "रेसिंग इवेंट और चैंपियनशिप कवरेज।", "Eventos de carreras y cobertura del campeonato.", "Événements de course et couverture du championnat."],
+    d_ops: ["Operational coordination for Eurotunnel events.", "Eurotunnel 活动的运营协调。", "Eurotunnel कार्यक्रमों के लिए संचालन समन्वय।", "Coordinación operativa de los eventos de Eurotunnel.", "Coordination opérationnelle des événements Eurotunnel."],
+    d_nhs: ["Medical & health operations at Eurotunnel events.", "Eurotunnel 活动中的医疗与健康运营。", "Eurotunnel कार्यक्रमों में चिकित्सा और स्वास्थ्य संचालन।", "Operaciones médicas y de salud en los eventos de Eurotunnel.", "Opérations médicales et de santé lors des événements Eurotunnel."],
+    d_photo: ["Capturing moments from Eurotunnel events.", "记录 Eurotunnel 活动中的精彩瞬间。", "Eurotunnel कार्यक्रमों के यादगार पलों को कैद करना।", "Capturando momentos de los eventos de Eurotunnel.", "Immortaliser les moments des événements Eurotunnel."],
     btn_discord: ["Join Discord", "加入 Discord", "Discord से जुड़ें", "Unirse a Discord", "Rejoindre Discord"],
     hero_hub: ["Wiki Hub", "维基中心", "विकी हब", "Centro Wiki", "Portail Wiki"],
     hero_lede: [
@@ -998,6 +1225,17 @@ dialog[open]::backdrop { animation: fade 0.28s; }
     dlg_close: ["Close", "关闭", "बंद करें", "Cerrar", "Fermer"]
   };
 
+  var curLang = 0;
+  function updateCount() {
+    var el = document.getElementById('srv-count');
+    if (!el) return;
+    var n = 0;
+    document.querySelectorAll('.srv').forEach(function (li) { if (!li.hidden) n++; });
+    el.textContent = n + ' ' + T.srv_count_label[curLang];
+    var none = document.getElementById('srv-none');
+    if (none) none.hidden = n !== 0;
+  }
+
   function applyLang(code, save) {
     var i = LANGS.indexOf(code);
     if (i < 0) { i = 0; code = 'en'; }
@@ -1014,6 +1252,12 @@ dialog[open]::backdrop { animation: fade 0.28s; }
       var v = T[el.getAttribute('data-i18n-aria')];
       if (v) el.setAttribute('aria-label', v[i]);
     });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function (el) {
+      var v = T[el.getAttribute('data-i18n-ph')];
+      if (v) el.setAttribute('placeholder', v[i]);
+    });
+    curLang = i;
+    updateCount();
     var sel = document.getElementById('lang');
     if (sel) sel.value = code;
     if (save) { try { localStorage.setItem('eurotunnel-lang', code); } catch (e) {} }
@@ -1029,6 +1273,14 @@ dialog[open]::backdrop { animation: fade 0.28s; }
     }
   } catch (e) {}
   applyLang(start, false);
+  var q = document.getElementById('srv-q');
+  if (q) q.addEventListener('input', function () {
+    var term = q.value.trim().toLowerCase();
+    document.querySelectorAll('.srv').forEach(function (li) {
+      li.hidden = term !== '' && li.getAttribute('data-name').indexOf(term) < 0;
+    });
+    updateCount();
+  });
   var langSel = document.getElementById('lang');
   if (langSel) langSel.addEventListener('change', function () { applyLang(langSel.value, true); });
 })();
