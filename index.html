@@ -1132,6 +1132,21 @@ img { max-width: 100%; }
 .bd-dlg p { margin: 0; color: var(--text-soft); }
 .bd-dlg .btn { margin-top: 10px; min-width: 120px; }
 
+/* Contributors */
+.contrib { display: grid; gap: 18px; }
+.contrib-head { text-align: center; }
+.contrib-head h2 { margin: 0; font: 900 clamp(1.5rem, 4vw, 2rem)/1.1 var(--font-display); letter-spacing: -0.01em; text-transform: uppercase; }
+.contrib-head p { margin: 6px 0 0; color: var(--muted); }
+.contrib-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
+.contrib-card { display: flex; align-items: center; gap: 16px; padding: 20px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); transition: border-color 0.15s, transform 0.2s; }
+.contrib-card:hover { border-color: var(--accent-text); transform: translateY(-3px); }
+.contrib-av { position: relative; overflow: hidden; display: grid; place-items: center; flex: none; width: 64px; height: 64px; border: 1px solid var(--line-strong); border-radius: 50%; background: radial-gradient(circle at 50% 40%, rgba(59, 130, 246, 0.3), transparent 70%), var(--surface-2); color: var(--accent-text); font: 800 1rem var(--font-display); }
+.contrib-av img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.contrib-txt { min-width: 0; }
+.contrib-txt strong { display: block; font: 800 1rem/1.2 var(--font-display); overflow-wrap: anywhere; }
+.contrib-txt small { display: block; margin-top: 2px; color: var(--muted); font-size: 0.88rem; }
+@media (max-width: 760px) { .contrib-list { grid-template-columns: minmax(0, 1fr); } }
+
 /* Narrow screens */
 .long { display: inline; }
 @media (max-width: 760px) {
@@ -1228,6 +1243,26 @@ img { max-width: 100%; }
       </div>
       <p data-i18n="server_text">Chat with other members, send beta feedback and get the latest updates.</p>
       <a class="btn-discord" href="https://discord.gg/6a2yVew8E7" target="_blank" rel="noopener" data-i18n="server_btn">Join server</a>
+    </section>
+    <section class="contrib" aria-labelledby="contrib-title">
+      <div class="contrib-head">
+        <h2 id="contrib-title" data-i18n="ct_title">Contributors</h2>
+        <p data-i18n="ct_sub">The people who made this wiki possible.</p>
+      </div>
+      <ul class="contrib-list">
+      <li class="contrib-card">
+        <span class="contrib-av"><span aria-hidden="true">H2</span><img src="https://cdn.discordapp.com/avatars/737061837518143488/2722e6e95574e2411b327ba7e59fcb26.webp?size=128" alt="" loading="lazy" onerror="this.remove()"></span>
+        <span class="contrib-txt"><strong>HARRY2O6</strong><small data-i18n="ct_harry">Provided information and images</small></span>
+      </li>
+      <li class="contrib-card">
+        <span class="contrib-av"><span aria-hidden="true">DU</span><img src="https://cdn.discordapp.com/avatars/357971776996638722/480f20b381c8aed56597fde71ad8a9fb.webp?size=128" alt="" loading="lazy" onerror="this.remove()"></span>
+        <span class="contrib-txt"><strong>Dutchman</strong><small data-i18n="ct_city">Collected the data</small></span>
+      </li>
+      <li class="contrib-card">
+        <span class="contrib-av"><span aria-hidden="true">G8</span><img src="https://cdn.discordapp.com/avatars/1141407333122052127/2a2d228606f3c65eaf15b26ae2aab037.webp?size=128" alt="" loading="lazy" onerror="this.remove()"></span>
+        <span class="contrib-txt"><strong>Gaffney88</strong><small data-i18n="ct_gaff">Compiled all the information together</small></span>
+      </li>
+      </ul>
     </section>
   </div>
 
@@ -1920,6 +1955,11 @@ img { max-width: 100%; }
     bd_count: ["badges", "个徽章", "बैज", "insignias", "badges"],
     bd_none: ["No badges match your search.", "没有匹配的徽章。", "आपकी खोज से कोई बैज मेल नहीं खाता।", "Ninguna insignia coincide con tu búsqueda.", "Aucun badge ne correspond à votre recherche."],
     theme_toggle: ["Switch between light and dark theme", "切换浅色/深色主题", "लाइट/डार्क थीम बदलें", "Cambiar entre tema claro y oscuro", "Basculer entre thème clair et sombre"],
+    ct_title: ["Contributors", "贡献者", "योगदानकर्ता", "Colaboradores", "Contributeurs"],
+    ct_sub: ["The people who made this wiki possible.", "让这个维基成为可能的人们。", "वे लोग जिन्होंने इस विकी को संभव बनाया।", "Las personas que hicieron posible esta wiki.", "Les personnes qui ont rendu ce wiki possible."],
+    ct_harry: ["Provided information and images", "提供信息和图片", "जानकारी और चित्र उपलब्ध कराए", "Aportó información e imágenes", "A fourni les informations et les images"],
+    ct_city: ["Collected the data", "收集数据", "डेटा एकत्र किया", "Recopiló los datos", "A collecté les données"],
+    ct_gaff: ["Compiled all the information together", "汇总所有信息", "सारी जानकारी को एक साथ संकलित किया", "Reunió toda la información", "A compilé toutes les informations"],
     srv_title: ["Community servers", "社区服务器", "समुदाय सर्वर", "Servidores de la comunidad", "Serveurs communautaires"],
     srv_sub: ["Eurotunnel community Discord servers you can join.", "您可以加入的 Eurotunnel 社区 Discord 服务器。", "Eurotunnel के कम्युनिटी Discord सर्वर, जिनसे आप जुड़ सकते हैं।", "Servidores de Discord de la comunidad Eurotunnel a los que puedes unirte.", "Serveurs Discord de la communauté Eurotunnel que vous pouvez rejoindre."],
     srv_search: ["Search servers", "搜索服务器", "सर्वर खोजें", "Buscar servidores", "Rechercher un serveur"],
