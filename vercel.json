@@ -1,0 +1,17 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [
+        { "type": "header", "key": "user-agent", "value": "(?i).*(discordbot|twitterbot|facebookexternalhit|slackbot|whatsapp|telegrambot|linkedinbot|skypeuripreview).*" }
+      ],
+      "destination": "/api/og"
+    },
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
